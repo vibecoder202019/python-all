@@ -129,6 +129,77 @@ python examples/02_pandas_basics.py
 python examples/03_visualization.py
 ```
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### File `examples/01_numpy_basics.py`
+
+```python
+arr = np.array([1, 2, 3])
+matrix = np.array([[1, 2], [3, 4]])
+```
+
+**Vectorized operations** — tính trên cả mảng không cần vòng lặp:
+```python
+a + b          # Cộng từng phần tử
+a * 2          # Nhân scalar
+np.sqrt(a)     # Căn từng phần tử — nhanh hơn loop Python 10-100x
+```
+
+```python
+matrix.sum(axis=0)   # Tổng theo CỘT
+matrix.sum(axis=1)   # Tổng theo HÀNG
+scores[scores >= 70] # Boolean indexing — lọc phần tử thỏa điều kiện
+```
+
+**Broadcasting:** `matrix + row` — NumPy tự "mở rộng" `row` để khớp kích thước.
+
+---
+
+### File `examples/02_pandas_basics.py`
+
+```python
+df = pd.DataFrame({...})
+df.head()           # 5 dòng đầu
+df.describe()       # mean, std, min, max tự động
+df[df["age"] > 26]  # Lọc hàng — boolean mask
+```
+
+```python
+df.groupby("department").agg(
+    count=("name", "count"),
+    avg_salary=("salary", "mean"),
+)
+```
+
+- `groupby` — nhóm theo cột rồi tính toán trên từng nhóm (như SQL GROUP BY)
+- `.agg()` — aggregate nhiều metric cùng lúc
+
+```python
+df.nlargest(3, "salary")   # Top 3 lương cao nhất
+df["salary"].rank(ascending=False)  # Xếp hạng
+```
+
+---
+
+### File `examples/03_visualization.py`
+
+```python
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+axes[0, 0].plot(x, y)
+axes[0, 1].bar(categories, values)
+axes[1, 0].hist(data, bins=30)
+axes[1, 1].scatter(x, y)
+plt.savefig("chart.png", dpi=150)
+plt.close()
+```
+
+- `subplots(2,2)` — lưới 2×2 biểu đồ
+- Luôn `close()` sau `savefig` — giải phóng RAM
+
+---
+
 ## Bài tập
 
 → [exercises/bai_tap.md](exercises/bai_tap.md)

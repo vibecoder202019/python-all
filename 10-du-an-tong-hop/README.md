@@ -100,6 +100,71 @@ Sau khi hoàn thành dự án cơ bản:
 
 ---
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### Lệnh từng bước
+
+```bash
+python scripts/train_model.py
+```
+1. Load `fetch_california_housing()` — 8 features, target = giá nhà ($100k)
+2. `train_test_split` → train RandomForestRegressor
+3. Tính R², RMSE — đánh giá trên test set
+4. `joblib.dump` → lưu model + scaler + metadata vào `models/`
+
+```bash
+uvicorn app.main:app --reload
+```
+- Server load model qua `MLService._load()` khi có request `/predict`
+
+```bash
+pytest tests/ -v
+```
+- `-v` verbose — hiện từng test pass/fail
+
+---
+
+### Giải thích code solution (tham khảo)
+
+**`app/models/schemas.py`:**
+```python
+class HouseFeatures(BaseModel):
+    med_inc: float = Field(..., ge=0)
+    def to_features(self) -> list[float]:
+        return [self.med_inc, self.house_age, ...]
+```
+- `to_features()` — chuyển Pydantic model → list số cho sklearn
+
+**`app/services/ml_service.py`:**
+```python
+price = float(self._model.predict(scaled)[0])
+return PricePrediction(
+    predicted_price=round(price, 4),
+    predicted_price_usd=round(price * 100_000, 2),
+)
+```
+- Model predict giá đơn vị $100k → nhân 100_000 ra USD thực
+
+**Luồng request POST /model/predict:**
+```
+Client JSON → Pydantic validate → to_features() → scaler.transform
+→ model.predict → PricePrediction JSON → Client
+```
+
+---
+
+### Checklist giải thích
+
+| Mục | Cách kiểm tra |
+|-----|---------------|
+| R² > 0.7 | Xem output `train_model.py` |
+| Validation | Gửi `med_inc: -1` → expect 422 |
+| Tests | `pytest tests/ -v` → all passed |
+
+---
+
 ## Gợi ý đáp án
 
 Tham khảo implementation mẫu tại [solution/](solution/) — **chỉ xem sau khi đã tự làm**.

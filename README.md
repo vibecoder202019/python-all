@@ -60,6 +60,57 @@ module/
     └── solutions/     # Đáp án tham khảo
 ```
 
+## Giải thích chi tiết lệnh Setup (Tự học)
+
+### Tạo môi trường ảo
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+| Lệnh | Giải thích |
+|------|------------|
+| `python3 -m venv .venv` | Tạo thư mục `.venv` chứa Python + pip riêng — không ảnh hưởng system Python |
+| `source .venv/bin/activate` | Kích hoạt venv — prompt hiện `(.venv)`, mọi `pip install` vào đây |
+| `deactivate` | Thoát venv |
+
+**Windows:** `.venv\Scripts\activate`
+
+### Cài thư viện
+
+```bash
+pip install -r requirements.txt
+```
+
+- `-r` đọc danh sách package từ file
+- Mỗi module có thể cần thêm package — chạy `bash scripts/setup.sh` hoặc `bash <module>/scripts/setup.sh`
+
+### Clone repo
+
+```bash
+git clone git@github.com:vibecoder202019/python-all.git
+cd python-all
+```
+
+---
+
+## Cách đọc README mỗi module
+
+Mỗi module README gồm:
+
+1. **Lý thuyết** — khái niệm cần hiểu trước khi code
+2. **Chạy ví dụ** — lệnh terminal để thực hành
+3. **Giải thích chi tiết (Tự học)** — giải thích từng file code, từng lệnh bash
+4. **Bài tập** — tự làm, đối chiếu `exercises/solutions/` sau
+
+**Quy trình học 1 module:**
+```
+Đọc lý thuyết → Chạy examples → Đọc "Giải thích chi tiết" → Sửa/thử code → Làm bài tập → Chạy project
+```
+
+---
+
 ## Setup & chạy nhanh
 
 ```bash

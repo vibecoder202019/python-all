@@ -91,6 +91,100 @@ python project/step06_final.py security-scan --path .
 
 ---
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### File `examples/01_subprocess_bash.py`
+
+```python
+subprocess.run(cmd, shell=True, capture_output=True, text=True, check=True)
+```
+
+| Tham số | Ý nghĩa |
+|---------|---------|
+| `shell=True` | Chạy qua shell — hỗ trợ pipe `\|` , redirect |
+| `capture_output=True` | Bắt stdout/stderr vào biến |
+| `text=True` | Output dạng string (không phải bytes) |
+| `check=True` | Ném exception nếu returncode ≠ 0 |
+
+```python
+code, out, err = run_command_safe("git status")
+```
+- Không crash script — tự xử lý lỗi qua returncode
+
+**DevOps use case:** Chạy deploy script, git, docker, kubectl từ Python orchestrator.
+
+---
+
+### File `examples/03_log_analyzer.py`
+
+```python
+LOG_PATTERN = re.compile(r"\[(?P<timestamp>...)\] (?P<level>\w+): (?P<message>.+)")
+match = LOG_PATTERN.match(line.strip())
+```
+
+- `(?P<name>...)` — **named group** → `match.group("level")`
+- Parse log structured → đếm ERROR, tính error rate
+
+---
+
+### File `examples/04_health_check.py`
+
+```python
+@dataclass
+class HealthResult:
+    name: str
+    status: str
+    response_time_ms: float
+```
+
+```python
+response = httpx.get(url, timeout=5)
+healthy = response.status_code < 400
+```
+- Pattern **health check** dùng trong K8s liveness/readiness probe
+
+---
+
+### File `examples/06_security_scan.py`
+
+```python
+SECRET_PATTERNS = [
+    (r"AKIA[0-9A-Z]{16}", "AWS Access Key"),
+    (r"ghp_[a-zA-Z0-9]{36}", "GitHub Token"),
+]
+```
+- Quét file tìm secret hardcoded — **DevSecOps shift-left**
+- Scan permission `0o002` (world-writable) — rủi ro bảo mật
+
+---
+
+### Dự án DevOps Toolkit — từng step
+
+| Step | CLI command | Code học |
+|------|-------------|----------|
+| `step01` | `--help`, `--version` | `argparse` cơ bản |
+| `step02` | `disk-usage --path .` | `pathlib.rglob`, tính size |
+| `step03` | `parse-log --file sample.log` | regex + Counter |
+| `step04` | `health-check --url URL` | httpx + dataclass |
+| `step05` | `security-scan --path .` | secret patterns |
+| `step06` | `report`, subcommands | argparse subparsers |
+
+```python
+sub = parser.add_subparsers(dest="command")
+sub.add_parser("disk-usage", help="...")
+```
+- **Subcommands** — 1 CLI nhiều lệnh như `git commit`, `git push`
+
+```python
+if args.command == "disk-usage":
+    cmd_disk_usage(args.path)
+```
+- Router pattern — giống FastAPI nhưng cho CLI
+
+---
+
 ## Bài tập
 
 → [exercises/bai_tap.md](exercises/bai_tap.md)

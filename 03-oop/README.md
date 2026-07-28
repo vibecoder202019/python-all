@@ -190,6 +190,79 @@ python examples/02_inheritance.py
 python examples/03_magic_methods.py
 ```
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### File `examples/01_class_basics.py`
+
+```python
+class Student:
+    school = "AI Academy"    # Class variable — CHUNG cho mọi instance
+
+    def __init__(self, name, student_id, gpa=0.0):
+        self.name = name           # Instance variable — riêng từng object
+        self._gpa = gpa            # _ = protected (quy ước, không ép buộc)
+```
+
+```python
+@property
+def gpa(self):
+    return self._gpa
+
+@gpa.setter
+def gpa(self, value):
+    if not 0 <= value <= 4.0:
+        raise ValueError(...)
+    self._gpa = value
+```
+
+- `@property` — truy cập như attribute (`student.gpa`) nhưng chạy method
+- `@gpa.setter` — kiểm soát giá trị khi gán (`student.gpa = 3.8`)
+
+**`self`** — tham chiếu đến chính object đang được tạo/gọi method.
+
+---
+
+### File `examples/02_inheritance.py`
+
+```python
+class Shape(ABC):
+    @abstractmethod
+    def area(self) -> float: ...
+```
+
+- `ABC` = Abstract Base Class — **bắt buộc** class con implement method abstract
+- Không thể tạo `Shape()` trực tiếp — phải tạo `Rectangle`, `Circle`
+
+```python
+def print_shape_info(shape: Shape):
+    print(shape.area())
+```
+
+**Polymorphism:** Hàm nhận `Shape` nhưng chạy đúng `area()` của Rectangle hay Circle tùy object thực tế.
+
+---
+
+### File `examples/03_magic_methods.py`
+
+| Gọi code | Magic method thực thi |
+|----------|----------------------|
+| `v1 + v2` | `__add__` |
+| `v1 == v2` | `__eq__` |
+| `len(cart)` | `__len__` |
+| `cart[0]` | `__getitem__` |
+| `print(cart)` | `__str__` |
+
+```python
+def __add__(self, other):
+    return Vector(self.x + other.x, self.y + other.y)
+```
+
+Cho phép dùng toán tử `+` tự nhiên thay vì `v1.add(v2)`.
+
+---
+
 ## Bài tập
 
 → [exercises/bai_tap.md](exercises/bai_tap.md)

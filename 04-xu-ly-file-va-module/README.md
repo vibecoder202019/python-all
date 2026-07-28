@@ -126,6 +126,82 @@ python examples/02_json_csv.py
 python examples/03_pathlib.py
 ```
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### File `examples/01_file_io.py`
+
+```python
+with open(filepath, "w", encoding="utf-8") as f:
+    f.write("\n".join(lines))
+```
+
+| Thành phần | Ý nghĩa |
+|-----------|---------|
+| `with open(...) as f` | Mở file, **tự đóng** khi ra khỏi block — kể cả khi lỗi |
+| `"w"` | Write — ghi đè; `"a"` append; `"r"` read |
+| `encoding="utf-8"` | Hỗ trợ tiếng Việt và emoji |
+
+```python
+for line in f:              # Đọc từng dòng — tiết kiệm RAM với file lớn
+    print(line.strip())     # strip() bỏ \n và khoảng trắng đầu/cuối
+```
+
+---
+
+### File `examples/02_json_csv.py`
+
+```python
+json.dump(data, f, indent=2, ensure_ascii=False)
+```
+
+- `dump` — Python dict → file JSON
+- `ensure_ascii=False` — giữ tiếng Việt (không escape thành `\uXXXX`)
+- `load` — file JSON → Python dict
+
+```python
+writer = csv.DictWriter(f, fieldnames=students[0].keys())
+writer.writeheader()
+writer.writerows(students)
+```
+
+- Mỗi dict = 1 dòng CSV; key = tên cột
+- `DictReader` đọc ngược — mỗi dòng thành dict
+
+---
+
+### File `examples/03_pathlib.py`
+
+```python
+from pathlib import Path
+base = Path(__file__).parent / "data"
+```
+
+- `Path` thay cho chuỗi đường dẫn — `/` nối path cross-platform
+- `__file__` = đường dẫn file script hiện tại
+- `.mkdir(exist_ok=True)` — tạo thư mục, không lỗi nếu đã tồn tại
+- `.read_text()` / `.write_text()` — đọc/ghi file ngắn gọn
+
+```python
+for p in base.rglob("*"):   # Duyệt đệ quy mọi file
+    p.stat().st_size        # Kích thước bytes
+```
+
+---
+
+### `if __name__ == "__main__"`
+
+```python
+if __name__ == "__main__":
+    main()
+```
+
+- Khi chạy trực tiếp: `__name__ == "__main__"` → chạy `main()`
+- Khi import module: `__name__ == "tên_module"` → **không** chạy — tránh side effect
+
+---
+
 ## Bài tập
 
 → [exercises/bai_tap.md](exercises/bai_tap.md)

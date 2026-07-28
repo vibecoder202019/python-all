@@ -262,6 +262,101 @@ open http://localhost:8000/docs
 
 ---
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### Lệnh chạy server
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+| Phần | Ý nghĩa |
+|------|---------|
+| `uvicorn` | ASGI server — chạy ứng dụng async Python |
+| `app.main` | Module `app/main.py` |
+| `:app` | Biến `app = FastAPI(...)` trong file đó |
+| `--reload` | Tự restart khi sửa code (chỉ dev) |
+| `--port 8000` | Lắng nghe cổng 8000 |
+
+```bash
+python scripts/train_model.py
+```
+- Train RandomForest trên Iris → lưu `models/iris_model.joblib`, `iris_scaler.joblib`, `metadata.joblib`
+
+---
+
+### Cấu trúc code `app/`
+
+**`app/main.py`** — entry point:
+```python
+app = FastAPI(title="...", lifespan=lifespan)
+app.include_router(users.router, prefix="/users", tags=["Users"])
+app.include_router(predict.router, prefix="/predict", tags=["ML Prediction"])
+```
+- `include_router` — gắn nhóm endpoint vào app chính
+- `prefix="/users"` — mọi route trong router có prefix `/users`
+
+**`app/models/schemas.py`** — Pydantic models:
+```python
+class PredictionInput(BaseModel):
+    sepal_length: float = Field(..., ge=0, le=10)
+```
+- `Field(..., ge=0)` — bắt buộc, giá trị ≥ 0
+- FastAPI tự validate → trả **422** nếu client gửi sai
+
+**`app/routers/users.py`** — CRUD:
+```python
+@router.get("", response_model=list[UserResponse])
+@router.post("", status_code=201)
+@router.put("/{user_id}")
+@router.delete("/{user_id}", status_code=204)
+```
+- `response_model` — filter/serialize output
+- `HTTPException(404)` — trả lỗi chuẩn REST
+
+**`app/services/ml_service.py`** — business logic:
+```python
+def predict(self, features):
+    self._load()                              # Lazy load model
+    scaled = self._scaler.transform([features])
+    pred_idx = self._model.predict(scaled)[0]
+```
+- Tách logic ML khỏi router — dễ test và thay model
+
+---
+
+### Test với curl
+
+```bash
+curl -X POST http://localhost:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'
+```
+- `-X POST` — method HTTP
+- `-H` — header
+- `-d` — body JSON
+
+**Swagger UI** (`/docs`) — giao diện test API trực tiếp trên browser, tự generate từ Pydantic schemas.
+
+---
+
+### File `tests/test_api.py`
+
+```python
+from fastapi.testclient import TestClient
+client = TestClient(app)
+
+def test_health():
+    response = client.get("/health")
+    assert response.status_code == 200
+```
+- `TestClient` — gọi API **không cần** chạy server thật
+- `assert` — pytest fail nếu điều kiện sai
+
+---
+
 ## Bài tập
 
 → [exercises/bai_tap.md](exercises/bai_tap.md)

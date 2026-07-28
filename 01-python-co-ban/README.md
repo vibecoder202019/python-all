@@ -223,6 +223,128 @@ python examples/03_ham_va_lambda.py
 python examples/04_list_comprehension.py
 ```
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### Lệnh chạy ví dụ
+
+```bash
+python examples/01_bien_va_kieu_du_lieu.py
+```
+
+| Phần lệnh | Ý nghĩa |
+|-----------|---------|
+| `python` | Gọi trình thông dịch Python (cần Python 3.10+ trong PATH) |
+| `examples/01_...py` | Đường dẫn file script — Python đọc và thực thi từ trên xuống |
+
+**Cách đọc output:** Mỗi dòng `print()` in ra terminal. Nếu có lỗi, Python hiện `Traceback` — đọc dòng cuối để biết lỗi gì.
+
+**Mẹo:** Chạy từ thư mục module (`01-python-co-ban/`), hoặc dùng đường dẫn đầy đủ từ root repo.
+
+---
+
+### File `examples/01_bien_va_kieu_du_lieu.py`
+
+```python
+name = "Nguyễn Văn A"      # Gán chuỗi vào biến name
+age = 28                    # Số nguyên
+salary = 15_000_000.50      # Dấu _ giúp đọc số dễ hơn, Python bỏ qua _
+is_employed = True          # Boolean: đúng/sai
+```
+
+- `type(age)` → trả `"int"` — kiểm tra kiểu runtime
+- `int("42")` → `"42"` là chuỗi, ép sang số `42`
+- `f"Tên: {name}"` → **f-string**: chèn giá trị biến vào chuỗi
+
+**Toán tử quan trọng:**
+- `/` luôn cho kết quả float: `10 / 4 = 2.5`
+- `//` chia lấy phần nguyên: `10 // 4 = 2`
+- `%` phần dư: `10 % 4 = 2`
+
+---
+
+### File `examples/02_dieu_kien_va_vong_lap.py`
+
+```python
+def classify_score(score: int) -> str:
+    if score >= 90:
+        return "Xuất sắc"
+    elif score >= 80:
+        return "Giỏi"
+    ...
+```
+
+- `def` định nghĩa hàm; `score: int` là **type hint** (gợi ý kiểu, không bắt buộc)
+- `-> str` gợi ý hàm trả về chuỗi
+- `elif` = "else if" — kiểm tra điều kiện tiếp nếu điều kiện trước sai
+
+```python
+for index, name in enumerate(students, start=1):
+```
+
+- `enumerate` trả cặp `(index, phần_tử)` — tiện khi cần cả số thứ tự và giá trị
+- `start=1` đếm từ 1 thay vì 0
+
+```python
+while countdown > 0:
+    countdown -= 1   # tương đương countdown = countdown - 1
+```
+
+- `while` lặp **đến khi** điều kiện False — cẩn thận vòng lặp vô hạn nếu quên giảm biến
+
+---
+
+### File `examples/03_ham_va_lambda.py`
+
+```python
+def calculate_bmi(weight_kg: float, height_m: float) -> float:
+    if height_m <= 0 or weight_kg <= 0:
+        raise ValueError("...")
+    return weight_kg / (height_m ** 2)
+```
+
+- `raise ValueError(...)` **chủ động ném lỗi** khi input không hợp lệ
+- `** 2` = lũy thừa 2
+
+```python
+def sum_all(*numbers):   # *numbers nhận mọi tham số dư thành tuple
+def build_profile(**info):  # **info nhận keyword args thành dict
+```
+
+```python
+sorted(students, key=lambda s: s["score"], reverse=True)
+```
+
+- `lambda s: s["score"]` — hàm nhỏ không tên, trả điểm để sắp xếp
+- `reverse=True` — sắp xếp giảm dần
+
+---
+
+### File `examples/04_list_comprehension.py`
+
+```python
+squares = [x ** 2 for x in range(1, 11)]
+```
+
+Tương đương vòng lặp:
+```python
+squares = []
+for x in range(1, 11):
+    squares.append(x ** 2)
+```
+
+```python
+evens = [x for x in range(20) if x % 2 == 0]
+```
+
+- Phần `if` ở cuối = **lọc** — chỉ lấy phần tử thỏa điều kiện
+- `x % 2 == 0` → số chia hết cho 2 (số chẵn)
+
+**Dict/Set comprehension** — cùng cú pháp nhưng tạo `{}` thay vì `[]`.
+
+---
+
 ## Bài tập
 
 → Xem [exercises/bai_tap.md](exercises/bai_tap.md)

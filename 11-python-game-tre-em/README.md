@@ -109,6 +109,95 @@ bash scripts/run_project.sh
 
 ---
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### Script `scripts/setup.sh` — từng dòng
+
+```bash
+set -euo pipefail
+```
+| Flag | Ý nghĩa |
+|------|---------|
+| `-e` | Dừng ngay nếu lệnh lỗi |
+| `-u` | Lỗi nếu dùng biến chưa khai báo |
+| `-o pipefail` | Pipeline fail nếu bất kỳ lệnh nào fail |
+
+```bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+```
+- Lấy đường dẫn tuyệt đối thư mục chứa script — chạy được từ bất kỳ đâu
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -q pygame
+```
+- `venv` — môi trường Python cô lập
+- `source .venv/bin/activate` — kích hoạt venv cho session terminal hiện tại
+
+---
+
+### Game Loop — giải thích code
+
+```python
+running = True
+while running:
+    for event in pygame.event.get():      # 1. INPUT
+        if event.type == pygame.QUIT:
+            running = False
+    # 2. UPDATE — di chuyển, va chạm, ghi điểm
+    screen.fill(SKY)                       # 3. RENDER — xóa frame cũ
+    pygame.draw.rect(screen, COLOR, player)
+    pygame.display.flip()                # Hiện frame mới
+    clock.tick(60)                         # Giới hạn 60 FPS
+```
+
+- **`clock.tick(60)`** — chờ đủ ~16ms/frame → game chạy mượt, không quá nhanh
+- **`pygame.display.flip()`** — double buffering: vẽ xong mới hiện lên màn hình
+
+---
+
+### Dự án Catch the Stars — từng bước
+
+| Step | Code thêm vào | Học được |
+|------|---------------|----------|
+| `step01_window` | `screen.fill()`, `clock.tick()` | Cửa sổ + game loop |
+| `step02_player` | `keys = pygame.key.get_pressed()` | Input liên tục |
+| `step03_stars` | `random`, list sao/đá rơi | Spawn object ngẫu nhiên |
+| `step04_collision` | `player.colliderect(star)` | Va chạm hình chữ nhật |
+| `step05_score_lives` | `lives -= 1`, `game_over` | Game state |
+| `step06_final` | `state = "menu"/"playing"` | State machine |
+
+```python
+if player.colliderect(star):
+    score += 10
+    stars.remove(star)
+```
+- `colliderect` — True nếu 2 hình chữ nhật chồng nhau
+- Xóa sao khỏi list sau khi bắt — tránh bắt lại nhiều lần
+
+```python
+keys = pygame.key.get_pressed()
+if keys[pygame.K_LEFT]:
+    player.x -= speed
+```
+- `get_pressed()` — trạng thái phím **đang giữ** (mượt hơn event KEYDOWN)
+
+---
+
+### Script `run_project.sh`
+
+```bash
+for step in "${STEPS[@]}"; do
+  python "$MODULE_DIR/project/$step"
+done
+```
+- Chạy lần lượt 6 file Python — mỗi bước build trên bước trước
+- Game cuối (`step06_final.py`) chạy liên tục đến khi đóng cửa sổ
+
+---
+
 ## Bài tập
 
 → [exercises/bai_tap.md](exercises/bai_tap.md)

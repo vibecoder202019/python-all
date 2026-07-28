@@ -145,6 +145,82 @@ python examples/03_collections.py
 python examples/04_algorithms.py
 ```
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### File `examples/01_list_tuple.py`
+
+```python
+sorted(numbers)        # Trả list MỚI đã sort — không đổi list gốc
+numbers.append(5)      # Thêm 1 phần tử cuối
+numbers.extend([7,8]) # Thêm nhiều phần tử (mở rộng list)
+numbers[2:5]           # Slice: lấy index 2,3,4 (không lấy 5)
+numbers[::-1]          # Đảo ngược — bước nhảy -1
+```
+
+```python
+r, g, b = rgb          # Unpacking: gán 3 giá trị tuple vào 3 biến
+list(zip(*matrix))     # zip ghép cột thành hàng → transpose ma trận
+```
+
+**List vs Tuple:** List `[...]` có thể sửa; Tuple `(...)` **bất biến** — dùng khi dữ liệu không đổi (tọa độ, config).
+
+---
+
+### File `examples/02_dict_set.py`
+
+```python
+student.get("phone", "N/A")   # An toàn — không KeyError nếu thiếu key
+defaults | student            # Merge 2 dict (Python 3.9+)
+tags_a | tags_b               # Union — hợp 2 set
+tags_a & tags_b               # Intersection — phần tử chung
+```
+
+**Khi nào dùng gì:**
+- **List** — thứ tự quan trọng, cho phép trùng
+- **Dict** — tra cứu theo key (O(1))
+- **Set** — loại trùng, phép toán tập hợp
+
+---
+
+### File `examples/03_collections.py`
+
+```python
+from collections import deque
+queue.append(x)      # Thêm cuối
+queue.popleft()      # Lấy đầu — O(1), nhanh hơn list.pop(0)
+```
+
+```python
+Counter(text.split())           # Đếm tần suất từ
+Counter(words).most_common(5)   # Top 5 từ xuất hiện nhiều nhất
+```
+
+```python
+defaultdict(list)    # Key mới tự tạo list rỗng — tiện group-by
+```
+
+---
+
+### File `examples/04_algorithms.py`
+
+**Linear search** O(n): duyệt từng phần tử — đơn giản, chậm với mảng lớn.
+
+**Binary search** O(log n): chia đôi mảng **đã sort** — nhanh hơn nhiều.
+
+```python
+mid = (left + right) // 2
+if arr[mid] < target:
+    left = mid + 1    # Tìm nửa phải
+else:
+    right = mid - 1   # Tìm nửa trái
+```
+
+**Two Sum** — dùng dict lưu `{giá_trị: index}` → tìm complement trong O(n).
+
+---
+
 ## Bài tập
 
 → [exercises/bai_tap.md](exercises/bai_tap.md)

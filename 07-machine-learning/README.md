@@ -135,6 +135,69 @@ python examples/03_cross_validation.py
 python examples/04_save_load_model.py
 ```
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### Pipeline ML trong ví dụ
+
+```
+Load data → train_test_split → StandardScaler → fit model → predict → evaluate
+```
+
+**Tại sao split?** Train trên tập A, test trên tập B — đo khả năng **generalize** (dự đoán data chưa thấy).
+
+**Tại sao scale?** RandomForest ít cần, nhưng SVM/Neural Net cần features cùng thang đo:
+```python
+scaler.fit_transform(X_train)   # Học mean/std từ train
+scaler.transform(X_test)        # Áp cùng mean/std — KHÔNG fit lại test
+```
+
+---
+
+### File `examples/01_classification_iris.py`
+
+```python
+train_test_split(X, y, test_size=0.2, stratify=y)
+```
+
+- `stratify=y` — giữ tỷ lệ class trong train và test (quan trọng khi data mất cân bằng)
+- `classification_report` — precision, recall, f1 từng class
+- `confusion_matrix` — ma trận dự đoán vs thực tế
+- `feature_importances_` — feature nào model coi là quan trọng nhất
+
+---
+
+### File `examples/03_cross_validation.py`
+
+```python
+cross_val_score(model, X, y, cv=5, scoring="accuracy")
+```
+
+- Chia data 5 fold — train/evaluate 5 lần, lấy trung bình → ước lượng ổn định hơn 1 lần split
+
+```python
+GridSearchCV(model, param_grid, cv=5)
+grid.fit(X_train, y_train)
+grid.best_params_
+```
+
+- Thử mọi tổ hợp hyperparameter trong `param_grid` — chọn bộ tốt nhất
+
+---
+
+### File `examples/04_save_load_model.py`
+
+```python
+joblib.dump(model, "iris_model.joblib")
+model = joblib.load("iris_model.joblib")
+```
+
+- Lưu model đã train + scaler + metadata → deploy sau không cần train lại
+- **Luôn lưu scaler cùng model** — predict phải scale input giống lúc train
+
+---
+
 ## Bài tập
 
 → [exercises/bai_tap.md](exercises/bai_tap.md)

@@ -119,6 +119,72 @@ python examples/02_datetime_regex.py
 python examples/03_logging.py
 ```
 
+---
+
+## Giải thích chi tiết (Tự học)
+
+### File `examples/01_requests.py`
+
+```python
+response = requests.get(url, timeout=10)
+response.raise_for_status()   # Ném exception nếu HTTP 4xx/5xx
+data = response.json()        # Parse JSON body → Python dict
+```
+
+```python
+response = requests.post(url, json=payload, timeout=10)
+```
+
+- `json=payload` — tự serialize dict → JSON và set header `Content-Type`
+- `timeout=10` — hủy request sau 10 giây, tránh treo vô hạn
+
+**Xử lý lỗi:**
+- `HTTPError` — server trả mã lỗi (404, 500...)
+- `ConnectionError` — không kết nối được
+- `Timeout` — quá thời gian chờ
+
+---
+
+### File `examples/02_datetime_regex.py`
+
+```python
+datetime.strptime("1998-05-15", "%Y-%m-%d")
+(now - birthday).days
+now + timedelta(days=30)
+```
+
+- `strptime` — **parse** chuỗi thành datetime theo format
+- `timedelta` — cộng/trừ khoảng thời gian
+
+```python
+re.findall(r"[\w.+-]+@[\w-]+\.[\w.-]+", text)
+re.match(email_pattern, e)   # Khớp từ ĐẦU chuỗi
+```
+
+- `r"..."` — raw string, `\` không bị escape
+- `\w` = chữ/số/_ ; `+` = 1 hoặc nhiều ; `$` = cuối chuỗi
+
+---
+
+### File `examples/03_logging.py`
+
+```python
+logger = logging.getLogger("ml_app")
+logger.setLevel(logging.DEBUG)
+```
+
+**Cấp độ log (từ thấp → cao):** DEBUG → INFO → WARNING → ERROR → CRITICAL
+
+```python
+fh = logging.FileHandler("ml_app.log")
+ch = logging.StreamHandler()   # In ra console
+```
+
+- Ghi **cả file lẫn console** — file lưu DEBUG, console chỉ INFO+
+- `logger.exception(...)` — tự in stack trace khi có lỗi
+
+---
+
 ## Bài tập
 
 → [exercises/bai_tap.md](exercises/bai_tap.md)
