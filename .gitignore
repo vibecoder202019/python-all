@@ -9,6 +9,8 @@ __pycache__/
 *.log
 logs/
 data/
+!12-python-devops-devsecops/data/
+!12-python-devops-devsecops/data/**
 models/
 .pytest_cache/
 .mypy_cache/

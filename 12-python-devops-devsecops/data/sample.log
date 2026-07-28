@@ -1,0 +1,10 @@
+[2024-01-15 10:00:01] INFO: Server started on port 8000
+[2024-01-15 10:00:05] INFO: Database connected
+[2024-01-15 10:01:23] WARNING: High memory usage: 85%
+[2024-01-15 10:02:45] ERROR: Connection timeout to redis:6379
+[2024-01-15 10:03:10] INFO: Retry successful
+[2024-01-15 10:05:00] ERROR: Failed to process request id=12345
+[2024-01-15 10:06:30] WARNING: Disk usage above 80%
+[2024-01-15 10:10:00] INFO: Health check passed
+[2024-01-15 10:15:22] ERROR: Authentication failed for user admin
+[2024-01-15 10:20:00] INFO: Scheduled backup completed
