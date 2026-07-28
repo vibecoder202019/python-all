@@ -1,7 +1,19 @@
 """
-Dự án Bước 4 — Tạo Security Group
+Module 13 — Dự án Bước 4: Tạo Security Group
+
 Chạy: python project/step04_security_group.py --demo
       python project/step04_security_group.py --apply
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Tạo SG trong default VPC theo infra_config.yaml (ingress SSH/HTTP).
+  2. Gắn tag dự án; lưu sg_id vào state.json.
+  3. DRY-RUN mặc định; --apply tạo thật.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - dry_run_message với tên SG và rules.
+  - --apply: "✅ Created sg-..." và cập nhật state.json.
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 import json

@@ -1,7 +1,19 @@
 """
-Dự án Bước 3 — Tạo S3 bucket
+Module 13 — Dự án Bước 3: Tạo S3 bucket
+
 Chạy: python project/step03_create_s3.py --demo
       python project/step03_create_s3.py --apply
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Đọc infra_config.yaml — tạo bucket tên {prefix}-{account_id}.
+  2. Gắn tag Project=python-all-learn; lưu tên bucket vào state.json.
+  3. Mặc định DRY-RUN; --apply mới tạo thật.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "🔍 DRY-RUN | Create S3 Bucket" hoặc "🔧 APPLY | ...".
+  - --apply: "✅ Created s3://..." và state.json được ghi.
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 import sys

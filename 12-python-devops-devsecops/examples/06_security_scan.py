@@ -1,6 +1,19 @@
 """
-DevSecOps 06 — Security Scanning
+Module 12 — Ví dụ 6: DevSecOps Security Scanning
+
 Chạy: python examples/06_security_scan.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Quét thư mục data/ tìm secret hardcode (API key, AWS key, private key).
+  2. Quét file world-writable (permission 0o002).
+  3. Phát hiện file .env (trừ .env.example).
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "🔑 Secret scan: N finding(s)" — có thể > 0 nếu data có sample secret.
+  - "🔒 Permission scan" và "📁 Env files".
+  - "Result: ✅ PASS" hoặc "⚠️  N issue(s) found".
+═══════════════════════════════════════════════════════════════════════════
 """
 import os
 import re

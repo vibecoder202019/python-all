@@ -1,6 +1,20 @@
 """
 Module 01 — Ví dụ 3: Hàm và Lambda
 Chạy: python examples/03_ham_va_lambda.py
+
+YÊU CẦU ĐỀ BÀI:
+  - Viết hàm tính BMI và phân loại theo WHO
+  - Dùng *args để nhận số lượng tham số tùy ý
+  - Dùng **kwargs để tạo dict từ keyword arguments
+  - Dùng lambda với map/filter để biến đổi danh sách
+  - Dùng lambda làm key trong sorted()
+
+KẾT QUẢ MONG ĐỢI (khi chạy):
+  - BMI của 3 người (An, Bình, Chi) kèm phân loại
+  - sum_all(1,2,3,4,5) = 15
+  - Profile dict từ **kwargs
+  - Bình phương và lọc số chẵn từ 1-10
+  - Sinh viên sắp xếp theo điểm giảm dần
 """
 from typing import Optional
 
@@ -33,7 +47,7 @@ def build_profile(**info) -> dict:
     return info
 
 
-# --- Demo ---
+# ── Demo BMI ──
 print("=== BMI Calculator ===")
 people = [
     ("An", 65, 1.70),
@@ -51,18 +65,18 @@ print(f"\n=== *args: sum_all(1,2,3,4,5) = {sum_all(1, 2, 3, 4, 5)} ===")
 profile = build_profile(name="Minh", age=25, city="Hà Nội")
 print(f"=== **kwargs: {profile} ===")
 
-# --- Lambda ---
+# ── Lambda & map/filter ──
 print("\n=== Lambda & map/filter ===")
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-squares = list(map(lambda x: x ** 2, numbers))
-evens = list(filter(lambda x: x % 2 == 0, numbers))
+squares = list(map(lambda x: x ** 2, numbers))  # map: áp dụng hàm cho từng phần tử
+evens = list(filter(lambda x: x % 2 == 0, numbers))  # filter: giữ phần tử thỏa điều kiện
 
 print(f"  Gốc:    {numbers}")
 print(f"  Bình phương: {squares}")
 print(f"  Chẵn:   {evens}")
 
-# Lambda trong sorted
+# ── Lambda trong sorted ──
 students = [
     {"name": "An", "score": 85},
     {"name": "Bình", "score": 92},

@@ -1,6 +1,19 @@
 """
-AWS 06 — Generate CloudFormation template từ Python
+Module 13 — Ví dụ 6: Generate CloudFormation template từ Python
+
 Chạy: python examples/06_generate_template.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Tạo dict CloudFormation template (S3 bucket, Security Group).
+  2. Ghi ra data/generated/stack.yaml và stack.json.
+  3. In summary Resources và Parameters.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "Generated: .../stack.yaml" và ".../stack.json".
+  - "Resources: LearnBucket, LearnSecurityGroup, ...".
+  - "✓ Done".
+═══════════════════════════════════════════════════════════════════════════
 """
 import json
 import sys

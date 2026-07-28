@@ -1,6 +1,18 @@
 """
-Bước 04 — Sprite và animation
+Module 11 — Ví dụ 4: Sprite và animation
+
 Chạy: python examples/04_sprite_va_anh.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Tạo class Star kế thừa pygame.sprite.Sprite.
+  2. Vẽ hình ngôi sao 5 cánh bằng polygon trên Surface trong suốt.
+  3. Dùng sprite.Group quản lý 8 ngôi sao; update mỗi frame.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - 8 ngôi sao vàng xếp ngang giữa màn hình trên nền tím đậm.
+  - Counter "Frame: N" tăng liên tục — animation đang chạy.
+═══════════════════════════════════════════════════════════════════════════
 """
 import math
 import pygame
@@ -16,6 +28,7 @@ font = pygame.font.SysFont("Arial", 22)
 
 
 class Star(pygame.sprite.Sprite):
+    """Sprite ngôi sao — vẽ lại image mỗi frame để tạo hiệu ứng."""
     def __init__(self, x: int, y: int):
         super().__init__()
         self.image = pygame.Surface((30, 30), pygame.SRCALPHA)

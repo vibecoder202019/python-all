@@ -1,7 +1,20 @@
 """
-Bước 05 — Va chạm và ghi điểm
+Module 11 — Ví dụ 5: Va chạm và ghi điểm
+
 Chạy: python examples/05_va_cham_diem.py
 Di chuyển nhân vật bắt sao vàng (+10 điểm), tránh đá xám (-1 mạng)
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Nhân vật di chuyển trái/phải; sao và đá rơi từ trên xuống.
+  2. Va chạm sao: +10 điểm; va chạm đá: -1 mạng.
+  3. Game Over khi hết mạng; hiển thị điểm cuối 2 giây.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - HUD hiển thị "Điểm: N" và "Mạng: ❤️❤️❤️".
+  - Bắt sao → điểm tăng 10; chạm đá → mất 1 tim.
+  - Hết mạng → màn hình đỏ "Game Over! Điểm: N".
+═══════════════════════════════════════════════════════════════════════════
 """
 import random
 import pygame
@@ -24,6 +37,7 @@ spawn_timer = 0
 
 running = True
 while running and lives > 0:
+    # Spawn sao/đá mỗi 40 frame (~0.67 giây ở 60 FPS)
     spawn_timer += 1
     if spawn_timer > 40:
         spawn_timer = 0

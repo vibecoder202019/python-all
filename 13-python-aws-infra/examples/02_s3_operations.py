@@ -1,6 +1,19 @@
 """
-AWS 02 — S3: list buckets, upload file, bucket info
+Module 13 — Ví dụ 2: S3 — list buckets, upload file, bucket info
+
 Chạy: python examples/02_s3_operations.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. List buckets trong account (tối đa 10).
+  2. Upload file demo lên bucket đầu tiên (hoặc dry-run nếu không có bucket).
+  3. List objects trong prefix demo/ và in metadata.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "Buckets (N):" kèm tên và ngày tạo.
+  - "Upload demo file → s3://..." hoặc dry-run message.
+  - "Objects in demo/:" và "✓ Done".
+═══════════════════════════════════════════════════════════════════════════
 """
 import io
 import sys

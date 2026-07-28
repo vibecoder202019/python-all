@@ -1,4 +1,16 @@
-"""Đáp án Module 07"""
+"""
+Module 07 — Đáp án bài tập
+Chạy: python exercises/solutions/solutions.py
+
+YÊU CẦU ĐỀ BÀI:
+  - Viết hàm train_iris_classifier: train RandomForest, trả về accuracy và confusion matrix
+  - Viết hàm compare_models: so sánh 3 model bằng 5-fold cross validation
+
+KẾT QUẢ MONG ĐỢI (khi chạy):
+  - In accuracy và confusion matrix trên test set
+  - In dict so sánh mean CV score của LogisticRegression, SVM, RandomForest
+"""
+
 from sklearn.datasets import load_iris
 from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -9,7 +21,9 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 import joblib
 
 
+# ── Bài 1: Train classifier Iris ──
 def train_iris_classifier():
+    """Train RandomForest trên Iris và trả về accuracy + confusion matrix."""
     X, y = load_iris(return_X_y=True)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     model = RandomForestClassifier(n_estimators=100, random_state=42)
@@ -18,7 +32,9 @@ def train_iris_classifier():
     return accuracy_score(y_test, y_pred), confusion_matrix(y_test, y_pred)
 
 
+# ── Bài 2: So sánh model bằng CV ──
 def compare_models():
+    """So sánh 3 classifier bằng 5-fold cross validation."""
     X, y = load_iris(return_X_y=True)
     models = {
         "LogisticRegression": LogisticRegression(max_iter=200),

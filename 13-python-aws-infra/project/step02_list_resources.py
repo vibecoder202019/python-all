@@ -1,6 +1,18 @@
 """
-Dự án Bước 2 — Inventory tài nguyên AWS
+Module 13 — Dự án Bước 2: Inventory tài nguyên AWS
+
 Chạy: python project/step02_list_resources.py --demo
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Liệt kê EC2, S3 buckets, VPCs, Security Groups trong region.
+  2. Đếm instances có tag Project=python-all-learn.
+  3. In summary dạng bảng text.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "📊 AWS Inventory — region" với counts EC2/S3/VPC/SG.
+  - "N tagged python-all-learn" cho EC2.
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 import sys

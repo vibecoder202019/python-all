@@ -1,6 +1,19 @@
 """
-DevOps 04 — Health Check HTTP Services
+Module 12 — Ví dụ 4: Health Check HTTP Services
+
 Chạy: python examples/04_health_check.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Ping 3 endpoint: GitHub API, Google, localhost:9999 (expect fail).
+  2. Đo response time (ms) và phân loại healthy/unhealthy/unreachable.
+  3. In summary số endpoint healthy.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - ✅ GitHub API, Google — healthy với response time.
+  - ❌ Localhost — unreachable (Connection refused).
+  - "Summary: 2/3 healthy" và "✓ Done".
+═══════════════════════════════════════════════════════════════════════════
 """
 import time
 from dataclasses import dataclass

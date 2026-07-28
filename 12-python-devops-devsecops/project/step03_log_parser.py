@@ -1,6 +1,18 @@
 """
-Dự án Bước 3 — Thêm lệnh parse-log
+Module 12 — Dự án Bước 3: Lệnh parse-log
+
 Chạy: python project/step03_log_parser.py --demo
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Subcommand parse-log phân tích file log qua common.parse_log_file.
+  2. In thống kê total, error_rate, by_level và danh sách ERROR.
+  3. --demo dùng data/sample.log mặc định.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "Log: sample.log (N entries)" và error rate %.
+  - Đếm theo level; liệt kê errors nếu có.
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 from pathlib import Path

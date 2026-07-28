@@ -1,6 +1,19 @@
 """
-AWS 04 — IAM: users, roles, policies (read-only)
+Module 13 — Ví dụ 4: IAM — users, roles, policies (read-only)
+
 Chạy: python examples/04_iam_security.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. In ARN của caller identity hiện tại.
+  2. Lấy thông tin IAM user và access keys (nếu là user trực tiếp).
+  3. Liệt kê attached policies và MFA status.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "Current identity: arn:aws:..." và IAM User name.
+  - Access keys count và status.
+  - Attached policies; "✓ Done".
+═══════════════════════════════════════════════════════════════════════════
 """
 import sys
 

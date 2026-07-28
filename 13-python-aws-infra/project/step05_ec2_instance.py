@@ -1,7 +1,19 @@
 """
-Dự án Bước 5 — Launch EC2 instance
+Module 13 — Dự án Bước 5: Launch EC2 instance
+
 Chạy: python project/step05_ec2_instance.py --demo
       python project/step05_ec2_instance.py --apply
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Tìm AMI Amazon Linux mới nhất theo pattern trong config.
+  2. Launch t3.micro với SG từ state.json; gắn tag dự án.
+  3. Lưu instance_id vào state.json khi --apply.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - dry_run_message với AMI, instance type, SG.
+  - --apply: "✅ Launched i-..." và state cập nhật.
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 import json

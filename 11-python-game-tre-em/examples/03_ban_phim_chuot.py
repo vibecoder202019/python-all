@@ -1,7 +1,20 @@
 """
-Bước 03 — Điều khiển bằng bàn phím và chuột
+Module 11 — Ví dụ 3: Điều khiển bằng bàn phím và chuột
+
 Chạy: python examples/03_ban_phim_chuot.py
 Mũi tên / WASD di chuyển — Click chuột đặt cờ
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Di chuyển nhân vật (hình tròn vàng) bằng phím mũi tên hoặc WASD.
+  2. Giới hạn nhân vật trong biên cửa sổ.
+  3. Click chuột trái đặt cờ đỏ tại vị trí click.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - Nhân vật di chuyển mượt, không ra ngoài màn hình.
+  - Mỗi click tạo thêm một chấm đỏ (cờ).
+  - Thanh gợi ý điều khiển ở dưới cùng.
+═══════════════════════════════════════════════════════════════════════════
 """
 import pygame
 import sys
@@ -27,6 +40,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             flags.append(event.pos)
 
+    # Đọc trạng thái phím liên tục (giữ phím = di chuyển liên tục)
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] or keys[pygame.K_a]:
         player_x = max(player_size, player_x - speed)

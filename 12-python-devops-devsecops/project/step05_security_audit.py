@@ -1,6 +1,18 @@
 """
-Dự án Bước 5 — Thêm security-scan (DevSecOps)
+Module 12 — Dự án Bước 5: Security-scan (DevSecOps)
+
 Chạy: python project/step05_security_audit.py --demo
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Subcommand security-scan quét secret qua common.scan_secrets.
+  2. Phát hiện file .env và .env.local.
+  3. In kết quả PASS hoặc số issue tìm thấy.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "🔑 Secrets: N finding(s)" với file:line.
+  - "📁 .env files: N" và "Result: ✅ PASS" hoặc "⚠️  N issue(s)".
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 from pathlib import Path

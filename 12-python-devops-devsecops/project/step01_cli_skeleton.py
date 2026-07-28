@@ -1,6 +1,18 @@
 """
-Dự án Bước 1 — CLI skeleton với argparse
+Module 12 — Dự án Bước 1: CLI skeleton với argparse
+
 Chạy: python project/step01_cli_skeleton.py --demo
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Tạo ArgumentParser với prog="devops-toolkit".
+  2. Thêm flag --demo và --version.
+  3. --demo in thông báo xác nhận argparse hoạt động.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - --demo: "=== DevOps Toolkit — Bước 1: CLI Skeleton ===" + hướng dẫn.
+  - Không flag: in help (--help, --version).
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 import sys

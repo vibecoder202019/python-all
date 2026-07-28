@@ -1,9 +1,21 @@
 """
-Dự án Bước 6 — AWS Infra Builder CLI hoàn chỉnh
+Module 13 — Dự án Bước 6: AWS Infra Builder CLI hoàn chỉnh
+
 Chạy: python project/step06_final.py --help
       python project/step06_final.py status
       python project/step06_final.py deploy --apply
       python project/step06_final.py destroy --apply
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Subcommand status: inventory + state.json hiện tại.
+  2. Subcommand deploy: chạy step03→05 (--apply để tạo thật).
+  3. Subcommand destroy: gọi logic xóa tài nguyên tagged.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - status: Account, Region, state (bucket, sg, instance).
+  - deploy/destroy: dry-run hoặc APPLY theo flag --apply.
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 import json

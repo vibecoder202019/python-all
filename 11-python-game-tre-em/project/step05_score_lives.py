@@ -1,6 +1,18 @@
 """
-Dự án Bước 5 — Điểm số, mạng, Game Over
+Module 11 — Dự án Bước 5: Điểm số, mạng, Game Over
+
 Chạy: python project/step05_score_lives.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Va chạm đá → -1 mạng; hết mạng → Game Over overlay.
+  2. Mỗi 50 điểm → level tăng, tốc độ rơi nhanh hơn.
+  3. Nhấn R khi Game Over để chơi lại.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - HUD: "Điểm: N  Level: L" và "Mạng: ❤️...".
+  - Game Over → overlay tối + "Game Over!" + "Nhấn R chơi lại".
+═══════════════════════════════════════════════════════════════════════════
 """
 import random
 import pygame

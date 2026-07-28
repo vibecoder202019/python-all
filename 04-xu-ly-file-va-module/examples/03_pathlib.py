@@ -1,4 +1,18 @@
-"""Module 04 — pathlib"""
+"""
+Module 04 — Ví dụ 3: pathlib
+Chạy: python examples/03_pathlib.py
+
+YÊU CẦU ĐỀ BÀI:
+  - Tạo thư mục và file bằng Path.mkdir(), write_text()
+  - Đọc file, tính thống kê (count, sum, average, max, min)
+  - Ghi kết quả ra file output
+  - Duyệt cây thư mục với rglob("*")
+
+KẾT QUẢ MONG ĐỢI (khi chạy):
+  - Tạo data/input/numbers.txt (1-10)
+  - Ghi data/output/stats.txt với 5 chỉ số thống kê
+  - Liệt kê tất cả file trong data/ kèm kích thước
+"""
 from pathlib import Path
 
 
@@ -6,7 +20,7 @@ def demo_pathlib():
     base = Path(__file__).parent / "data"
     base.mkdir(exist_ok=True)
 
-    # Tạo cấu trúc thư mục
+    # ── Tạo cấu trúc thư mục ──
     (base / "input").mkdir(exist_ok=True)
     (base / "output").mkdir(exist_ok=True)
 
@@ -34,10 +48,11 @@ def demo_pathlib():
     print(output_file.read_text())
 
     print("=== Files in data/ ===")
-    for p in base.rglob("*"):
+    for p in base.rglob("*"):  # duyệt đệ quy mọi file/thư mục
         if p.is_file():
             print(f"  {p.relative_to(base)} ({p.stat().st_size} bytes)")
 
 
+# ── Demo ──
 if __name__ == "__main__":
     demo_pathlib()

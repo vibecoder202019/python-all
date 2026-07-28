@@ -95,9 +95,21 @@ Tuần 23-25: Module 13 — Python & AWS Infrastructure
     └── Dự án: AWS Infra Builder (S3 + SG + EC2)
 ```
 
+## Giai đoạn 7: PostgreSQL (Tuần 26-28)
+
+```
+Tuần 26-28: Module 14 — PostgreSQL tự học
+    ├── SQL cơ bản: CRUD, JOIN, aggregation
+    ├── PL/pgSQL: function, procedure, RETURN QUERY
+    ├── Trigger: BEFORE/AFTER, audit, validation
+    ├── View, Materialized View, Index, EXPLAIN
+    ├── Python psycopg2: query, transaction, gọi function
+    └── Dự án: Library DB (mượn/trả sách, báo cáo)
+```
+
 ## Mục tiêu sau khi hoàn thành
 
-Sau 25 tuần, bạn sẽ có thể:
+Sau 28 tuần, bạn sẽ có thể:
 
 - Viết Python sạch, dễ đọc, có cấu trúc
 - Xử lý dữ liệu với Pandas/NumPy
@@ -107,5 +119,7 @@ Sau 25 tuần, bạn sẽ có thể:
 - Làm game 2D với Pygame
 - Viết script DevOps/DevSecOps automation
 - Tạo và quản lý AWS infrastructure bằng boto3
+- Thiết kế schema, viết function/trigger PostgreSQL
+- Kết nối Python ↔ PostgreSQL với psycopg2
 - Deploy model ML qua API (local)
 - Tiếp tục học MLOps (Kubernetes, CI/CD, KServe...)

@@ -1,6 +1,18 @@
 """
-Dự án Bước 2 — Thêm nhân vật phi hành gia
+Module 11 — Dự án Bước 2: Thêm nhân vật phi hành gia
+
 Chạy: python project/step02_player.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Vẽ nhân vật (hình chữ nhật bo góc) ở gần đáy màn hình.
+  2. Di chuyển trái/phải bằng phím mũi tên, giới hạn trong biên cửa sổ.
+  3. Dùng PLAYER_W, PLAYER_H, PLAYER_COLOR từ common.py.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - Nhân vật xanh nhạt di chuyển mượt trên nền trời + cỏ.
+  - Không thể di chuyển ra ngoài mép trái/phải.
+═══════════════════════════════════════════════════════════════════════════
 """
 import pygame
 import sys

@@ -1,6 +1,18 @@
 """
-Dự án Bước 1 — Kết nối và xác minh AWS credentials
+Module 13 — Dự án Bước 1: Kết nối và xác minh AWS credentials
+
 Chạy: python project/step01_aws_connect.py --demo
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Gọi get_context() từ common.py.
+  2. In region, account_id, ARN khi kết nối thành công.
+  3. handle_aws_error khi thiếu credentials.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "✅ Connected to AWS" + Region, Account, ARN.
+  - Thiếu creds → thông báo tiếng Việt + exit 1.
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 import sys

@@ -1,6 +1,19 @@
 """
-Bước 02 — Vẽ hình và hiển thị chữ
+Module 11 — Ví dụ 2: Vẽ hình và hiển thị chữ
+
 Chạy: python examples/02_hinh_va_text.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Vẽ 3 hình cơ bản: tròn, vuông, tam giác với màu khác nhau.
+  2. Ghi nhãn tên hình bằng font SysFont bên dưới mỗi hình.
+  3. Hiển thị tiêu đề "Các hình cơ bản" ở giữa phía trên.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - Hình tròn đỏ (trái), vuông xanh (giữa), tam giác xanh lá (phải).
+  - Nhãn "Hình tròn", "Hình vuông", "Tam giác" dưới mỗi hình.
+  - Gợi ý "Nhấn ESC để thoát" ở dưới cùng.
+═══════════════════════════════════════════════════════════════════════════
 """
 import pygame
 import sys
@@ -14,6 +27,7 @@ clock = pygame.time.Clock()
 title_font = pygame.font.SysFont("Arial", 36, bold=True)
 label_font = pygame.font.SysFont("Arial", 22)
 
+# (tên, loại hình, màu RGB, tọa độ tâm)
 SHAPES = [
     ("Hình tròn", "circle", (255, 100, 100), (200, 300)),
     ("Hình vuông", "rect", (100, 200, 255), (400, 300)),

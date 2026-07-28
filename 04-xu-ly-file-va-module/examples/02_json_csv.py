@@ -1,4 +1,16 @@
-"""Module 04 — JSON & CSV"""
+"""
+Module 04 — Ví dụ 2: JSON và CSV
+Chạy: python examples/02_json_csv.py
+
+YÊU CẦU ĐỀ BÀI:
+  - Ghi/đọc JSON với json.dump/load, ensure_ascii=False cho tiếng Việt
+  - Ghi CSV với csv.DictWriter
+  - Đọc CSV với csv.DictReader và tính điểm trung bình
+
+KẾT QUẢ MONG ĐỢI (khi chạy):
+  - Profile JSON: tên, skills, 2 projects kèm accuracy
+  - CSV 3 sinh viên với điểm TB: An≈84.3, Bình≈91.7, Chi≈71.7
+"""
 import csv
 import json
 from pathlib import Path
@@ -20,7 +32,7 @@ def demo_json():
 
     json_path = DATA_DIR / "profile.json"
     with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(profile, f, indent=2, ensure_ascii=False)
+        json.dump(profile, f, indent=2, ensure_ascii=False)  # giữ ký tự Unicode
 
     with open(json_path, encoding="utf-8") as f:
         loaded = json.load(f)
@@ -53,6 +65,7 @@ def demo_csv():
             print(f"  {row['name']}: avg={avg:.1f}")
 
 
+# ── Demo ──
 if __name__ == "__main__":
     demo_json()
     demo_csv()

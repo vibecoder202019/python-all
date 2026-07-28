@@ -1,6 +1,19 @@
 """
-AWS 03 — EC2: instances, regions, AMIs
+Module 13 — Ví dụ 3: EC2 — instances, regions, AMIs
+
 Chạy: python examples/03_ec2_basics.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Liệt kê EC2 instances (running/stopped/pending) — tối đa 5.
+  2. Tìm Amazon Linux 2023 AMI mới nhất (3 AMI).
+  3. In instance type và key pair available.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "EC2 Instances (N):" với InstanceId, type, state, Name tag.
+  - "Amazon Linux 2023 AMIs (latest 3):" kèm ImageId.
+  - Key pairs và "✓ Done".
+═══════════════════════════════════════════════════════════════════════════
 """
 import sys
 

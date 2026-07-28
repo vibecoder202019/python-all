@@ -1,13 +1,27 @@
 """
-Bước 01 — Cửa sổ game và màu sắc
+Module 11 — Ví dụ 1: Cửa sổ game và màu sắc
+
 Chạy: python examples/01_cua_so_va_mau.py
 Nhấn ESC hoặc đóng cửa sổ để thoát.
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Khởi tạo pygame, tạo cửa sổ 800×600.
+  2. Vẽ nền trời xanh, cỏ xanh, mặt trời vàng và mây trắng.
+  3. Hiển thị chữ hướng dẫn; thoát bằng ESC hoặc nút đóng cửa sổ.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - Cửa sổ tiêu đề "Module 11 — Bước 1: Cửa sổ & Màu sắc".
+  - Nền trời xanh nhạt, dải cỏ xanh phía dưới, mặt trời góc phải.
+  - 3 đám mây trắng; dòng chữ "Buổi 1: Vẽ bầu trời!..." ở trên cùng.
+═══════════════════════════════════════════════════════════════════════════
 """
 import pygame
 import sys
 
 pygame.init()
 
+# ── Cấu hình cửa sổ ──
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Module 11 — Bước 1: Cửa sổ & Màu sắc")
@@ -22,8 +36,10 @@ COLORS = {
     "cloud": (255, 255, 255),
 }
 
+# ── Vòng lặp game chính ──
 running = True
 while running:
+    # Xử lý sự kiện: đóng cửa sổ hoặc nhấn ESC
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False

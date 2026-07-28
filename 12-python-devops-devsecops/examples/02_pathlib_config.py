@@ -1,6 +1,19 @@
 """
-DevOps 02 — pathlib và Config (YAML/JSON)
+Module 12 — Ví dụ 2: pathlib và Config (YAML/JSON)
+
 Chạy: python examples/02_pathlib_config.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Đọc config YAML từ data/config.yaml (app name, services).
+  2. Quét thư mục examples/ — liệt kê file .py kèm size.
+  3. Ghi kết quả quét ra data/scan_result.json.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "Config loaded: ... (env=...)" và danh sách services.
+  - Top 5 file .py với path và size KB.
+  - "Saved: .../data/scan_result.json" và "✓ Done".
+═══════════════════════════════════════════════════════════════════════════
 """
 import json
 from pathlib import Path

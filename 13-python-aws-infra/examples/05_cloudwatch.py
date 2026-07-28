@@ -1,6 +1,19 @@
 """
-AWS 05 — CloudWatch: metrics, alarms, log groups
+Module 13 — Ví dụ 5: CloudWatch — metrics, alarms, log groups
+
 Chạy: python examples/05_cloudwatch.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Liệt kê 5 log groups đầu tiên (tên và stored bytes).
+  2. Lấy metric CPUUtilization của EC2 running (nếu có).
+  3. Liệt kê alarms và dashboard count.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "Log Groups (N shown):" kèm tên và KB.
+  - CPU metric hoặc "(no running instances)".
+  - Alarms count và "✓ Done".
+═══════════════════════════════════════════════════════════════════════════
 """
 import sys
 from datetime import datetime, timedelta, timezone

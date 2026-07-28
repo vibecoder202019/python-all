@@ -1,6 +1,18 @@
 """
-Dự án Bước 4 — Thêm health-check monitor
+Module 12 — Dự án Bước 4: Health-check monitor
+
 Chạy: python project/step04_health_monitor.py --demo
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Subcommand health-check ping danh sách URL (--urls hoặc mặc định).
+  2. Đo response time và phân loại healthy/unhealthy/unreachable.
+  3. --demo chạy health check + parse-log mẫu.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - ✅/❌ cho từng endpoint kèm status và ms.
+  - Demo kết hợp log analysis nếu có sample.log.
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 import time

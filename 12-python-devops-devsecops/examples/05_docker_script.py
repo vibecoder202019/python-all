@@ -1,7 +1,20 @@
 """
-DevOps 05 — Docker Automation Script
+Module 12 — Ví dụ 5: Docker Automation Script
+
 Chạy: python examples/05_docker_script.py
 (Không cần Docker chạy — demo generate Dockerfile & docker-compose)
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Kiểm tra Docker có sẵn không (docker info).
+  2. Generate Dockerfile và docker-compose.yml vào data/generated/.
+  3. Nếu Docker chạy → liệt kê containers đang active.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "Docker available: ✅ Yes" hoặc "❌ No (demo mode)".
+  - "Generated: .../Dockerfile" và ".../docker-compose.yml".
+  - "Running containers: [...]" hoặc skip nếu không có Docker.
+═══════════════════════════════════════════════════════════════════════════
 """
 import subprocess
 from pathlib import Path

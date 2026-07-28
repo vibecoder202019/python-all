@@ -1,6 +1,19 @@
 """
-Dự án Bước 6 — Game hoàn chỉnh với Menu
+Module 11 — Dự án Bước 6: Game hoàn chỉnh với Menu
+
 Chạy: python project/step06_final.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Màn hình menu: SPACE bắt đầu, hiển thị kỷ lục high score.
+  2. Gameplay đầy đủ: điểm, mạng, level, Game Over.
+  3. ESC về menu; R chơi lại khi Game Over.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - Menu: "⭐ Catch the Stars" + "Nhấn SPACE để bắt đầu".
+  - Chơi: HUD điểm/mạng/level; Game Over hiện điểm + kỷ lục.
+  - R → chơi lại; ESC → menu.
+═══════════════════════════════════════════════════════════════════════════
 """
 import random
 import pygame
@@ -16,6 +29,7 @@ title_font = pygame.font.SysFont("Arial", 52, bold=True)
 
 
 class Game:
+    """Quản lý state machine: menu → playing → gameover."""
     def __init__(self):
         self.reset()
         self.state = "menu"  # menu | playing | gameover

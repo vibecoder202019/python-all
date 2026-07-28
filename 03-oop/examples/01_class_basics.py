@@ -1,13 +1,28 @@
-"""Module 03 — Class cơ bản"""
+"""
+Module 03 — Ví dụ 1: Class cơ bản
+Chạy: python examples/01_class_basics.py
+
+YÊU CẦU ĐỀ BÀI:
+  - Định nghĩa class với __init__, thuộc tính instance và class
+  - Dùng @property và setter để validate dữ liệu (GPA 0-4)
+  - Encapsulation: thuộc tính private (_gpa, _balance)
+  - Implement __str__ và __repr__
+
+KẾT QUẢ MONG ĐỢI (khi chạy):
+  - Student(Nguyễn Văn A, GPA=3.80) sau enroll 2 môn
+  - Trường: AI Academy, Môn: ['Python 101', 'Machine Learning']
+  - Account(Minh, balance=1,300,000) sau nạp/rút
+  - Lịch sử giao dịch: ['+500,000', '-200,000']
+"""
 
 
 class Student:
-    school = "AI Academy"
+    school = "AI Academy"  # thuộc tính class — dùng chung cho mọi instance
 
     def __init__(self, name: str, student_id: str, gpa: float = 0.0):
         self.name = name
         self.student_id = student_id
-        self._gpa = gpa
+        self._gpa = gpa  # private: truy cập qua property
         self._courses: list[str] = []
 
     @property
@@ -59,6 +74,7 @@ class BankAccount:
         return f"Account({self.owner}, balance={self._balance:,.0f})"
 
 
+# ── Demo ──
 if __name__ == "__main__":
     s = Student("Nguyễn Văn A", "SV001", 3.5)
     s.enroll("Python 101")

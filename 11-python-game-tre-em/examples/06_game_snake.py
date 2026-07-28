@@ -1,7 +1,20 @@
 """
-Bước 06 — Game Rắn săn mồi (Snake) — Nâng cao
+Module 11 — Ví dụ 6: Game Rắn săn mồi (Snake) — Nâng cao
+
 Chạy: python examples/06_game_snake.py
 Mũi tên điều khiển — Ăn táo đỏ (+1), đừng cắn đuôi!
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Rắn di chuyển liên tục theo hướng; đổi hướng bằng phím mũi tên.
+  2. Ăn táo → rắn dài thêm, điểm +1; không được quay ngược 180°.
+  3. Game Over khi chạm tường hoặc cắn đuôi.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - Lưới xanh đậm, rắn xanh lá, táo đỏ ngẫu nhiên.
+  - Thanh HUD "Điểm: N" phía dưới.
+  - Game Over → "Game Over! ESC thoát" màu đỏ.
+═══════════════════════════════════════════════════════════════════════════
 """
 import random
 import pygame
@@ -9,8 +22,8 @@ import sys
 
 pygame.init()
 
-CELL = 25
-COLS, ROWS = 24, 20
+CELL = 25  # Kích thước một ô lưới (pixel)
+COLS, ROWS = 24, 20  # Số cột × hàng vùng chơi
 WIDTH, HEIGHT = COLS * CELL, ROWS * CELL + 50
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Module 11 — Snake Game")

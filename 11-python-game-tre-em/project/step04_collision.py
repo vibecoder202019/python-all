@@ -1,6 +1,18 @@
 """
-Dự án Bước 4 — Va chạm và hiệu ứng
+Module 11 — Dự án Bước 4: Va chạm và hiệu ứng
+
 Chạy: python project/step04_collision.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Va chạm sao → +10 điểm + hiệu ứng vòng tròn vàng.
+  2. Va chạm đá → hiệu ứng (chưa trừ mạng — thêm ở bước 5).
+  3. Hiển thị điểm số trên HUD.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - "Điểm: N" tăng 10 mỗi lần bắt sao.
+  - Vòng tròn vàng nhạt xuất hiện tại vị trí va chạm rồi mờ dần.
+═══════════════════════════════════════════════════════════════════════════
 """
 import random
 import pygame
@@ -16,7 +28,7 @@ font = pygame.font.SysFont("Arial", 22, bold=True)
 player = pygame.Rect(WIDTH // 2 - PLAYER_W // 2, HEIGHT - 100, PLAYER_W, PLAYER_H)
 stars: list[pygame.Rect] = []
 rocks: list[pygame.Rect] = []
-effects: list[tuple[int, int, int]] = []  # x, y, timer
+effects: list[tuple[int, int, int]] = []  # (x, y, timer) — hiệu ứng va chạm
 score = 0
 spawn_timer = 0
 speed = 7

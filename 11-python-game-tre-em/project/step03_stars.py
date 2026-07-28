@@ -1,6 +1,19 @@
 """
-Dự án Bước 3 — Sao và đá rơi
+Module 11 — Dự án Bước 3: Sao và đá rơi
+
 Chạy: python project/step03_stars.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Spawn sao vàng (75%) và đá xám (25%) rơi từ trên xuống.
+  2. Nhân vật vẫn di chuyển trái/phải như bước 2.
+  3. Xóa vật thể khi rơi ra khỏi màn hình.
+
+KẾT QUẢ MONG ĐỢI (trên màn hình):
+  - Sao tròn vàng và đá vuông xám rơi liên tục.
+  - Chữ "Bước 3: Sao vàng (+) / Đá xám (-) đang rơi!" góc trên trái.
+  - Chưa có va chạm/điểm (thêm ở bước 4).
+═══════════════════════════════════════════════════════════════════════════
 """
 import random
 import pygame

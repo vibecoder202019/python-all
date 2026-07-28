@@ -34,6 +34,8 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Làm ML Engineer | 01 → 09 → 10 |
 | Làm DevOps Engineer | 01 → 05 → 12 → 13 |
 | Làm game cho trẻ | 01 → 03 → 11 |
+| Full-stack / Backend | 01 → 05 → 09 → 14 |
+| DBA / Data Engineer | 01 → 06 → 14 |
 | Full-stack AI | 01 → 10 → MLOps Labs |
 
 ## Yêu cầu
@@ -53,7 +55,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (13 module)
+## Lộ trình học (14 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -70,8 +72,9 @@ pip install -r requirements.txt
 | 11 | [Game cho Trẻ em](11-python-game-tre-em/README.md) | Pygame, game loop, dự án Catch the Stars | 2-3 tuần |
 | 12 | [DevOps & DevSecOps](12-python-devops-devsecops/README.md) | Automation, security scan, CLI toolkit | 2-3 tuần |
 | 13 | [Python & AWS Infra](13-python-aws-infra/README.md) | boto3, S3, EC2, SG, CloudWatch, IaC | 2-3 tuần |
+| 14 | [PostgreSQL tự học](14-postgresql-tu-hoc/README.md) | SQL, PL/pgSQL, trigger, view, index, psycopg2 | 2-3 tuần |
 
-**Tổng thời gian:** khoảng 5-6 tháng (học 1-2 giờ/ngày)
+**Tổng thời gian:** khoảng 5-7 tháng (học 1-2 giờ/ngày)
 
 ## Cách học hiệu quả
 
@@ -167,6 +170,12 @@ bash 13-python-aws-infra/scripts/check_credentials.sh
 bash 13-python-aws-infra/scripts/run_project.sh
 bash 13-python-aws-infra/scripts/run_project.sh --apply   # tạo thật trên AWS
 bash 13-python-aws-infra/scripts/destroy_infra.sh --apply  # xóa sau khi học
+
+# Module 14 — PostgreSQL (Docker + psycopg2)
+bash 14-postgresql-tu-hoc/scripts/setup.sh
+bash 14-postgresql-tu-hoc/scripts/run_all_examples.sh
+bash 14-postgresql-tu-hoc/scripts/run_project.sh
+bash 14-postgresql-tu-hoc/scripts/psql_shell.sh   # psql tương tác
 ```
 
 ### Bash scripts mỗi module
@@ -186,6 +195,11 @@ bash 13-python-aws-infra/scripts/destroy_infra.sh --apply  # xóa sau khi học
 | `13-.../scripts/run_all_examples.sh` | Ví dụ AWS tuần tự |
 | `13-.../scripts/run_project.sh` | Dự án AWS Infra (6 bước) |
 | `13-.../scripts/destroy_infra.sh` | Xóa tài nguyên AWS đã tạo |
+| `14-.../scripts/setup.sh` | Docker Postgres + psycopg2 |
+| `14-.../scripts/run_all_examples.sh` | Ví dụ SQL/Python tuần tự |
+| `14-.../scripts/run_project.sh` | Dự án Library DB (6 bước) |
+| `14-.../scripts/psql_shell.sh` | Mở psql trong container |
+| `14-.../scripts/teardown.sh` | Dừng container Postgres |
 
 ## Kiểm tra tiến độ
 
@@ -208,3 +222,5 @@ Sau khi hoàn thành repo này, bạn có thể chuyển sang [MLOps Labs](../la
 - [FastAPI Docs](https://fastapi.tiangolo.com/)
 - [Scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)
 - [Keras Documentation](https://keras.io/)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+- [PL/pgSQL Guide](https://www.postgresql.org/docs/current/plpgsql.html)

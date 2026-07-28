@@ -1,6 +1,19 @@
 """
-DevOps 03 — Log Analyzer
+Module 12 — Ví dụ 3: Log Analyzer
+
 Chạy: python examples/03_log_analyzer.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Parse file data/sample.log theo pattern [timestamp] LEVEL: message.
+  2. Thống kê số dòng theo level (INFO, WARN, ERROR).
+  3. Tính error_rate và liệt kê các dòng ERROR.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - "Total entries: N" và biểu đồ bar theo level.
+  - "Error rate: X%" và danh sách errors kèm timestamp.
+  - Cuối: "✓ Done".
+═══════════════════════════════════════════════════════════════════════════
 """
 import re
 from collections import Counter

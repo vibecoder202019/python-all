@@ -1,6 +1,20 @@
 """
-AWS 01 — boto3 cơ bản: Session, credentials, STS
+Module 13 — Ví dụ 1: boto3 cơ bản — Session, credentials, STS
+
 Chạy: python examples/01_boto3_basics.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Tạo boto3 Session với region từ AWS_DEFAULT_REGION.
+  2. Gọi STS get_caller_identity — in Account, ARN, UserId.
+  3. Liệt kê 5 region EC2; so sánh S3 client vs resource.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - Region và Session region.
+  - Caller Identity (Account 12 số, ARN, UserId).
+  - 5 region names; "S3 client list_buckets: N bucket(s)".
+  - Thiếu credentials → "❌ Chưa cấu hình credentials".
+═══════════════════════════════════════════════════════════════════════════
 """
 import os
 import sys

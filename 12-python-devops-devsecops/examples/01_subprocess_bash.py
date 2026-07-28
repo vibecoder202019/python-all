@@ -1,6 +1,19 @@
 """
-DevOps 01 — Chạy lệnh Bash/Shell từ Python
+Module 12 — Ví dụ 1: Chạy lệnh Bash/Shell từ Python
+
 Chạy: python examples/01_subprocess_bash.py
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Dùng subprocess.run chạy lệnh shell (uname, python3 --version, ls, df).
+  2. Demo run_command (raise nếu fail) và run_command_safe (trả returncode).
+  3. Demo pipeline: đếm file .py trong thư mục hiện tại.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - In lệnh "$ ..." và stdout/stderr (tối đa 200 ký tự).
+  - "Số file .py: N" từ pipeline find | wc -l.
+  - Cuối: "✓ Hoàn thành lúc HH:MM:SS".
+═══════════════════════════════════════════════════════════════════════════
 """
 import subprocess
 import shlex

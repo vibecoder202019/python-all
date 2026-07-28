@@ -1,4 +1,19 @@
-"""Đáp án Module 03"""
+"""
+Module 03 — Đáp án bài tập: Hình học, Stack, Thư viện, KNN
+Chạy: python exercises/solutions/solutions.py
+
+YÊU CẦU ĐỀ BÀI:
+  - Class Rectangle: area, perimeter, is_square
+  - Class Stack: push, pop, peek, is_empty với __len__
+  - Class Library: mượn/trả sách, tìm theo tác giả
+  - Abstract BaseModel + KNNClassifier cho ML cơ bản
+
+KẾT QUẢ MONG ĐỢI (khi chạy):
+  - Square 5x5: area=25, is_square=True
+  - Stack pop: 2, len=2
+  - Borrowed: Python Crash Course
+  - Predict [4,4]: ['A']
+"""
 from abc import ABC, abstractmethod
 import math
 
@@ -93,7 +108,7 @@ class KNNClassifier(BaseModel):
         self.y_train = y
 
     def _distance(self, a, b):
-        return math.sqrt(sum((ai - bi) ** 2 for ai, bi in zip(a, b)))
+        return math.sqrt(sum((ai - bi) ** 2 for ai, bi in zip(a, b)))  # khoảng cách Euclidean
 
     def predict(self, X):
         predictions = []
@@ -101,7 +116,7 @@ class KNNClassifier(BaseModel):
             distances = [(self._distance(x, xi), yi) for xi, yi in zip(self.X_train, self.y_train)]
             distances.sort()
             k_nearest = [label for _, label in distances[: self.k]]
-            predictions.append(max(set(k_nearest), key=k_nearest.count))
+            predictions.append(max(set(k_nearest), key=k_nearest.count))  # bỏ phiếu đa số
         return predictions
 
     def evaluate(self, X, y) -> float:
@@ -110,6 +125,7 @@ class KNNClassifier(BaseModel):
         return correct / len(y)
 
 
+# ── Demo ──
 if __name__ == "__main__":
     r = Rectangle(5, 5)
     print(f"Square 5x5: area={r.area()}, is_square={r.is_square()}")

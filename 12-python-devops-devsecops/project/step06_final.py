@@ -1,6 +1,18 @@
 """
-Dự án Bước 6 — DevOps Toolkit CLI hoàn chỉnh
+Module 12 — Dự án Bước 6: DevOps Toolkit CLI hoàn chỉnh
+
 Chạy: python project/step06_final.py --help
+
+═══════════════════════════════════════════════════════════════════════════
+YÊU CẦU ĐỀ BÀI:
+  1. Gộp tất cả subcommand: disk-usage, list-files, parse-log, health-check, security-scan.
+  2. --demo chạy lần lượt các lệnh demo.
+  3. Version 1.0.0; help đầy đủ cho mọi subcommand.
+
+KẾT QUẢ MONG ĐỢI (in ra terminal):
+  - --help liệt kê 5 subcommand.
+  - --demo in output từng lệnh (disk, log, health, security).
+═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
 import time
