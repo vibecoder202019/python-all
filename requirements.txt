@@ -1,0 +1,30 @@
+# Core
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+joblib>=1.3.0
+
+# Deep Learning (optional — module 08)
+tensorflow>=2.13.0
+
+# API
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+pydantic>=2.0.0
+httpx>=0.24.0
+python-multipart>=0.0.6
+
+# Game (Module 11)
+pygame>=2.5.0
+
+# DevOps (Module 12)
+pyyaml>=6.0.0
+
+# Utilities
+requests>=2.31.0
+python-dotenv>=1.0.0
+pytest>=7.4.0

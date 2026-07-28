@@ -1,0 +1,78 @@
+"""
+Dự án Bước 4 — Va chạm và hiệu ứng
+Chạy: python project/step04_collision.py
+"""
+import random
+import pygame
+import sys
+from common import *
+
+pygame.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Catch the Stars — Bước 4")
+clock = pygame.time.Clock()
+font = pygame.font.SysFont("Arial", 22, bold=True)
+
+player = pygame.Rect(WIDTH // 2 - PLAYER_W // 2, HEIGHT - 100, PLAYER_W, PLAYER_H)
+stars: list[pygame.Rect] = []
+rocks: list[pygame.Rect] = []
+effects: list[tuple[int, int, int]] = []  # x, y, timer
+score = 0
+spawn_timer = 0
+speed = 7
+
+running = True
+while running:
+    spawn_timer += 1
+    if spawn_timer > 35:
+        spawn_timer = 0
+        if random.random() < 0.75:
+            stars.append(pygame.Rect(random.randint(0, WIDTH - STAR_SIZE), -STAR_SIZE, STAR_SIZE, STAR_SIZE))
+        else:
+            rocks.append(pygame.Rect(random.randint(0, WIDTH - ROCK_SIZE), -ROCK_SIZE, ROCK_SIZE, ROCK_SIZE))
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+            running = False
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player.x = max(0, player.x - speed)
+    if keys[pygame.K_RIGHT]:
+        player.x = min(WIDTH - PLAYER_W, player.x + speed)
+
+    for star in stars[:]:
+        star.y += 4
+        if player.colliderect(star):
+            score += 10
+            effects.append((star.centerx, star.centery, 20))
+            stars.remove(star)
+        elif star.top > HEIGHT:
+            stars.remove(star)
+
+    for rock in rocks[:]:
+        rock.y += 5
+        if player.colliderect(rock):
+            effects.append((rock.centerx, rock.centery, 20))
+            rocks.remove(rock)
+        elif rock.top > HEIGHT:
+            rocks.remove(rock)
+
+    effects = [(x, y, t - 1) for x, y, t in effects if t > 0]
+
+    screen.fill(SKY)
+    pygame.draw.rect(screen, GRASS, (0, HEIGHT - 80, WIDTH, 80))
+    pygame.draw.rect(screen, PLAYER_COLOR, player, border_radius=10)
+    for star in stars:
+        pygame.draw.circle(screen, STAR_COLOR, star.center, STAR_SIZE // 2)
+    for rock in rocks:
+        pygame.draw.rect(screen, ROCK_COLOR, rock, border_radius=5)
+    for x, y, t in effects:
+        pygame.draw.circle(screen, (255, 255, 100), (x, y), t)
+
+    screen.blit(font.render(f"Điểm: {score}", True, (255, 255, 255)), (20, 20))
+    pygame.display.flip()
+    clock.tick(FPS)
+
+pygame.quit()
+sys.exit()

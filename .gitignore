@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.joblib
+*.keras
+*.h5
+*.png
+*.log
+logs/
+data/
+models/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/

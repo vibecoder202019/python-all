@@ -1,0 +1,14 @@
+"""Shared constants for Catch the Stars project."""
+WIDTH, HEIGHT = 800, 600
+FPS = 60
+
+SKY = (135, 206, 235)
+GRASS = (34, 139, 34)
+PLAYER_COLOR = (100, 200, 255)
+STAR_COLOR = (255, 220, 0)
+ROCK_COLOR = (120, 120, 120)
+TEXT_COLOR = (30, 30, 60)
+
+PLAYER_W, PLAYER_H = 50, 50
+STAR_SIZE = 25
+ROCK_SIZE = 30

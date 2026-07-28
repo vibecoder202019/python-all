@@ -1,0 +1,112 @@
+# Học Python từ Cơ bản đến AI & Machine Learning
+
+Repo tự học Python toàn diện — từ cú pháp cơ bản đến Machine Learning, Deep Learning và xây dựng API với FastAPI.
+
+## Yêu cầu
+
+- Python 3.10 trở lên
+- Trình soạn thảo code (VS Code, Cursor, PyCharm...)
+- Terminal / Command line cơ bản
+
+## Cài đặt môi trường
+
+```bash
+cd learn-python-ai
+python3 -m venv .venv
+source .venv/bin/activate   # macOS/Linux
+# .venv\Scripts\activate    # Windows
+
+pip install -r requirements.txt
+```
+
+## Lộ trình học (12 module)
+
+| # | Module | Nội dung | Thời gian ước tính |
+|---|--------|----------|-------------------|
+| 01 | [Python cơ bản](01-python-co-ban/README.md) | Biến, kiểu dữ liệu, vòng lập, hàm | 1-2 tuần |
+| 02 | [Cấu trúc dữ liệu](02-cau-truc-du-lieu/README.md) | List, dict, set, tuple, stack, queue | 1 tuần |
+| 03 | [Lập trình hướng đối tượng](03-oop/README.md) | Class, inheritance, polymorphism | 1-2 tuần |
+| 04 | [File I/O & Module](04-xu-ly-file-va-module/README.md) | Đọc/ghi file, import, package | 3-5 ngày |
+| 05 | [Thư viện Python](05-thu-vien-python/README.md) | requests, json, datetime, regex | 3-5 ngày |
+| 06 | [Data Science](06-data-science/README.md) | NumPy, Pandas, Matplotlib | 2 tuần |
+| 07 | [Machine Learning](07-machine-learning/README.md) | Scikit-learn, train/evaluate model | 2-3 tuần |
+| 08 | [Deep Learning](08-deep-learning/README.md) | Neural network cơ bản, TensorFlow/Keras | 2-3 tuần |
+| 09 | [FastAPI & REST API](09-fastapi/README.md) | Xây dựng API, deploy model | 1-2 tuần |
+| 10 | [Dự án tổng hợp](10-du-an-tong-hop/README.md) | ML API end-to-end | 1-2 tuần |
+| 11 | [Game cho Trẻ em](11-python-game-tre-em/README.md) | Pygame, game loop, dự án Catch the Stars | 2-3 tuần |
+| 12 | [DevOps & DevSecOps](12-python-devops-devsecops/README.md) | Automation, security scan, CLI toolkit | 2-3 tuần |
+
+**Tổng thời gian:** khoảng 4-5 tháng (học 1-2 giờ/ngày)
+
+## Cách học hiệu quả
+
+1. **Đọc lý thuyết** trong `README.md` của từng module
+2. **Chạy ví dụ** trong thư mục `examples/` — sửa và thử nghiệm
+3. **Làm bài tập** trong `exercises/bai_tap.md`
+4. **Đối chiếu đáp án** trong `exercises/solutions/` (chỉ xem sau khi đã cố gắng)
+5. **Ghi chú** những phần chưa hiểu, quay lại ôn tập
+
+## Cấu trúc mỗi module
+
+```
+module/
+├── README.md          # Lý thuyết chi tiết (tiếng Việt)
+├── examples/          # Code mẫu có comment giải thích
+└── exercises/
+    ├── bai_tap.md     # Bài tập thực hành
+    └── solutions/     # Đáp án tham khảo
+```
+
+## Setup & chạy nhanh
+
+```bash
+# Setup toàn bộ (chạy 1 lần)
+bash scripts/setup.sh
+
+# Module 1 — Python cơ bản
+python 01-python-co-ban/examples/01_bien_va_kieu_du_lieu.py
+
+# Module 9 — FastAPI
+cd 09-fastapi && uvicorn app.main:app --reload
+
+# Module 11 — Game (Pygame)
+bash 11-python-game-tre-em/scripts/run_project.sh
+
+# Module 12 — DevOps Toolkit
+bash 12-python-devops-devsecops/scripts/run_project.sh
+```
+
+### Bash scripts mỗi module
+
+| Script | Mục đích |
+|--------|---------|
+| `scripts/setup.sh` | Cài toàn bộ repo (1 lần) |
+| `11-.../scripts/setup.sh` | Cài Pygame |
+| `11-.../scripts/run_all_examples.sh` | Chạy ví dụ game tuần tự |
+| `11-.../scripts/run_project.sh` | Dự án Catch the Stars (6 bước) |
+| `12-.../scripts/setup.sh` | Cài DevOps deps + sample data |
+| `12-.../scripts/run_all_examples.sh` | Chạy ví dụ DevOps tuần tự |
+| `12-.../scripts/run_project.sh` | Dự án DevOps Toolkit (6 bước) |
+| `12-.../scripts/demo_infra.sh` | Demo infra giả lập |
+
+## Kiểm tra tiến độ
+
+Sau mỗi module, tự trả lời:
+
+- [ ] Tôi hiểu các khái niệm chính trong README?
+- [ ] Tôi chạy được tất cả ví dụ?
+- [ ] Tôi làm được ≥ 70% bài tập không cần xem đáp án?
+- [ ] Tôi giải thích được code cho người khác?
+
+Nếu chưa đạt → ôn lại module đó trước khi sang module tiếp theo.
+
+## Liên kết với MLOps Labs
+
+Sau khi hoàn thành repo này, bạn có thể chuyển sang [MLOps Labs](../labs/) trong cùng workspace để thực hành deploy model lên Kubernetes, CI/CD, v.v.
+
+## Tài liệu tham khảo
+
+- [Python Official Docs](https://docs.python.org/3/)
+- [FastAPI Docs](https://fastapi.tiangolo.com/)
+- [Scikit-learn User Guide](https://scikit-learn.org/stable/user_guide.html)
+- [Keras Documentation](https://keras.io/)

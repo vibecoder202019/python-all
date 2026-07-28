@@ -1,0 +1,144 @@
+# Module 07: Machine Learning với Scikit-learn
+
+## Mục tiêu
+
+- Hiểu pipeline ML: data → train → evaluate → deploy
+- Sử dụng Scikit-learn cho classification & regression
+- Cross-validation, hyperparameter tuning
+
+---
+
+## 1. Quy trình ML
+
+```
+┌─────────┐   ┌─────────┐   ┌──────────┐   ┌─────────┐   ┌──────────┐
+│  Data   │ → │  Clean  │ → │ Features │ → │  Train  │ → │ Evaluate │
+│  Load   │   │  & EDA  │   │ Engineer │   │  Model  │   │  & Tune  │
+└─────────┘   └─────────┘   └──────────┘   └─────────┘   └──────────┘
+```
+
+---
+
+## 2. Classification — Iris Dataset
+
+```python
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, accuracy_score
+
+# Load data
+X, y = load_iris(return_X_y=True)
+
+# Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# Scale features
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Train
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train_scaled, y_train)
+
+# Evaluate
+y_pred = model.predict(X_test_scaled)
+print(f"Accuracy: {accuracy_score(y_test, y_pred):.4f}")
+print(classification_report(y_test, y_pred))
+```
+
+---
+
+## 3. Regression
+
+```python
+from sklearn.datasets import fetch_california_housing
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+X, y = fetch_california_housing(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+model = LinearRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+print(f"RMSE: {mean_squared_error(y_test, y_pred, squared=False):.4f}")
+print(f"R²: {r2_score(y_test, y_pred):.4f}")
+```
+
+---
+
+## 4. Cross-Validation
+
+```python
+from sklearn.model_selection import cross_val_score
+
+scores = cross_val_score(model, X, y, cv=5, scoring="accuracy")
+print(f"CV scores: {scores}")
+print(f"Mean: {scores.mean():.4f} (+/- {scores.std():.4f})")
+```
+
+---
+
+## 5. Hyperparameter Tuning
+
+```python
+from sklearn.model_selection import GridSearchCV
+
+param_grid = {
+    "n_estimators": [50, 100, 200],
+    "max_depth": [3, 5, 10, None],
+}
+grid = GridSearchCV(RandomForestClassifier(), param_grid, cv=5)
+grid.fit(X_train, y_train)
+print(f"Best params: {grid.best_params_}")
+print(f"Best score: {grid.best_score_:.4f}")
+```
+
+---
+
+## 6. Save & Load Model
+
+```python
+import joblib
+
+joblib.dump(model, "model.joblib")
+joblib.dump(scaler, "scaler.joblib")
+
+loaded_model = joblib.load("model.joblib")
+loaded_scaler = joblib.load("scaler.joblib")
+```
+
+---
+
+## Metrics quan trọng
+
+| Task | Metrics |
+|------|---------|
+| Classification | Accuracy, Precision, Recall, F1, Confusion Matrix |
+| Regression | MSE, RMSE, MAE, R² |
+| Clustering | Silhouette Score, Inertia |
+
+---
+
+## Chạy ví dụ
+
+```bash
+python examples/01_classification_iris.py
+python examples/02_regression.py
+python examples/03_cross_validation.py
+python examples/04_save_load_model.py
+```
+
+## Bài tập
+
+→ [exercises/bai_tap.md](exercises/bai_tap.md)
+
+## Module tiếp theo
+
+→ [Module 08: Deep Learning](../08-deep-learning/README.md)
