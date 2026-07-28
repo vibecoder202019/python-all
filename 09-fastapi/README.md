@@ -10,6 +10,70 @@
 
 ---
 
+## Lý thuyết nền tảng — API là gì?
+
+**API (Application Programming Interface)** = "cửa sổ giao tiếp" giữa 2 phần mềm.
+
+```
+Mobile App  ──HTTP JSON──►  FastAPI Server  ──►  ML Model
+Website     ──HTTP JSON──►  FastAPI Server  ──►  Database
+```
+
+App **không cần biết** model train thế nào — chỉ cần gửi JSON, nhận JSON.
+
+### REST — quy ước thiết kế API
+
+REST dùng **HTTP methods** + **URL** để thể hiện hành động:
+
+| Hành động | HTTP | URL ví dụ |
+|-----------|------|-----------|
+| Xem danh sách | GET | `/users` |
+| Xem 1 item | GET | `/users/42` |
+| Tạo mới | POST | `/users` |
+| Cập nhật | PUT | `/users/42` |
+| Xóa | DELETE | `/users/42` |
+
+### JSON — ngôn ngữ chung của API
+
+```json
+{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}
+```
+
+→ Server trả:
+```json
+{"species": "setosa", "confidence": 0.97}
+```
+
+### FastAPI — tại sao chọn?
+
+| Ưu điểm | Giải thích |
+|---------|------------|
+| Nhanh | Dựa trên Starlette + Pydantic (async) |
+| Tự document | Swagger UI `/docs` tự generate |
+| Type hints | IDE gợi ý, ít bug |
+| Validation tự động | Pydantic reject input sai → 422 |
+
+### Pydantic — "cảnh sát giao thông" cho data
+
+```python
+class UserCreate(BaseModel):
+    age: int = Field(ge=0, le=150)  # Tuổi 0-150, sai → lỗi 422
+```
+
+Client gửi `age: -5` → FastAPI **tự từ chối**, không cần viết if/else validation.
+
+### Kiến trúc 3 lớp (best practice)
+
+```
+Router (HTTP)  →  Service (logic)  →  Model/Data (ML, DB)
+predict.py          ml_service.py       iris_model.joblib
+users.py            (CRUD logic)        (in-memory dict)
+```
+
+Tách lớp giúp: dễ test, dễ thay model, dễ maintain.
+
+---
+
 ## 1. REST API là gì?
 
 **REST** (Representational State Transfer) — kiến trúc giao tiếp client-server qua HTTP.
@@ -354,6 +418,22 @@ def test_health():
 ```
 - `TestClient` — gọi API **không cần** chạy server thật
 - `assert` — pytest fail nếu điều kiện sai
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: FastAPI vs Flask?**  
+A: FastAPI nhanh hơn, tự validation + docs. Flask linh hoạt, ecosystem lớn hơn.
+
+**Q: 422 vs 400?**  
+A: 422 = validation fail (Pydantic). 400 = bad request nói chung.
+
+**Q: `--reload` dùng production được không?**  
+A: **Không** — chỉ dev. Production dùng gunicorn/uvicorn workers.
+
+**Q: Model load lúc nào?**  
+A: Lazy load (khi request đầu) hoặc startup event — module này dùng lazy load.
 
 ---
 

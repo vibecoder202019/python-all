@@ -10,6 +10,46 @@ Kết hợp tất cả kiến thức đã học vào một dự án hoàn chỉn
 
 ---
 
+## Lý thuyết nền tảng — Dự án capstone là gì?
+
+Module 10 là **tổng hợp** kiến thức module 01–09 vào 1 sản phẩm hoàn chỉnh:
+
+```
+Module 01-05: Python nền tảng
+Module 06-07: Train model (California Housing)
+Module 09:    FastAPI serve model
+Module 10:    Ghép lại + tests + documentation
+```
+
+### Regression vs Classification (ôn lại)
+
+Dự án này là **Regression** — dự đoán **số liên tục** (giá nhà), không phải class.
+
+| | Classification | Regression |
+|---|----------------|------------|
+| Output | "setosa" / "spam" | 2.45 ($245,000) |
+| Metric | Accuracy, F1 | RMSE, R² |
+| Model | RandomForestClassifier | RandomForestRegressor |
+
+### R² score — đọc thế nào?
+
+- **R² = 1.0** — dự đoán hoàn hảo (hiếm)
+- **R² = 0.7** — model giải thích 70% variance — **tốt cho học tập**
+- **R² = 0.0** — model không hơn gì đoán trung bình
+- **R² < 0** — model tệ hơn đoán trung bình
+
+### Luồng end-to-end cần hiểu
+
+```
+1. train_model.py     → tạo file .joblib trên disk
+2. ml_service.py      → load .joblib khi server khởi động
+3. POST /predict      → nhận JSON → predict → trả JSON
+4. pytest             → verify mọi endpoint hoạt động
+5. Swagger /docs      → document cho người dùng API
+```
+
+---
+
 ## Dự án: House Price Predictor API
 
 Xây dựng API dự đoán giá nhà dựa trên California Housing dataset.
@@ -83,6 +123,19 @@ open http://localhost:8000/docs
 - [ ] Validation reject input sai
 - [ ] Tests pass ≥ 80%
 - [ ] Code có cấu trúc rõ ràng (routers, services, models)
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: Tự làm hay xem solution trước?**  
+A: **Tự làm trước** — struggle 2-3 giờ rồi mới xem solution. Ghi note phần không tự nghĩ ra.
+
+**Q: R² bao nhiêu là đủ?**  
+A: California Housing: R² > 0.6 là acceptable, > 0.7 là tốt cho học tập.
+
+**Q: Không có GPU có train được không?**  
+A: Có — RandomForest chạy CPU vài giây.
 
 ---
 

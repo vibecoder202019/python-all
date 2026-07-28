@@ -10,6 +10,22 @@ Học dùng **boto3** (AWS SDK for Python) để quản lý và tạo infrastruc
 - Inventory tài nguyên AWS bằng Python
 - Hoàn thành CLI **AWS Infra Builder** qua 6 bước tuần tự
 
+## Lý thuyết nền tảng — Cloud & AWS là gì?
+
+**Cloud computing** = thuê tài nguyên máy tính qua Internet, trả theo mức sử dụng.
+
+| Service | Vai trò | Ví von |
+|---------|---------|--------|
+| **EC2** | Virtual server | Thuê máy tính ảo |
+| **S3** | Object storage | Ổ cứng cloud |
+| **VPC** | Virtual network | Mạng riêng ảo |
+| **IAM** | Quản lý quyền | Chìa khóa truy cập |
+| **CloudWatch** | Monitoring | Giám sát hệ thống |
+
+**boto3** = cầu nối Python ↔ AWS API. **Region** (vd: `ap-southeast-1`) = khu vực đặt server — chọn gần user để giảm độ trễ.
+
+**Imperative (boto3):** "Tạo bucket, rồi tạo EC2..." — module này học cách này trước để hiểu AWS API, sau dễ học Terraform/CloudFormation.
+
 ## Yêu cầu
 
 - Python 3.10+
@@ -266,6 +282,22 @@ ec2.terminate_instances(InstanceIds=instance_ids)
 
 - Chỉ xóa resource có tag `Project=python-all-learn` — an toàn hơn xóa all
 - Thứ tự: EC2 → Security Group → S3 (SG phải xóa sau khi instance terminate)
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: AWS Free Tier gồm gì?**  
+A: t2/t3.micro 750h/tháng (12 tháng), S3 5GB, và một số service khác — đọc [aws.amazon.com/free](https://aws.amazon.com/free).
+
+**Q: Dry-run có gọi AWS API không?**  
+A: Step 01-02 (connect, inventory) vẫn gọi API **đọc**. Step 03-05 chỉ in kế hoạch trừ khi `--apply`.
+
+**Q: Xóa nhầm resource?**  
+A: Module chỉ xóa tag `Project=python-all-learn`. Luôn chạy destroy **dry-run** trước.
+
+**Q: boto3 vs Terraform?**  
+A: boto3 = imperative script. Terraform = declarative, state management tốt hơn cho production.
 
 ---
 

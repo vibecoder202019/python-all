@@ -4,6 +4,38 @@ Repo tự học Python toàn diện — từ cú pháp cơ bản đến Machine 
 
 **GitHub:** [vibecoder202019/python-all](https://github.com/vibecoder202019/python-all)
 
+## Triết lý học tập
+
+Repo này thiết kế cho **người tự học** — không cần giáo viên, nhưng cần **kiên trì**:
+
+1. **Hiểu trước, code sau** — đọc phần "Lý thuyết nền tảng" trước khi chạy ví dụ
+2. **Chạy tay mọi ví dụ** — sửa thử 1 dòng, xem output thay đổi thế nào
+3. **Làm bài tập trước khi xem đáp án** — não bộ ghi nhớ sâu hơn khi tự struggle
+4. **Không vội sang module mới** — nắm ≥70% module hiện tại mới tiếp tục
+5. **Dạy lại = học lại** — giải thích code cho người khác (hoặc viết note)
+
+### Cấu trúc README mỗi module
+
+| Phần | Mục đích |
+|------|----------|
+| **Mục tiêu** | Biết sẽ học được gì |
+| **Lý thuyết nền tảng** | Hiểu "tại sao" — giải thích dễ hiểu, ví von |
+| **Nội dung chính (1, 2, 3...)** | Kiến thức + code mẫu |
+| **Giải thích chi tiết** | Giải thích từng lệnh, từng file code |
+| **FAQ / Câu hỏi thường gặp** | Gỡ vướng nhanh |
+| **Bài tập** | Tự thực hành |
+
+### Lộ trình gợi ý theo mục tiêu
+
+| Mục tiêu của bạn | Học module |
+|------------------|------------|
+| Viết Python cơ bản | 01 → 05 |
+| Làm Data Analyst | 01 → 06 |
+| Làm ML Engineer | 01 → 09 → 10 |
+| Làm DevOps Engineer | 01 → 05 → 12 → 13 |
+| Làm game cho trẻ | 01 → 03 → 11 |
+| Full-stack AI | 01 → 10 → MLOps Labs |
+
 ## Yêu cầu
 
 - Python 3.10 trở lên

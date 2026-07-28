@@ -8,6 +8,49 @@
 
 ---
 
+## Lý thuyết nền tảng — Deep Learning là gì?
+
+**Deep Learning** = Machine Learning dùng **neural network nhiều lớp** (deep = sâu = nhiều layer).
+
+```
+ML truyền thống:  Features → Algorithm (RandomForest, SVM)
+Deep Learning:    Raw data → Neural Network → Output
+                  (tự học features!)
+```
+
+### Neuron — đơn vị cơ bản
+
+Một neuron tính:
+```
+output = activation(w1×x1 + w2×x2 + ... + b)
+```
+
+- **w** (weights) — trọng số, học được qua training
+- **b** (bias) — hệ số chặn
+- **activation** — hàm phi tuyến (ReLU, Sigmoid)
+
+### Tại sao cần activation function?
+
+Không có activation → nhiều layer chỉ = 1 phép tính tuyến tính → **không học được pattern phức tạp**.
+
+### Các layer trong network
+
+```
+Input (784 pixel)  →  Hidden (128 neuron)  →  Hidden (64)  →  Output (10 class)
+     MNIST image         ReLU + Dropout         ReLU           Softmax
+```
+
+### Dropout — chống overfitting
+
+Tắt ngẫu nhiên 20% neuron khi train → model không phụ thuộc 1 neuron cụ thể → generalize tốt hơn.
+
+### Khi nào dùng Deep Learning?
+
+✅ Ảnh, text, audio, data lớn (hàng nghìn+ mẫu)  
+❌ Bảng nhỏ 100 dòng → RandomForest/XGBoost thường đủ và nhanh hơn
+
+---
+
 ## 1. Neural Network là gì?
 
 ```
@@ -121,6 +164,19 @@ model.fit(X_train, y_train, epochs=3, batch_size=128, validation_split=0.1)
 predictions = model.predict(X_test[:5])
 np.argmax(predictions[i])   # Class có xác suất cao nhất
 ```
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: TensorFlow quá nặng — có alternative?**  
+A: Có thể dùng PyTorch. Module này dùng Keras (API đơn giản hơn).
+
+**Q: Train bao nhiêu epoch?**  
+A: Quan sát validation loss — dừng khi không giảm nữa (early stopping).
+
+**Q: GPU có cần không?**  
+A: MNIST trên CPU vài phút OK. Dataset lớn (ImageNet) cần GPU.
 
 ---
 

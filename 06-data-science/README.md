@@ -8,6 +8,53 @@
 
 ---
 
+## Lý thuyết nền tảng — Data Science là gì?
+
+**Data Science** = kết hợp **thống kê + lập trình + domain knowledge** để rút insight từ dữ liệu.
+
+```
+Dữ liệu thô  →  Làm sạch  →  Phân tích  →  Visualization  →  Quyết định
+(CSV, DB)       (Pandas)     (groupby)      (chart)           (business)
+```
+
+### NumPy vs Python list
+
+| | Python list | NumPy array |
+|---|-------------|-------------|
+| Tốc độ | Chậm (vòng lặp CPython) | Nhanh (C/Fortran bên dưới) |
+| Kiểu | Hỗn hợp `[1, "a", 3.14]` | Đồng nhất (toàn số) |
+| Toán học | Cần loop | Vectorized `[1,2,3] * 2` |
+
+**Quy tắc:** Tính toán số → NumPy. Data có tên cột, missing values → Pandas.
+
+### Pandas DataFrame — bảng tính trong Python
+
+Hãy tưởng tượng **Excel trong code**:
+- **Hàng (row)** = 1 bản ghi (1 sinh viên, 1 đơn hàng)
+- **Cột (column)** = 1 thuộc tính (tên, tuổi, lương)
+- **`.loc[]`** = chọn theo label; **`.iloc[]`** = chọn theo số thứ tự
+
+### Missing data — dữ liệu thiếu
+
+```python
+df.isnull().sum()        # Đếm missing mỗi cột
+df.dropna()              # Xóa hàng có missing
+df.fillna(df.mean())     # Thay bằng giá trị trung bình
+```
+
+**Không bao giờ** fillna trên cả dataset trước khi split train/test — gây **data leakage**.
+
+### Visualization — "Một hình vạn lời"
+
+| Biểu đồ | Dùng khi |
+|---------|----------|
+| Line chart | Xu hướng theo thời gian |
+| Bar chart | So sánh category |
+| Histogram | Phân phối 1 biến số |
+| Scatter | Quan hệ 2 biến |
+
+---
+
 ## 1. NumPy — Mảng số học
 
 ```python
@@ -197,6 +244,19 @@ plt.close()
 
 - `subplots(2,2)` — lưới 2×2 biểu đồ
 - Luôn `close()` sau `savefig` — giải phóng RAM
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: Pandas vs Excel?**  
+A: Excel tốt cho <10k dòng, thao tác thủ công. Pandas cho data lớn, automation, ML pipeline.
+
+**Q: `.loc` vs `.iloc`?**  
+A: `.loc` theo **tên** (label). `.iloc` theo **số thứ tự** (0, 1, 2...).
+
+**Q: NaN xử lý thế nào?**  
+A: Tùy ngữ cảnh: xóa (`dropna`), thay mean/median (`fillna`), hoặc model riêng cho missing.
 
 ---
 

@@ -12,6 +12,56 @@ Học Python thực chiến cho **DevOps Engineer** và **DevSecOps Engineer** �
 
 ---
 
+## Lý thuyết nền tảng — DevOps là gì?
+
+**DevOps** = **Dev**elopment + **Op**erations — phá bỏ silo giữa team code và team vận hành.
+
+```
+Trước DevOps:
+  Dev viết code → ném qua tường → Ops deploy + fix lỗi
+
+Sau DevOps:
+  Dev tự automate: test, build, deploy, monitor
+  Ops viết code: infrastructure as code, CI/CD
+```
+
+### DevOps Engineer làm gì?
+
+- Viết script **automation** (Python, Bash)
+- Xây **CI/CD pipeline** (GitHub Actions, Jenkins)
+- Quản lý **infrastructure** (Docker, Kubernetes, AWS)
+- **Monitor** hệ thống (logs, metrics, alerts)
+
+### DevSecOps — Security trong DevOps
+
+**Shift-left security** = kiểm tra bảo mật **sớm** trong quy trình dev, không đợi production:
+
+```
+Code → SAST scan → Build → Container scan → Deploy → Runtime monitor
+         ↑ secrets          ↑ vulnerabilities
+         detection
+```
+
+### Python trong DevOps
+
+| Task | Công cụ Python |
+|------|----------------|
+| Gọi shell command | `subprocess` |
+| Parse config | `yaml`, `json` |
+| HTTP health check | `httpx`, `requests` |
+| Log analysis | `re`, `collections.Counter` |
+| CLI tool | `argparse` |
+| AWS automation | `boto3` |
+
+### Infrastructure as Code (IaC)
+
+Thay vì click AWS Console → **viết code** mô tả infrastructure:
+- **Reproducible** — tạo lại môi trường giống hệt
+- **Version controlled** — git track mọi thay đổi
+- **Reviewable** — team review trước khi apply
+
+---
+
 ## Chạy nhanh (1 lệnh)
 
 ```bash
@@ -182,6 +232,19 @@ if args.command == "disk-usage":
     cmd_disk_usage(args.path)
 ```
 - Router pattern — giống FastAPI nhưng cho CLI
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: DevOps vs SRE vs Platform Engineer?**  
+A: DevOps — automation + culture. SRE — focus reliability (Google). Platform — xây nền tảng cho dev team.
+
+**Q: Python vs Bash cho automation?**  
+A: Bash — task shell đơn giản. Python — logic phức tạp, API, data processing.
+
+**Q: Script scan secret có đủ cho production?**  
+A: Không — production cần thêm: SAST tool (Bandit), pre-commit hook, vault cho secrets.
 
 ---
 

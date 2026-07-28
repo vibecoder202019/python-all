@@ -8,6 +8,55 @@
 
 ---
 
+## Lý thuyết nền tảng — Machine Learning là gì?
+
+**ML = máy tính học từ dữ liệu** thay vì lập trình viên viết rule cứng.
+
+```
+Rule-based (cũ):     if petal_length > 4.5 → virginica
+ML (mới):            Học từ 150 mẫu hoa → tự tìm pattern
+```
+
+### Hai loại bài toán chính
+
+| Loại | Output | Ví dụ | Metric |
+|------|--------|-------|--------|
+| **Classification** | Nhãn rời rạc (class) | Phân loại email spam | Accuracy, F1 |
+| **Regression** | Số liên tục | Dự đoán giá nhà | RMSE, R² |
+
+### Train / Test split — tại sao?
+
+Nếu test trên data đã học → model "học thuộc" → **overfitting**:
+- Train accuracy 99%, test accuracy 60% → model không generalize
+
+**Quy tắc vàng:** Test set **không bao giờ** được dùng khi train hoặc tune.
+
+### Feature vs Label
+
+```
+Features (X)              Label (y)
+─────────────────         ─────────
+[5.1, 3.5, 1.4, 0.2]  →   setosa
+[6.2, 2.8, 4.8, 1.8]  →   versicolor
+```
+
+- **X** = input model nhìn thấy
+- **y** = đáp án model cần dự đoán
+
+### Overfitting vs Underfitting
+
+| | Overfitting | Underfitting |
+|---|-------------|--------------|
+| Biểu hiện | Train tốt, test kém | Train và test đều kém |
+| Nguyên nhân | Model quá phức tạp | Model quá đơn giản |
+| Cách xử lý | Regularization, more data | Thêm features, model phức tạp hơn |
+
+### Cross-validation — kiểm tra ổn định
+
+Chia data 5 phần, rotate train/test 5 lần → trung bình score **đáng tin hơn** 1 lần split.
+
+---
+
 ## 1. Quy trình ML
 
 ```
@@ -195,6 +244,22 @@ model = joblib.load("iris_model.joblib")
 
 - Lưu model đã train + scaler + metadata → deploy sau không cần train lại
 - **Luôn lưu scaler cùng model** — predict phải scale input giống lúc train
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: Accuracy 95% có tốt không?**  
+A: Tùy dataset — nếu 95% data là class A, model đoán hết A cũng được 95% nhưng vô dụng. Xem precision/recall/F1.
+
+**Q: Train accuracy cao, test thấp?**  
+A: **Overfitting** — giảm complexity, thêm data, hoặc regularization.
+
+**Q: Có cần scale data cho RandomForest?**  
+A: RF không bắt buộc. SVM, KNN, Neural Net **cần** scale.
+
+**Q: `random_state=42` nghĩa là gì?**  
+A: Seed cố định → kết quả reproducible (chạy lại cho cùng kết quả).
 
 ---
 

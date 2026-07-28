@@ -8,6 +8,48 @@
 
 ---
 
+## Lý thuyết nền tảng — Thư viện mở rộng Python
+
+Python **stdlib** (thư viện chuẩn) đã có `json`, `datetime`, `os`... Module này học thư viện **bên thứ ba** — cài qua pip.
+
+### requests — giao tiếp Internet
+
+```
+Browser  ──HTTP──►  Server (API)
+requests ──HTTP──►  Server (API)   ← Python làm việc này
+```
+
+**REST API** trả JSON → Python dict → xử lý dễ dàng.
+
+### datetime — thời gian trong code
+
+| Kiểu | Dùng cho |
+|------|----------|
+| `date` | Chỉ ngày: 2024-01-15 |
+| `time` | Chỉ giờ: 14:30:00 |
+| `datetime` | Cả ngày + giờ |
+| `timedelta` | Khoảng cách: 7 ngày, 2 giờ |
+
+### regex — tìm mẫu trong text
+
+Thay vì tìm thủ công chuỗi, regex mô tả **pattern**:
+- Email: `[\w.+-]+@[\w-]+\.[\w.-]+`
+- Phone VN: `0\d{9}`
+- Log timestamp: `\[\d{4}-\d{2}-\d{2} ...\]`
+
+### logging vs print
+
+| | `print()` | `logging` |
+|---|-----------|-----------|
+| Mục đích | Debug tạm | Production |
+| Cấp độ | Không có | DEBUG/INFO/WARN/ERROR |
+| Ghi file | Khó | Dễ (FileHandler) |
+| Tắt/bật | Sửa code | Config level |
+
+**Quy tắc:** Script nhỏ → `print` OK. App/API/production → **logging**.
+
+---
+
 ## 1. requests — HTTP Client
 
 ```python
@@ -182,6 +224,19 @@ ch = logging.StreamHandler()   # In ra console
 
 - Ghi **cả file lẫn console** — file lưu DEBUG, console chỉ INFO+
 - `logger.exception(...)` — tự in stack trace khi có lỗi
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: requests vs httpx?**  
+A: `requests` — sync, phổ biến. `httpx` — hỗ trợ async, dùng nhiều trong FastAPI.
+
+**Q: Regex khó quá — có cách nào dễ hơn?**  
+A: Dùng [regex101.com](https://regex101.com) test pattern. Hoặc thư viện chuyên biệt (email-validator).
+
+**Q: print vs logging?**  
+A: Script ngắn → print OK. Production/API → logging.
 
 ---
 

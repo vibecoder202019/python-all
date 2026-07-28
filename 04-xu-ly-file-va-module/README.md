@@ -8,6 +8,39 @@
 
 ---
 
+## Lý thuyết nền tảng — Tại sao cần File I/O?
+
+Chương trình chạy xong thì **RAM mất hết**. File I/O giúp:
+- **Lưu trữ lâu dài** — config, log, model, database export
+- **Trao đổi dữ liệu** — CSV cho Excel, JSON cho API
+- **Tách code** — module/package cho dự án lớn
+
+### JSON vs CSV — khi nào dùng?
+
+| Format | Cấu trúc | Dùng khi |
+|--------|----------|----------|
+| **JSON** | Lồng nhau (dict/list) | API, config app, metadata |
+| **CSV** | Bảng phẳng (hàng/cột) | Excel, báo cáo, dataset ML đơn giản |
+| **Text** | Tự do | Log, văn bản, script |
+
+### pathlib vs os.path
+
+**pathlib** (Python 3.4+) — cách hiện đại, dễ đọc:
+```python
+Path("data") / "output" / "result.txt"   # Nối path cross-platform
+```
+
+### Module và Package
+
+```
+my_app/
+├── __init__.py      ← biến thư mục thành package
+├── utils.py         ← module
+└── models/user.py   ← sub-module
+```
+
+---
+
 ## 1. Đọc/Ghi file Text
 
 ```python
@@ -199,6 +232,19 @@ if __name__ == "__main__":
 
 - Khi chạy trực tiếp: `__name__ == "__main__"` → chạy `main()`
 - Khi import module: `__name__ == "tên_module"` → **không** chạy — tránh side effect
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: JSON hay CSV cho dataset ML?**  
+A: CSV phổ biến hơn (Iris, Titanic). JSON khi data lồng nhau phức tạp.
+
+**Q: Quên `encoding="utf-8"` thì sao?**  
+A: Tiếng Việt có thể thành `???` hoặc `UnicodeDecodeError`.
+
+**Q: `import *` có nên dùng không?**  
+A: **Không** — khó biết function từ đâu, dễ conflict tên.
 
 ---
 

@@ -10,6 +10,57 @@ Sau module này bạn sẽ:
 
 ---
 
+## Lý thuyết nền tảng — Python là gì?
+
+**Python** là ngôn ngữ lập trình bậc cao, đọc gần giống tiếng Anh/tiếng Việt tự nhiên. Mục tiêu thiết kế: *code dễ đọc hơn code dễ viết*.
+
+**Ví von:** Nếu C/Java là "công thức nấu ăn chi tiết từng gram", Python là "nấu soup: cho thịt, rau, nước — xong". Bạn tập trung **logic**, không lo cú pháp rườm rà.
+
+### Tại sao bắt đầu với Python?
+
+| Lý do | Giải thích |
+|-------|------------|
+| Dễ học | Cú pháp ít, không cần `{}` hay khai báo kiểu |
+| Đa dụng | Web, AI, automation, game, DevOps đều dùng được |
+| Cộng đồng lớn | Hỏi Google/Stack Overflow luôn có đáp án |
+| Thư viện phong phú | `pip install` là có sẵn công cụ mạnh |
+
+### Biến — hộp đựng dữ liệu
+
+Hãy tưởng tượng **biến = nhãn dán trên hộp**:
+- `name = "Minh"` → hộp có nhãn `name`, bên trong là chữ "Minh"
+- Gán lại `name = "Lan"` → thay nội dung hộp, nhãn vẫn là `name`
+
+**Dynamically typed** nghĩa là Python tự biết hộp đang chứa số hay chữ — bạn không cần viết `int name` như C.
+
+### Indentation — thụt lề bắt buộc
+
+Python dùng **khoảng trắng đầu dòng** (thường 4 spaces) để nhóm code thuộc cùng block:
+
+```python
+if score >= 50:
+    print("Đậu")      # Thuộc block if — phải thụt vào
+    print("Chúc mừng")
+print("Kết thúc")     # Ngoài block if — không thụt
+```
+
+Quên thụt lề → `IndentationError`. Đây là điểm khác biệt lớn nhất so với C/Java/JavaScript.
+
+### Hàm — công thức tái sử dụng
+
+Hàm giống **công thức nấu ăn**: định nghĩa 1 lần, gọi nhiều lần với nguyên liệu khác nhau.
+
+```python
+def tinh_diem_tb(a, b, c):
+    return (a + b + c) / 3
+
+# Gọi 3 lần — không lặp code
+tb1 = tinh_diem_tb(8, 9, 7)
+tb2 = tinh_diem_tb(6, 7, 8)
+```
+
+---
+
 ## 1. Biến và Kiểu dữ liệu
 
 Python là **ngôn ngữ dynamically typed** — không cần khai báo kiểu khi gán biến.
@@ -222,6 +273,22 @@ python examples/02_dieu_kien_va_vong_lap.py
 python examples/03_ham_va_lambda.py
 python examples/04_list_comprehension.py
 ```
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: Python 2 hay Python 3?**  
+A: Luôn dùng **Python 3.10+**. Python 2 đã ngừng hỗ trợ từ 2020.
+
+**Q: `==` và `=` khác nhau thế nào?**  
+A: `=` gán giá trị; `==` so sánh bằng. `if x = 5` là **sai cú pháp**.
+
+**Q: List comprehension có bắt buộc không?**  
+A: Không, nhưng nên học — code ngắn, thường nhanh hơn vòng lặp thường.
+
+**Q: Lỗi `NameError: name 'x' is not defined`?**  
+A: Biến `x` chưa được gán trước khi dùng — kiểm tra tên biến và thứ tự code.
 
 ---
 

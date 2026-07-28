@@ -8,6 +8,43 @@
 
 ---
 
+## Lý thuyết nền tảng — OOP là gì?
+
+**OOP (Lập trình hướng đối tượng)** mô hình hóa thế giới thật bằng **object** (đối tượng):
+
+```
+Class (khuôn)     →  Object (sản phẩm)
+─────────────────────────────────────
+Class Dog         →  dog1 = Dog("Buddy")
+Class BankAccount →  acc = BankAccount("Minh", 1000000)
+Class User        →  user = User("admin", role="admin")
+```
+
+### 4 trụ cột OOP
+
+| Trụ cột | Ý nghĩa đơn giản | Ví dụ |
+|---------|------------------|-------|
+| **Encapsulation** | Giấu chi tiết bên trong, chỉ lộ interface | `_balance` private, truy cập qua `.deposit()` |
+| **Inheritance** | Class con kế thừa class cha | `Dog(Animal)` — Dog có method của Animal |
+| **Polymorphism** | Cùng method, hành vi khác nhau | `animal.speak()` — chó sủa, mèo kêu |
+| **Abstraction** | Chỉ định nghĩa "cái gì", không "làm thế nào" | `Shape.area()` — mỗi hình tính khác nhau |
+
+### Khi nào dùng OOP?
+
+✅ **Nên dùng:** Model phức tạp (User, Order, ML Model), code cần mở rộng  
+❌ **Không cần:** Script 20 dòng xử lý file — function đủ rồi
+
+### Class variable vs Instance variable
+
+```python
+class Student:
+    school = "AI Academy"   # CHUNG — mọi student cùng trường
+    def __init__(self, name):
+        self.name = name    # RIÊNG — mỗi student tên khác
+```
+
+---
+
 ## 1. Class và Object
 
 ```python
@@ -260,6 +297,19 @@ def __add__(self, other):
 ```
 
 Cho phép dùng toán tử `+` tự nhiên thay vì `v1.add(v2)`.
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: OOP có bắt buộc trong Python không?**  
+A: Không. Python hỗ trợ cả procedural và OOP — dùng khi model phức tạp.
+
+**Q: `_private` và `__private` khác gì?**  
+A: `_` = quy ước "đừng dùng từ ngoài". `__` = name mangling, khó truy cập hơn.
+
+**Q: Khi nào dùng `@staticmethod`?**  
+A: Hàm liên quan class nhưng không cần `self` — vd: utility `circle_area(r)`.
 
 ---
 

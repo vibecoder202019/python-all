@@ -17,6 +17,61 @@ Học lập trình game bằng **Pygame** — từ vẽ hình cơ bản đến g
 
 ---
 
+## Lý thuyết nền tảng — Lập trình game là gì?
+
+Game = **vòng lặp liên tục** cập nhật và vẽ hình 60 lần/giây (60 FPS).
+
+```
+┌──────────────────────────────────────┐
+│  while game_running:                 │
+│    1. Đọc input (phím, chuột)        │
+│    2. Cập nhật logic (di chuyển...)  │
+│    3. Vẽ frame mới lên màn hình      │
+│    4. Chờ 16ms (60 FPS)              │
+└──────────────────────────────────────┘
+```
+
+### Pygame — thư viện game 2D cho Python
+
+Pygame wrap **SDL** (Simple DirectMedia Layer) — thư viện C đa nền tảng cho đồ họa 2D.
+
+**Phù hợp cho:** game giáo dục, prototype, game đơn giản cho trẻ em  
+**Không phù hợp:** game 3D AAA — cần Unity/Unreal/Godot
+
+### Toạ độ màn hình
+
+```
+(0,0) ──────────────► X (800)
+  │
+  │    (400, 300) = giữa màn hình
+  │
+  ▼
+  Y (600)
+```
+
+- Góc trên-trái = `(0, 0)`
+- `y` **tăng xuống dưới** (khác toán học!)
+
+### Collision — va chạm
+
+```python
+player.colliderect(star)  # True nếu 2 hình chữ nhật chồng nhau
+```
+
+Đơn giản, nhanh — đủ cho game 2D học tập. Game phức tạp dùng polygon collision.
+
+### State machine — quản lý trạng thái game
+
+```
+menu  ──SPACE──►  playing  ──hết mạng──►  gameover  ──R──►  playing
+  ▲                                          │
+  └──────────────── ESC ─────────────────────┘
+```
+
+Mỗi state vẽ và xử lý input khác nhau — pattern cơ bản mọi game đều dùng.
+
+---
+
 ## Chạy nhanh (1 lệnh)
 
 ```bash
@@ -195,6 +250,19 @@ done
 ```
 - Chạy lần lượt 6 file Python — mỗi bước build trên bước trước
 - Game cuối (`step06_final.py`) chạy liên tục đến khi đóng cửa sổ
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: Pygame cài lỗi trên macOS?**  
+A: Thử `pip install pygame` trong venv. macOS M1+: cần Python native ARM.
+
+**Q: Game chạy quá nhanh/chậm?**  
+A: Dùng `clock.tick(60)` — số càng lớn càng nhanh (FPS).
+
+**Q: Làm sao thoát game?**  
+A: ESC, đóng cửa sổ, hoặc `pygame.QUIT` event.
 
 ---
 

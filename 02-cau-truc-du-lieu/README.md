@@ -8,6 +8,46 @@
 
 ---
 
+## Lý thuyết nền tảng — Chọn cấu trúc dữ liệu nào?
+
+Mỗi cấu trúc giải quyết một **kiểu bài toán** khác nhau:
+
+```
+List     → Danh sách có thứ tự, cho phép trùng     (hàng đợi mua sắm)
+Tuple    → Bất biến, nhóm giá trị cố định         (tọa GPS: lat, lng)
+Set      → Không trùng, tra cứu nhanh             (tag unique của bài blog)
+Dict     → Ánh xạ key → value                     (từ điển: từ → nghĩa)
+```
+
+### List — danh sách động
+
+- Thêm/xóa ở cuối: **O(1)** nhanh
+- Tìm kiếm theo giá trị: **O(n)** — duyệt tuần tự
+- Dùng khi: thứ tự quan trọng, cần index `lst[0]`
+
+### Dict — tra cứu theo key
+
+- Tra cứu theo key: **O(1)** trung bình — rất nhanh
+- Dùng khi: cần "tìm theo ID/tên" — user profile, config, cache
+
+### Set — loại trùng & phép tập hợp
+
+```python
+emails = list(set(raw_emails))  # Loại email trùng trong 1 dòng
+```
+
+### Thuật toán — độ phức tạp O(n) vs O(log n)
+
+| Thuật toán | Độ phức tạp | Khi nào dùng |
+|------------|-------------|--------------|
+| Linear search | O(n) | Mảng nhỏ, chưa sort |
+| Binary search | O(log n) | Mảng **đã sort**, tìm nhanh |
+| Dict lookup | O(1) | Biết key cần tìm |
+
+**Quy tắc ngón tay:** Data < 1000 phần tử → linear search đủ nhanh. Data lớn + đã sort → binary search.
+
+---
+
 ## 1. List — Danh sách có thể thay đổi
 
 ```python
@@ -218,6 +258,19 @@ else:
 ```
 
 **Two Sum** — dùng dict lưu `{giá_trị: index}` → tìm complement trong O(n).
+
+---
+
+## Câu hỏi thường gặp (FAQ)
+
+**Q: List hay Tuple khi nào?**  
+A: Cần sửa → List. Dữ liệu cố định (tọa độ, config) → Tuple.
+
+**Q: Dict vs Set?**  
+A: Dict = key→value (tra cứu theo tên). Set = chỉ value, loại trùng.
+
+**Q: Binary search cần sort trước không?**  
+A: **Có** — binary search chỉ hoạt động trên mảng đã sắp xếp.
 
 ---
 
