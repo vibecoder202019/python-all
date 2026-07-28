@@ -11,6 +11,10 @@ logs/
 data/
 !12-python-devops-devsecops/data/
 !12-python-devops-devsecops/data/**
+!13-python-aws-infra/data/
+!13-python-aws-infra/data/**
+13-python-aws-infra/data/state.json
+13-python-aws-infra/data/generated/
 models/
 .pytest_cache/
 .mypy_cache/

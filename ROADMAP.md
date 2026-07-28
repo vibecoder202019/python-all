@@ -72,7 +72,7 @@ Tuần 16: Module 10 — Dự án tổng hợp
     └── ML Model + FastAPI + Tests end-to-end
 ```
 
-## Giai đoạn 6: Game & DevOps (Tuần 17-22)
+## Giai đoạn 6: Game, DevOps & AWS (Tuần 17-25)
 
 ```
 Tuần 17-19: Module 11 — Game cho Trẻ em (Pygame)
@@ -87,11 +87,17 @@ Tuần 20-22: Module 12 — DevOps & DevSecOps
     ├── Docker automation
     ├── Security scanning (DevSecOps)
     └── Dự án: DevOps Toolkit CLI (6 bước)
+
+Tuần 23-25: Module 13 — Python & AWS Infrastructure
+    ├── boto3, STS, credentials
+    ├── S3, EC2, IAM, CloudWatch
+    ├── CloudFormation template generation
+    └── Dự án: AWS Infra Builder (S3 + SG + EC2)
 ```
 
 ## Mục tiêu sau khi hoàn thành
 
-Sau 22 tuần, bạn sẽ có thể:
+Sau 25 tuần, bạn sẽ có thể:
 
 - Viết Python sạch, dễ đọc, có cấu trúc
 - Xử lý dữ liệu với Pandas/NumPy
@@ -100,5 +106,6 @@ Sau 22 tuần, bạn sẽ có thể:
 - Xây dựng REST API với FastAPI
 - Làm game 2D với Pygame
 - Viết script DevOps/DevSecOps automation
+- Tạo và quản lý AWS infrastructure bằng boto3
 - Deploy model ML qua API (local)
 - Tiếp tục học MLOps (Kubernetes, CI/CD, KServe...)

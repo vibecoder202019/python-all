@@ -20,6 +20,8 @@ chmod +x 12-python-devops-devsecops/scripts/*.sh
 
 bash 12-python-devops-devsecops/scripts/setup.sh
 
+chmod +x scripts/*.sh 13-python-aws-infra/scripts/*.sh 2>/dev/null || true
+
 echo ""
 echo "✅ Setup hoàn tất!"
 echo ""

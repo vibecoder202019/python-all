@@ -2,6 +2,8 @@
 
 Repo tự học Python toàn diện — từ cú pháp cơ bản đến Machine Learning, Deep Learning và xây dựng API với FastAPI.
 
+**GitHub:** [vibecoder202019/python-all](https://github.com/vibecoder202019/python-all)
+
 ## Yêu cầu
 
 - Python 3.10 trở lên
@@ -19,7 +21,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (12 module)
+## Lộ trình học (13 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -35,8 +37,9 @@ pip install -r requirements.txt
 | 10 | [Dự án tổng hợp](10-du-an-tong-hop/README.md) | ML API end-to-end | 1-2 tuần |
 | 11 | [Game cho Trẻ em](11-python-game-tre-em/README.md) | Pygame, game loop, dự án Catch the Stars | 2-3 tuần |
 | 12 | [DevOps & DevSecOps](12-python-devops-devsecops/README.md) | Automation, security scan, CLI toolkit | 2-3 tuần |
+| 13 | [Python & AWS Infra](13-python-aws-infra/README.md) | boto3, S3, EC2, SG, CloudWatch, IaC | 2-3 tuần |
 
-**Tổng thời gian:** khoảng 4-5 tháng (học 1-2 giờ/ngày)
+**Tổng thời gian:** khoảng 5-6 tháng (học 1-2 giờ/ngày)
 
 ## Cách học hiệu quả
 
@@ -74,6 +77,13 @@ bash 11-python-game-tre-em/scripts/run_project.sh
 
 # Module 12 — DevOps Toolkit
 bash 12-python-devops-devsecops/scripts/run_project.sh
+
+# Module 13 — AWS Infra (dry-run mặc định)
+bash 13-python-aws-infra/scripts/setup.sh
+bash 13-python-aws-infra/scripts/check_credentials.sh
+bash 13-python-aws-infra/scripts/run_project.sh
+bash 13-python-aws-infra/scripts/run_project.sh --apply   # tạo thật trên AWS
+bash 13-python-aws-infra/scripts/destroy_infra.sh --apply  # xóa sau khi học
 ```
 
 ### Bash scripts mỗi module
@@ -88,6 +98,11 @@ bash 12-python-devops-devsecops/scripts/run_project.sh
 | `12-.../scripts/run_all_examples.sh` | Chạy ví dụ DevOps tuần tự |
 | `12-.../scripts/run_project.sh` | Dự án DevOps Toolkit (6 bước) |
 | `12-.../scripts/demo_infra.sh` | Demo infra giả lập |
+| `13-.../scripts/setup.sh` | Cài boto3 + config AWS |
+| `13-.../scripts/check_credentials.sh` | Kiểm tra AWS credentials |
+| `13-.../scripts/run_all_examples.sh` | Ví dụ AWS tuần tự |
+| `13-.../scripts/run_project.sh` | Dự án AWS Infra (6 bước) |
+| `13-.../scripts/destroy_infra.sh` | Xóa tài nguyên AWS đã tạo |
 
 ## Kiểm tra tiến độ
 
