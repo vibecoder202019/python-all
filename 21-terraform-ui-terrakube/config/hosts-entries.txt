@@ -1,0 +1,7 @@
+# Hosts entries cho Terrakube Docker Compose lab
+# Thêm vào /etc/hosts (IP Traefik gateway 10.25.25.253)
+
+10.25.25.253 terrakube.platform.local
+10.25.25.253 terrakube-api.platform.local
+10.25.25.253 terrakube-registry.platform.local
+10.25.25.253 terrakube-dex.platform.local

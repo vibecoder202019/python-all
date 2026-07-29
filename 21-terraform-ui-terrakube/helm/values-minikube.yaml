@@ -1,0 +1,27 @@
+# Terrakube Helm — values lab minikube
+# Chart: https://github.com/terrakube-io/terrakube-helm-chart
+# Cập nhật theo helm show values sau khi add repo
+
+global:
+  domain: terrakube.local
+
+ingress:
+  enabled: true
+  useTls: false
+
+# Giảm resource cho laptop — tăng nếu có RAM
+api:
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 250m
+
+executor:
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+
+# Lab: credentials mặc định chart — đổi sau khi install (xem NOTES helm)
+security:
+  useAuthentication: true

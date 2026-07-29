@@ -34,7 +34,8 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Làm ML Engineer | 01 → 09 → 10 |
 | Làm DevOps / K8s Engineer | 15 → 16 → 17 → 18 → **19** |
 | Thi chứng chỉ CKA / CKS | 15 → 16 → **18** |
-| IaC + Secrets (Vault/Terraform) | 13 → **19** → 15 |
+| IaC + Secrets (Vault/Terraform) | 13 → **19** → **21** → 15 |
+| Quản lý Terraform bằng UI (Terrakube) | **19** → **21** |
 | Prompt AI cho DevOps / code | 01 → 12 → **20** (song song 15–19) |
 | Làm Backend Engineer (Go) | 01 → 05 → **17** |
 | Làm Security / DevSecOps | 01 → 05 → 12 → **16** |
@@ -60,7 +61,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (20 module)
+## Lộ trình học (21 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -84,6 +85,7 @@ pip install -r requirements.txt
 | 18 | [CKA + CKS](18-cka-cks-kubernetes/README.md) | Tự học thi CKA/CKS, 14 lab hands-on | 8-12 tuần |
 | 19 | [Vault + Terraform](19-vault-terraform/README.md) | IaC Terraform, HashiCorp Vault, 12 lab | 6-8 tuần |
 | 20 | [Prompt AI DevOps](20-prompt-ai-devops/README.md) | Prompt engineering Python, K8s, Vault, monitoring | 4-6 tuần |
+| 21 | [Terraform UI — Terrakube](21-terraform-ui-terrakube/README.md) | Quản lý Terraform qua UI open source, 10 lab | 2-3 tuần |
 
 **Tổng thời gian:** khoảng 6-8 tháng (học 1-2 giờ/ngày)
 
@@ -221,6 +223,12 @@ bash 19-vault-terraform/scripts/03-run-terraform.sh 01-hello --auto  # terminal 
 # Module 20 — Prompt AI DevOps
 bash 20-prompt-ai-devops/scripts/01-setup.sh
 bash 20-prompt-ai-devops/scripts/02-run-lab.sh 01
+
+# Module 21 — Terrakube (Terraform UI open source)
+bash 21-terraform-ui-terrakube/scripts/01-check-prerequisites.sh
+bash 21-terraform-ui-terrakube/scripts/02-prepare-hosts.sh --print
+bash 21-terraform-ui-terrakube/scripts/03-deploy-terrakube-compose.sh
+# UI: https://terrakube.platform.local (admin@example.com / admin)
 ```
 
 ### Bash scripts mỗi module
@@ -265,6 +273,12 @@ bash 20-prompt-ai-devops/scripts/02-run-lab.sh 01
 | `19-.../scripts/02-setup-vault-dev.sh` | Vault dev mode + KV v2 |
 | `19-.../scripts/03-run-terraform.sh` | Chạy example Terraform 01–project |
 | `19-.../scripts/04-verify-lab.sh` | Verify lab Vault/Terraform |
+| `20-.../scripts/01-setup.sh` | Setup thư mục notes + kiểm tra Python |
+| `20-.../scripts/02-run-lab.sh` | Mở hướng dẫn lab 01–12 |
+| `21-.../scripts/01-check-prerequisites.sh` | Kiểm tra Docker + mkcert |
+| `21-.../scripts/03-deploy-terrakube-compose.sh` | Deploy Terrakube HTTPS local |
+| `21-.../scripts/06-deploy-helm-minikube.sh` | Terrakube Helm trên minikube |
+| `21-.../scripts/05-teardown-compose.sh` | Dọn stack Docker Compose |
 
 ## Kiểm tra tiến độ
 
