@@ -1,0 +1,59 @@
+# Pod broken — dùng cho Lab 09 troubleshooting
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cka-trouble
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: broken-image
+  namespace: cka-trouble
+spec:
+  containers:
+    - name: c
+      image: nginx:THIS_TAG_DOES_NOT_EXIST
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: broken-config
+  namespace: cka-trouble
+spec:
+  containers:
+    - name: c
+      image: nginx:1.25
+      env:
+        - name: CONFIG
+          valueFrom:
+            configMapKeyRef:
+              name: missing-cm
+              key: key
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: broken-crash
+  namespace: cka-trouble
+spec:
+  containers:
+    - name: c
+      image: busybox:1.36
+      command: ["/bin/sh", "-c", "exit 1"]
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: broken-mount
+  namespace: cka-trouble
+spec:
+  containers:
+    - name: c
+      image: nginx:1.25
+      volumeMounts:
+        - name: vol
+          mountPath: /data
+  volumes:
+    - name: vol
+      persistentVolumeClaim:
+        claimName: pvc-that-does-not-exist

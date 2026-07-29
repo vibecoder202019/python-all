@@ -32,7 +32,8 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Viết Python cơ bản | 01 → 05 |
 | Làm Data Analyst | 01 → 06 |
 | Làm ML Engineer | 01 → 09 → 10 |
-| Làm DevOps Engineer | 01 → 05 → 12 → 13 → 15 → 16 → **17** |
+| Làm DevOps / K8s Engineer | 15 → 16 → 17 → **18** |
+| Thi chứng chỉ CKA / CKS | 15 → 16 → **18** |
 | Làm Backend Engineer (Go) | 01 → 05 → **17** |
 | Làm Security / DevSecOps | 01 → 05 → 12 → **16** |
 | Làm game cho trẻ | 01 → 03 → 11 |
@@ -57,7 +58,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (17 module)
+## Lộ trình học (18 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -78,6 +79,7 @@ pip install -r requirements.txt
 | 15 | [AWX + MinIO + K8s](15-ansible-awx-minio-k8s/README.md) | Ansible AWX, MinIO, Kubernetes, Python API | 2-3 tuần |
 | 16 | [K8s Security](16-k8s-security/README.md) | Anti-DDoS, SQLi, phishing, port scan trên K8s | 2-3 tuần |
 | 17 | [Go + K8s + Helm](17-go-language-k8s/README.md) | Go từ cơ bản, REST API, Docker, Helm chart | 3-4 tuần |
+| 18 | [CKA + CKS](18-cka-cks-kubernetes/README.md) | Tự học thi CKA/CKS, 14 lab hands-on | 8-12 tuần |
 
 **Tổng thời gian:** khoảng 5-7 tháng (học 1-2 giờ/ngày)
 
@@ -202,6 +204,10 @@ bash 17-go-language-k8s/scripts/02-run-examples.sh
 bash 17-go-language-k8s/scripts/03-run-project.sh --run
 bash 17-go-language-k8s/scripts/04-build-docker.sh
 bash 17-go-language-k8s/scripts/06-deploy-helm.sh
+
+# Module 18 — CKA + CKS (cluster lab)
+bash 18-cka-cks-kubernetes/scripts/01-setup-lab.sh
+bash 18-cka-cks-kubernetes/scripts/02-run-lab.sh basic 01
 ```
 
 ### Bash scripts mỗi module
@@ -239,6 +245,9 @@ bash 17-go-language-k8s/scripts/06-deploy-helm.sh
 | `17-.../scripts/03-run-project.sh` | Test + build Task API |
 | `17-.../scripts/04-build-docker.sh` | Docker multi-stage build |
 | `17-.../scripts/06-deploy-helm.sh` | Deploy Helm chart lên K8s |
+| `18-.../scripts/01-setup-lab.sh` | Tạo cluster lab minikube/K8s |
+| `18-.../scripts/02-run-lab.sh` | Mở hướng dẫn lab 01–14 |
+| `18-.../scripts/03-verify-lab.sh` | Kiểm tra lab hoàn thành |
 
 ## Kiểm tra tiến độ
 
