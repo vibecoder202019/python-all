@@ -1,0 +1,10 @@
+# Namespace lab bảo mật — tách biệt với app khác
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: security-lab
+  labels:
+    app.kubernetes.io/part-of: k8s-security-module
+    # Pod Security — enforce baseline (chặn privileged container)
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/warn: restricted

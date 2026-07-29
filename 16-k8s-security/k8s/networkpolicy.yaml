@@ -1,0 +1,52 @@
+# NetworkPolicy — chống port scan nội bộ cluster
+# Chỉ cho phép: Ingress → app, app → DNS. Chặn pod quét lẫn nhau.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-internal-scan
+  namespace: security-lab
+spec:
+  podSelector:
+    matchLabels:
+      app: secure-api
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Chỉ nhận traffic từ namespace ingress-nginx
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 8080
+    # Cho phép health check nội bộ cluster (kubelet)
+    - from:
+        - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    # Chỉ cho phép DNS — chặn pod scan port ra ngoài
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+
+---
+# NetworkPolicy — cách ly hoàn toàn pod không có label app
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: security-lab
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  # ingress/egress rỗng = deny all — policy trên override cho secure-api

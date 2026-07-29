@@ -1,0 +1,48 @@
+# Ingress bảo mật — rate limit + security headers + chống SQLi ở edge
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: secure-api
+  namespace: security-lab
+  annotations:
+    # ── Anti-DDoS: giới hạn request/giây ──
+    nginx.ingress.kubernetes.io/limit-rps: "10"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "3"
+    nginx.ingress.kubernetes.io/limit-connections: "5"
+
+    # ── Anti-phishing: security headers ──
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      # Chống clickjacking — trang không bị nhúng iframe giả mạo
+      more_set_headers "X-Frame-Options: DENY";
+      # Chống MIME sniffing
+      more_set_headers "X-Content-Type-Options: nosniff";
+      # Bật XSS filter trình duyệt
+      more_set_headers "X-XSS-Protection: 1; mode=block";
+      # HSTS — bắt HTTPS (lab local có thể bỏ qua)
+      more_set_headers "Strict-Transport-Security: max-age=31536000; includeSubDomains";
+      # CSP cơ bản — hạn chế load script lạ
+      more_set_headers "Content-Security-Policy: default-src 'self'";
+      # Không leak referrer sang site lạ
+      more_set_headers "Referrer-Policy: strict-origin-when-cross-origin";
+
+    # ── Chống request body lớn (DoS) ──
+    nginx.ingress.kubernetes.io/proxy-body-size: "1m"
+
+    # ── Block user-agent scanner phổ biến ──
+    nginx.ingress.kubernetes.io/server-snippet: |
+      if ($http_user_agent ~* (nikto|sqlmap|nmap|masscan|dirbuster)) {
+        return 403;
+      }
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: secure-api.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: secure-api
+                port:
+                  number: 80

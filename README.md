@@ -32,7 +32,8 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Viết Python cơ bản | 01 → 05 |
 | Làm Data Analyst | 01 → 06 |
 | Làm ML Engineer | 01 → 09 → 10 |
-| Làm DevOps Engineer | 01 → 05 → 12 → 13 → **15** |
+| Làm DevOps Engineer | 01 → 05 → 12 → 13 → 15 → **16** |
+| Làm Security / DevSecOps | 01 → 05 → 12 → **16** |
 | Làm game cho trẻ | 01 → 03 → 11 |
 | Full-stack / Backend | 01 → 05 → 09 → 14 |
 | DBA / Data Engineer | 01 → 06 → 14 |
@@ -55,7 +56,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (15 module)
+## Lộ trình học (16 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -74,6 +75,7 @@ pip install -r requirements.txt
 | 13 | [Python & AWS Infra](13-python-aws-infra/README.md) | boto3, S3, EC2, SG, CloudWatch, IaC | 2-3 tuần |
 | 14 | [PostgreSQL tự học](14-postgresql-tu-hoc/README.md) | SQL, PL/pgSQL, trigger, view, index, psycopg2 | 2-3 tuần |
 | 15 | [AWX + MinIO + K8s](15-ansible-awx-minio-k8s/README.md) | Ansible AWX, MinIO, Kubernetes, Python API | 2-3 tuần |
+| 16 | [K8s Security](16-k8s-security/README.md) | Anti-DDoS, SQLi, phishing, port scan trên K8s | 2-3 tuần |
 
 **Tổng thời gian:** khoảng 5-7 tháng (học 1-2 giờ/ngày)
 
@@ -185,6 +187,13 @@ bash 15-ansible-awx-minio-k8s/scripts/run_project.sh
 # Triển khai K8s (cần Docker Desktop Kubernetes):
 bash 15-ansible-awx-minio-k8s/scripts/02-deploy-minio.sh
 bash 15-ansible-awx-minio-k8s/scripts/04-deploy-awx-instance.sh
+
+# Module 16 — K8s Security (demo không cần cluster)
+bash 16-k8s-security/scripts/setup.sh
+bash 16-k8s-security/scripts/run_all_examples.sh
+bash 16-k8s-security/scripts/run_project.sh
+bash 16-k8s-security/scripts/02-deploy-lab.sh
+bash 16-k8s-security/scripts/03-test-attacks.sh
 ```
 
 ### Bash scripts mỗi module
@@ -214,6 +223,10 @@ bash 15-ansible-awx-minio-k8s/scripts/04-deploy-awx-instance.sh
 | `15-.../scripts/run_project.sh` | Dự án AWX Automation CLI (6 bước) |
 | `15-.../scripts/02-deploy-minio.sh` | Deploy MinIO lên K8s |
 | `15-.../scripts/04-deploy-awx-instance.sh` | Deploy AWX lên K8s |
+| `16-.../scripts/setup.sh` | Cài fastapi, pyyaml cho security lab |
+| `16-.../scripts/run_all_examples.sh` | Ví dụ SQLi, DDoS, phishing, port scan |
+| `16-.../scripts/02-deploy-lab.sh` | Deploy security lab lên K8s |
+| `16-.../scripts/03-test-attacks.sh` | Test tấn công mô phỏng |
 
 ## Kiểm tra tiến độ
 

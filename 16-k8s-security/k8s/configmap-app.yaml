@@ -1,0 +1,46 @@
+# ConfigMap — mã FastAPI WAF (mount vào pod)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: secure-api-code
+  namespace: security-lab
+data:
+  main.py: |
+    """Secure API — WAF demo trên Kubernetes."""
+    import re, time
+    from collections import defaultdict
+    from fastapi import FastAPI, Request
+    from fastapi.responses import JSONResponse
+
+    app = FastAPI()
+    buckets = defaultdict(list)
+    SQLI = [re.compile(p, re.I) for p in [
+        r"(\%27)|(\')|(\-\-)", r"\bunion\s+select\b", r"\b(or\s+1\s*=\s*1)\b",
+        r"\bdrop\s+table\b", r";\s*shutdown",
+    ]]
+
+    def check_sqli(text):
+        return any(p.search(text) for p in SQLI)
+
+    @app.middleware("http")
+    async def waf(req: Request, call_next):
+        ip = req.client.host if req.client else "x"
+        now = time.time()
+        buckets[ip] = [t for t in buckets[ip] if t > now - 60]
+        if len(buckets[ip]) >= 30:  # 30 req/phút — chống DDoS
+            return JSONResponse(429, {"error": "Rate limit exceeded"})
+        buckets[ip].append(now)
+        for v in req.query_params.values():
+            if check_sqli(v):
+                return JSONResponse(403, {"error": "SQL injection blocked", "waf": True})
+        return await call_next(req)
+
+    @app.get("/health")
+    def health(): return {"status": "ok"}
+
+    @app.get("/search")
+    def search(q: str = ""): return {"query": q[:100], "safe": True}
+
+    @app.get("/login")
+    def login(user: str = "", pass_: str = ""):
+        return {"message": "Demo endpoint — không lưu credential thật"}

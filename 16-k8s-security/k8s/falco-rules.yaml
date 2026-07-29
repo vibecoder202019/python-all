@@ -1,0 +1,44 @@
+# Falco custom rules — phát hiện shell, port scan, SQLi trong log
+# Yêu cầu: Falco đã cài trên cluster (helm install falco falcosecurity/falco)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: falco-custom-rules
+  namespace: security-lab
+  labels:
+    app: falco
+data:
+  custom_rules.yaml: |
+    # ── Phát hiện shell spawned trong container (post-exploitation) ──
+    - rule: Shell in Secure API Container
+      desc: Phát hiện shell chạy trong pod secure-api
+      condition: >
+        spawned_process and container and
+        k8s.ns.name=security-lab and
+        proc.name in (bash, sh, nc, ncat)
+      output: "Shell trong secure-api (user=%user.name cmd=%proc.cmdline)"
+      priority: WARNING
+      tags: [shell, mitre_execution]
+
+    # ── Phát hiện kết nối tới port bất thường (scan) ──
+    - rule: Outbound Connection to Suspicious Port
+      desc: Pod kết nối port thường dùng để scan/exploit
+      condition: >
+        outbound and container and
+        k8s.ns.name=security-lab and
+        fd.sport != 8080 and
+        fd.sport in (22, 23, 135, 445, 1433, 3306, 5432, 6379, 27017)
+      output: "Kết nối port đáng ngờ (port=%fd.sport dst=%fd.sip)"
+      priority: NOTICE
+      tags: [network, scan]
+
+    # ── Phát hiện đọc file nhạy cảm ──
+    - rule: Read Sensitive File
+      desc: Container đọc /etc/shadow hoặc credential
+      condition: >
+        open_read and container and
+        (fd.name startswith /etc/shadow or
+         fd.name contains aws/credentials)
+      output: "Đọc file nhạy cảm (file=%fd.name)"
+      priority: CRITICAL
+      tags: [credential, mitre_credential_access]
