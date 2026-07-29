@@ -1,0 +1,46 @@
+# Manifest K8s thuần — thay thế Helm khi muốn học YAML trực tiếp
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-task-api
+  namespace: go-api-lab
+  labels:
+    app: go-task-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: go-task-api
+  template:
+    metadata:
+      labels:
+        app: go-task-api
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+        - name: api
+          image: go-task-api:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              memory: 128Mi

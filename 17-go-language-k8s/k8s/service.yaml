@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-task-api
+  namespace: go-api-lab
+spec:
+  selector:
+    app: go-task-api
+  ports:
+    - port: 80
+      targetPort: 8080

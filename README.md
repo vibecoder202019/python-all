@@ -32,7 +32,8 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Viết Python cơ bản | 01 → 05 |
 | Làm Data Analyst | 01 → 06 |
 | Làm ML Engineer | 01 → 09 → 10 |
-| Làm DevOps Engineer | 01 → 05 → 12 → 13 → 15 → **16** |
+| Làm DevOps Engineer | 01 → 05 → 12 → 13 → 15 → 16 → **17** |
+| Làm Backend Engineer (Go) | 01 → 05 → **17** |
 | Làm Security / DevSecOps | 01 → 05 → 12 → **16** |
 | Làm game cho trẻ | 01 → 03 → 11 |
 | Full-stack / Backend | 01 → 05 → 09 → 14 |
@@ -56,7 +57,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (16 module)
+## Lộ trình học (17 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -76,6 +77,7 @@ pip install -r requirements.txt
 | 14 | [PostgreSQL tự học](14-postgresql-tu-hoc/README.md) | SQL, PL/pgSQL, trigger, view, index, psycopg2 | 2-3 tuần |
 | 15 | [AWX + MinIO + K8s](15-ansible-awx-minio-k8s/README.md) | Ansible AWX, MinIO, Kubernetes, Python API | 2-3 tuần |
 | 16 | [K8s Security](16-k8s-security/README.md) | Anti-DDoS, SQLi, phishing, port scan trên K8s | 2-3 tuần |
+| 17 | [Go + K8s + Helm](17-go-language-k8s/README.md) | Go từ cơ bản, REST API, Docker, Helm chart | 3-4 tuần |
 
 **Tổng thời gian:** khoảng 5-7 tháng (học 1-2 giờ/ngày)
 
@@ -194,6 +196,12 @@ bash 16-k8s-security/scripts/run_all_examples.sh
 bash 16-k8s-security/scripts/run_project.sh
 bash 16-k8s-security/scripts/02-deploy-lab.sh
 bash 16-k8s-security/scripts/03-test-attacks.sh
+
+# Module 17 — Go + K8s + Helm
+bash 17-go-language-k8s/scripts/02-run-examples.sh
+bash 17-go-language-k8s/scripts/03-run-project.sh --run
+bash 17-go-language-k8s/scripts/04-build-docker.sh
+bash 17-go-language-k8s/scripts/06-deploy-helm.sh
 ```
 
 ### Bash scripts mỗi module
@@ -227,6 +235,10 @@ bash 16-k8s-security/scripts/03-test-attacks.sh
 | `16-.../scripts/run_all_examples.sh` | Ví dụ SQLi, DDoS, phishing, port scan |
 | `16-.../scripts/02-deploy-lab.sh` | Deploy security lab lên K8s |
 | `16-.../scripts/03-test-attacks.sh` | Test tấn công mô phỏng |
+| `17-.../scripts/02-run-examples.sh` | Chạy 7 ví dụ Go tuần tự |
+| `17-.../scripts/03-run-project.sh` | Test + build Task API |
+| `17-.../scripts/04-build-docker.sh` | Docker multi-stage build |
+| `17-.../scripts/06-deploy-helm.sh` | Deploy Helm chart lên K8s |
 
 ## Kiểm tra tiến độ
 
