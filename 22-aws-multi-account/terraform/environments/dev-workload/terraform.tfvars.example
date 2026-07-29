@@ -1,0 +1,4 @@
+management_account_id = "111111111111"
+dev_account_id        = "222222222222"
+aws_region            = "ap-southeast-1"
+external_id           = "lab-module-22-dev"

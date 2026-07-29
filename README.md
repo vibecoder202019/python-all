@@ -33,6 +33,7 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Làm Data Analyst | 01 → 06 |
 | Làm ML Engineer | 01 → 09 → 10 |
 | Làm DevOps / K8s Engineer | 15 → 16 → 17 → 18 → **19** |
+| AWS Multi-Account & IAM | **13** → **22** → 19 |
 | Thi chứng chỉ CKA / CKS | 15 → 16 → **18** |
 | IaC + Secrets (Vault/Terraform) | 13 → **19** → **21** → 15 |
 | Quản lý Terraform bằng UI (Terrakube) | **19** → **21** |
@@ -61,7 +62,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (21 module)
+## Lộ trình học (22 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -86,6 +87,7 @@ pip install -r requirements.txt
 | 19 | [Vault + Terraform](19-vault-terraform/README.md) | IaC Terraform, HashiCorp Vault, 12 lab | 6-8 tuần |
 | 20 | [Prompt AI DevOps](20-prompt-ai-devops/README.md) | Prompt engineering Python, K8s, Vault, monitoring | 4-6 tuần |
 | 21 | [Terraform UI — Terrakube](21-terraform-ui-terrakube/README.md) | Quản lý Terraform qua UI open source, 10 lab | 2-3 tuần |
+| 22 | [AWS Multi-Account](22-aws-multi-account/README.md) | Organizations, IAM roles, SCP — Console → Terraform | 3-4 tuần |
 
 **Tổng thời gian:** khoảng 6-8 tháng (học 1-2 giờ/ngày)
 
@@ -229,6 +231,11 @@ bash 21-terraform-ui-terrakube/scripts/01-check-prerequisites.sh
 bash 21-terraform-ui-terrakube/scripts/02-prepare-hosts.sh --print
 bash 21-terraform-ui-terrakube/scripts/03-deploy-terrakube-compose.sh
 # UI: https://terrakube.platform.local (admin@example.com / admin)
+
+# Module 22 — AWS Multi-Account (Console → Terraform)
+bash 22-aws-multi-account/scripts/01-check-prerequisites.sh
+bash 22-aws-multi-account/scripts/02-run-lab.sh 01
+bash 22-aws-multi-account/scripts/05-verify-org.sh
 ```
 
 ### Bash scripts mỗi module
@@ -279,6 +286,9 @@ bash 21-terraform-ui-terrakube/scripts/03-deploy-terrakube-compose.sh
 | `21-.../scripts/03-deploy-terrakube-compose.sh` | Deploy Terrakube HTTPS local |
 | `21-.../scripts/06-deploy-helm-minikube.sh` | Terrakube Helm trên minikube |
 | `21-.../scripts/05-teardown-compose.sh` | Dọn stack Docker Compose |
+| `22-.../scripts/01-check-prerequisites.sh` | AWS CLI + Terraform + credentials |
+| `22-.../scripts/03-assume-role-demo.sh` | Demo STS assume-role cross-account |
+| `22-.../scripts/04-terraform-plan.sh` | Plan Terraform management/dev-workload |
 
 ## Kiểm tra tiến độ
 
