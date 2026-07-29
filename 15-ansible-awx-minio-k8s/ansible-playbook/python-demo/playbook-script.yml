@@ -1,0 +1,24 @@
+---
+# Playbook — Chạy Python script trên AWX (Module 15)
+# Job Template: Playbook = playbook-script.yml
+
+- name: Python Script Demo — Module 15
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+
+  tasks:
+    - name: Chạy process_data.py
+      script: ../scripts/process_data.py --name "{{ user_name | default('Module 15') }}"
+      register: py_output
+
+    - name: Parse JSON output
+      set_fact:
+        py_result: "{{ py_output.stdout | from_json }}"
+
+    - name: Hiển thị kết quả
+      debug:
+        msg:
+          - "Message  : {{ py_result.message }}"
+          - "Python   : {{ py_result.python_version }}"
+          - "Hostname : {{ py_result.hostname }}"

@@ -32,7 +32,7 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Viết Python cơ bản | 01 → 05 |
 | Làm Data Analyst | 01 → 06 |
 | Làm ML Engineer | 01 → 09 → 10 |
-| Làm DevOps Engineer | 01 → 05 → 12 → 13 |
+| Làm DevOps Engineer | 01 → 05 → 12 → 13 → **15** |
 | Làm game cho trẻ | 01 → 03 → 11 |
 | Full-stack / Backend | 01 → 05 → 09 → 14 |
 | DBA / Data Engineer | 01 → 06 → 14 |
@@ -55,7 +55,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (14 module)
+## Lộ trình học (15 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -73,6 +73,7 @@ pip install -r requirements.txt
 | 12 | [DevOps & DevSecOps](12-python-devops-devsecops/README.md) | Automation, security scan, CLI toolkit | 2-3 tuần |
 | 13 | [Python & AWS Infra](13-python-aws-infra/README.md) | boto3, S3, EC2, SG, CloudWatch, IaC | 2-3 tuần |
 | 14 | [PostgreSQL tự học](14-postgresql-tu-hoc/README.md) | SQL, PL/pgSQL, trigger, view, index, psycopg2 | 2-3 tuần |
+| 15 | [AWX + MinIO + K8s](15-ansible-awx-minio-k8s/README.md) | Ansible AWX, MinIO, Kubernetes, Python API | 2-3 tuần |
 
 **Tổng thời gian:** khoảng 5-7 tháng (học 1-2 giờ/ngày)
 
@@ -176,6 +177,14 @@ bash 14-postgresql-tu-hoc/scripts/setup.sh
 bash 14-postgresql-tu-hoc/scripts/run_all_examples.sh
 bash 14-postgresql-tu-hoc/scripts/run_project.sh
 bash 14-postgresql-tu-hoc/scripts/psql_shell.sh   # psql tương tác
+
+# Module 15 — AWX + MinIO + K8s (demo không cần cluster)
+bash 15-ansible-awx-minio-k8s/scripts/setup.sh
+bash 15-ansible-awx-minio-k8s/scripts/run_all_examples.sh --demo
+bash 15-ansible-awx-minio-k8s/scripts/run_project.sh
+# Triển khai K8s (cần Docker Desktop Kubernetes):
+bash 15-ansible-awx-minio-k8s/scripts/02-deploy-minio.sh
+bash 15-ansible-awx-minio-k8s/scripts/04-deploy-awx-instance.sh
 ```
 
 ### Bash scripts mỗi module
@@ -200,6 +209,11 @@ bash 14-postgresql-tu-hoc/scripts/psql_shell.sh   # psql tương tác
 | `14-.../scripts/run_project.sh` | Dự án Library DB (6 bước) |
 | `14-.../scripts/psql_shell.sh` | Mở psql trong container |
 | `14-.../scripts/teardown.sh` | Dừng container Postgres |
+| `15-.../scripts/setup.sh` | Cài requests, boto3 cho AWX/MinIO |
+| `15-.../scripts/run_all_examples.sh` | Ví dụ AWX API + MinIO (--demo) |
+| `15-.../scripts/run_project.sh` | Dự án AWX Automation CLI (6 bước) |
+| `15-.../scripts/02-deploy-minio.sh` | Deploy MinIO lên K8s |
+| `15-.../scripts/04-deploy-awx-instance.sh` | Deploy AWX lên K8s |
 
 ## Kiểm tra tiến độ
 

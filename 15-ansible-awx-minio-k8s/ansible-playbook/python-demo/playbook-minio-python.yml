@@ -1,0 +1,29 @@
+---
+# Playbook — Python + MinIO pipeline (Module 15)
+
+- name: Python report → MinIO upload
+  hosts: localhost
+  connection: local
+
+  vars:
+    minio_endpoint: "http://minio.minio.svc.cluster.local:9000"
+    minio_bucket: "awx-artifacts"
+
+  tasks:
+    - name: Tạo report bằng Python
+      script: ../scripts/generate_report.py
+      register: report_task
+
+    - name: Upload lên MinIO
+      script: ../scripts/upload_to_minio.py
+      environment:
+        MINIO_ENDPOINT: "{{ minio_endpoint }}"
+        MINIO_ACCESS_KEY: minioadmin
+        MINIO_SECRET_KEY: minioadmin123
+        MINIO_BUCKET: "{{ minio_bucket }}"
+        REPORT_FILE: "{{ report_task.stdout | trim }}"
+      register: upload_result
+
+    - name: Kết quả
+      debug:
+        msg: "{{ upload_result.stdout }}"

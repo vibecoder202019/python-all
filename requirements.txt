@@ -30,6 +30,8 @@ boto3>=1.28.0
 # PostgreSQL (Module 14)
 psycopg2-binary>=2.9.0
 
+# AWX + MinIO + K8s (Module 15) — requests/boto3 đã có ở trên
+
 # Utilities
 requests>=2.31.0
 python-dotenv>=1.0.0
