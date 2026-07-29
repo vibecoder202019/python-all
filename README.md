@@ -35,6 +35,7 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Làm DevOps / K8s Engineer | 15 → 16 → 17 → 18 → **19** |
 | Thi chứng chỉ CKA / CKS | 15 → 16 → **18** |
 | IaC + Secrets (Vault/Terraform) | 13 → **19** → 15 |
+| Prompt AI cho DevOps / code | 01 → 12 → **20** (song song 15–19) |
 | Làm Backend Engineer (Go) | 01 → 05 → **17** |
 | Làm Security / DevSecOps | 01 → 05 → 12 → **16** |
 | Làm game cho trẻ | 01 → 03 → 11 |
@@ -59,7 +60,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (19 module)
+## Lộ trình học (20 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -82,6 +83,7 @@ pip install -r requirements.txt
 | 17 | [Go + K8s + Helm](17-go-language-k8s/README.md) | Go từ cơ bản, REST API, Docker, Helm chart | 3-4 tuần |
 | 18 | [CKA + CKS](18-cka-cks-kubernetes/README.md) | Tự học thi CKA/CKS, 14 lab hands-on | 8-12 tuần |
 | 19 | [Vault + Terraform](19-vault-terraform/README.md) | IaC Terraform, HashiCorp Vault, 12 lab | 6-8 tuần |
+| 20 | [Prompt AI DevOps](20-prompt-ai-devops/README.md) | Prompt engineering Python, K8s, Vault, monitoring | 4-6 tuần |
 
 **Tổng thời gian:** khoảng 6-8 tháng (học 1-2 giờ/ngày)
 
@@ -215,6 +217,10 @@ bash 18-cka-cks-kubernetes/scripts/02-run-lab.sh basic 01
 bash 19-vault-terraform/scripts/01-install-tools.sh --check
 bash 19-vault-terraform/scripts/02-setup-vault-dev.sh   # terminal 1
 bash 19-vault-terraform/scripts/03-run-terraform.sh 01-hello --auto  # terminal 2
+
+# Module 20 — Prompt AI DevOps
+bash 20-prompt-ai-devops/scripts/01-setup.sh
+bash 20-prompt-ai-devops/scripts/02-run-lab.sh 01
 ```
 
 ### Bash scripts mỗi module
