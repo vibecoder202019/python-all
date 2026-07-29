@@ -89,13 +89,14 @@ Tuần 11–12: Mock exam + Lab Advanced CKS (11–14)
 │   ├── 06-cks-system-hardening.md
 │   ├── 07-cks-microservice-supply-chain.md
 │   ├── 08-cks-runtime-monitoring.md
-│   └── 09-mock-exam-chien-luoc.md
+│   ├── 09-mock-exam-chien-luoc.md
+│   └── 10-jsonpath-kubectl.md   # JSONPath — trích xuất field khi thi
 ├── labs/
 │   ├── basic/        # Lab 01–04 (người mới K8s admin)
 │   ├── intermediate/ # Lab 05–08 (CKA core)
 │   └── advanced/     # Lab 09–14 (CKA troubleshoot + CKS)
 ├── manifests/        # YAML mẫu + broken YAML để sửa
-├── cheatsheet/       # Lệnh kubectl hay dùng khi thi
+├── cheatsheet/       # Lệnh kubectl hay dùng khi thi (+ jsonpath.md)
 ├── scripts/          # Setup cluster, chạy lab, verify
 └── exercises/        # Bài tập + đáp án
 ```
@@ -139,6 +140,7 @@ bash 18-cka-cks-kubernetes/scripts/03-verify-lab.sh 01
 
 # 4. Xem cheatsheet
 cat 18-cka-cks-kubernetes/cheatsheet/kubectl-cka.md
+cat 18-cka-cks-kubernetes/cheatsheet/jsonpath.md
 ```
 
 ---
@@ -148,9 +150,10 @@ cat 18-cka-cks-kubernetes/cheatsheet/kubectl-cka.md
 1. **Đọc kỹ đề** — copy namespace, tên resource vào notepad
 2. **`-n namespace`** — 80% lỗi mất điểm do quên namespace
 3. **`kubectl explain`** — tra cứu field YAML khi thi: `kubectl explain pod.spec.containers`
-4. **`--dry-run=client -o yaml`** — tạo YAML nhanh, sửa, apply
-5. **Bookmark** kubernetes.io/docs — thi được mở tài liệu chính thức
-6. **Skip** câu khó — làm câu dễ trước, quay lại sau
+4. **JSONPath** — lấy IP, status, secret nhanh: `kubectl get pod X -o jsonpath='{.status.podIP}'` → [docs/10-jsonpath-kubectl.md](docs/10-jsonpath-kubectl.md)
+5. **`--dry-run=client -o yaml`** — tạo YAML nhanh, sửa, apply
+6. **Bookmark** kubernetes.io/docs — thi được mở tài liệu chính thức
+7. **Skip** câu khó — làm câu dễ trước, quay lại sau
 
 Chi tiết: [docs/09-mock-exam-chien-luoc.md](docs/09-mock-exam-chien-luoc.md)
 
@@ -167,6 +170,7 @@ Chi tiết: [docs/09-mock-exam-chien-luoc.md](docs/09-mock-exam-chien-luoc.md)
 7. [CKS — System Hardening](docs/06-cks-system-hardening.md)
 8. [CKS — Supply Chain & Microservices](docs/07-cks-microservice-supply-chain.md)
 9. [CKS — Runtime & Monitoring](docs/08-cks-runtime-monitoring.md)
+10. [JSONPath với kubectl](docs/10-jsonpath-kubectl.md) — trích xuất field, custom columns, filter
 
 ---
 

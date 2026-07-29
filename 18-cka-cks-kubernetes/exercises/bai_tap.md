@@ -7,6 +7,13 @@
 4. (Khó) Role + RoleBinding: SA chỉ được list/get pods.
 5. (Khó) Sửa 4 broken pods lab 09 trong ≤ 30 phút.
 
+## JSONPath (CKA + CKS)
+11. In `podIP` của pod `web-pod` namespace `cka-lab` bằng jsonpath.
+12. Liệt kê tất cả pod trong `cka-lab` dạng `NAME IP` (mỗi dòng) — dùng `{range}`.
+13. Custom columns: `NAME`, `PHASE`, `NODE` cho mọi pod trong namespace.
+14. Lấy và decode key `password` từ secret `db-secret` (lab 04).
+15. (CKS) Kiểm tra `readOnlyRootFilesystem` của container đầu pod bất kỳ.
+
 ## CKS
 6. Namespace enforce PSS `restricted`, deploy pod compliant.
 7. NetworkPolicy: deny all + allow frontend→backend:8080.

@@ -11,7 +11,8 @@ kubectl get ns
 kubectl run test --image=nginx --dry-run=client -o yaml
 ```
 
-**Đọc:** Module 15 docs K8s cơ bản hoặc kubernetes.io/tutorials
+**Đọc:** Module 15 docs K8s cơ bản hoặc kubernetes.io/tutorials  
+**Đọc thêm:** [JSONPath với kubectl](10-jsonpath-kubectl.md) — kỹ năng dùng nhiều khi thi
 
 **Lab:** 01, 02
 

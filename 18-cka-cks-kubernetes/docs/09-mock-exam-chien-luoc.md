@@ -54,6 +54,26 @@ k explain networkpolicy.spec
 k explain persistentvolumeclaim.spec
 ```
 
+### JSONPath — Lấy field nhanh
+
+Khi đề hỏi IP pod, số replica ready, decode secret — dùng `-o jsonpath`:
+
+```bash
+# IP pod
+k get pod POD -n NS -o jsonpath='{.status.podIP}'
+
+# Replica ready
+k get deploy NAME -n NS -o jsonpath='{.status.readyReplicas}'
+
+# Nhiều pod — mỗi dòng NAME + IP
+k get pods -n NS -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.podIP}{"\n"}{end}'
+
+# Bảng tùy chỉnh
+k get pods -n NS -o custom-columns=NAME:.metadata.name,IP:.status.podIP,NODE:.spec.nodeName
+```
+
+Chi tiết: [docs/10-jsonpath-kubectl.md](10-jsonpath-kubectl.md) | Cheatsheet: [cheatsheet/jsonpath.md](../cheatsheet/jsonpath.md)
+
 ### Checklist trước khi Submit task
 
 - [ ] Đúng **namespace**?

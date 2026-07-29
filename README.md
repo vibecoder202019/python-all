@@ -32,8 +32,9 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Viết Python cơ bản | 01 → 05 |
 | Làm Data Analyst | 01 → 06 |
 | Làm ML Engineer | 01 → 09 → 10 |
-| Làm DevOps / K8s Engineer | 15 → 16 → 17 → **18** |
+| Làm DevOps / K8s Engineer | 15 → 16 → 17 → 18 → **19** |
 | Thi chứng chỉ CKA / CKS | 15 → 16 → **18** |
+| IaC + Secrets (Vault/Terraform) | 13 → **19** → 15 |
 | Làm Backend Engineer (Go) | 01 → 05 → **17** |
 | Làm Security / DevSecOps | 01 → 05 → 12 → **16** |
 | Làm game cho trẻ | 01 → 03 → 11 |
@@ -58,7 +59,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (18 module)
+## Lộ trình học (19 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -80,8 +81,9 @@ pip install -r requirements.txt
 | 16 | [K8s Security](16-k8s-security/README.md) | Anti-DDoS, SQLi, phishing, port scan trên K8s | 2-3 tuần |
 | 17 | [Go + K8s + Helm](17-go-language-k8s/README.md) | Go từ cơ bản, REST API, Docker, Helm chart | 3-4 tuần |
 | 18 | [CKA + CKS](18-cka-cks-kubernetes/README.md) | Tự học thi CKA/CKS, 14 lab hands-on | 8-12 tuần |
+| 19 | [Vault + Terraform](19-vault-terraform/README.md) | IaC Terraform, HashiCorp Vault, 12 lab | 6-8 tuần |
 
-**Tổng thời gian:** khoảng 5-7 tháng (học 1-2 giờ/ngày)
+**Tổng thời gian:** khoảng 6-8 tháng (học 1-2 giờ/ngày)
 
 ## Cách học hiệu quả
 
@@ -208,6 +210,11 @@ bash 17-go-language-k8s/scripts/06-deploy-helm.sh
 # Module 18 — CKA + CKS (cluster lab)
 bash 18-cka-cks-kubernetes/scripts/01-setup-lab.sh
 bash 18-cka-cks-kubernetes/scripts/02-run-lab.sh basic 01
+
+# Module 19 — Vault + Terraform
+bash 19-vault-terraform/scripts/01-install-tools.sh --check
+bash 19-vault-terraform/scripts/02-setup-vault-dev.sh   # terminal 1
+bash 19-vault-terraform/scripts/03-run-terraform.sh 01-hello --auto  # terminal 2
 ```
 
 ### Bash scripts mỗi module
@@ -248,6 +255,10 @@ bash 18-cka-cks-kubernetes/scripts/02-run-lab.sh basic 01
 | `18-.../scripts/01-setup-lab.sh` | Tạo cluster lab minikube/K8s |
 | `18-.../scripts/02-run-lab.sh` | Mở hướng dẫn lab 01–14 |
 | `18-.../scripts/03-verify-lab.sh` | Kiểm tra lab hoàn thành |
+| `19-.../scripts/01-install-tools.sh` | Kiểm tra/cài Terraform + Vault |
+| `19-.../scripts/02-setup-vault-dev.sh` | Vault dev mode + KV v2 |
+| `19-.../scripts/03-run-terraform.sh` | Chạy example Terraform 01–project |
+| `19-.../scripts/04-verify-lab.sh` | Verify lab Vault/Terraform |
 
 ## Kiểm tra tiến độ
 

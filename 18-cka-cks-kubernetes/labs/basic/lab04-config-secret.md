@@ -33,11 +33,22 @@ kubectl apply -f manifests/cka/pod-config-secret.yaml
 kubectl exec config-demo -n cka-lab -- env | grep -E 'APP_ENV|DB_PASSWORD'
 ```
 
-## Bài tập 4 — Decode secret (debug)
+## Bài tập 4 — Decode secret (debug) với JSONPath
+
+Secret lưu dữ liệu ở `.data.<key>` dạng **base64**. Dùng jsonpath để lấy rồi decode:
 
 ```bash
+# Lấy key password (base64)
+kubectl get secret db-secret -n cka-lab -o jsonpath='{.data.password}'
+
+# Decode ra plaintext — hay gặp trong thi CKA
 kubectl get secret db-secret -n cka-lab -o jsonpath='{.data.password}' | base64 -d && echo
+
+# Liệt kê tất cả key trong secret
+kubectl get secret db-secret -n cka-lab -o jsonpath='{.data}' | tr ',' '\n'
 ```
+
+**Đọc thêm:** [docs/10-jsonpath-kubectl.md](../../docs/10-jsonpath-kubectl.md) — cú pháp đầy đủ, `{range}`, custom columns.
 
 ## Verify
 

@@ -28,3 +28,10 @@ kubectl create token SA -n NS --duration=1h
 
 # Falco
 helm install falco falcosecurity/falco -n falco --create-namespace
+
+# JSONPath — kiểm tra security nhanh
+kubectl get pod POD -n NS -o jsonpath='{.spec.securityContext.runAsUser}'
+kubectl get pod POD -n NS -o jsonpath='{.spec.containers[0].securityContext.readOnlyRootFilesystem}'
+kubectl get pod POD -n NS -o jsonpath='{.spec.containers[0].securityContext.capabilities.drop}'
+kubectl get sa SA -n NS -o jsonpath='{.automountServiceAccountToken}'
+kubectl get netpol POL -n NS -o jsonpath='{.spec.policyTypes}'

@@ -37,6 +37,14 @@ k uncordon NODE
 k taint nodes NODE key=val:NoSchedule
 k label nodes NODE disktype=ssd
 
+# JSONPath (xem chi tiết: cheatsheet/jsonpath.md)
+k get pod POD -n NS -o jsonpath='{.status.podIP}'
+k get pod POD -n NS -o jsonpath='{.spec.containers[*].name}'
+k get deploy NAME -n NS -o jsonpath='{.status.readyReplicas}'
+k get pods -n NS -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.podIP}{"\n"}{end}'
+k get pods -n NS -o custom-columns=NAME:.metadata.name,IP:.status.podIP,NODE:.spec.nodeName
+k get secret SEC -n NS -o jsonpath='{.data.KEY}' | base64 -d && echo
+
 # Explain
 k explain pod.spec.containers.resources
 k explain networkpolicy.spec
