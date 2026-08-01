@@ -1,0 +1,10 @@
+awx_host = "http://localhost:8052"
+awx_token = "PASTE_AWX_OAUTH_TOKEN_HERE"
+awx_insecure = true
+
+# Fork repo python-all cua ban:
+scm_url = "https://github.com/vibecoder202019/python-all.git"
+scm_branch = "main"
+
+organization_name = "Lab-Module15"
+job_template_name = "python-script-demo-tf"

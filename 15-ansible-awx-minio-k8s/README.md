@@ -31,6 +31,8 @@ Học **Python thực chiến** kết hợp **AWX** (Ansible automation), **MinI
 | **Trong playbook** | `script` module chạy file `.py` | `examples/04_python_script_for_ansible.py` |
 | **Gọi AWX API** | Python trigger job, poll status | `examples/02_launch_job.py` |
 | **Pipeline** | Report Python → MinIO → AWX | `examples/06_full_pipeline.py` |
+| **AWX CLI** | Terminal — list/launch/sync | `examples/07_awx_cli_launch.sh` |
+| **Terraform (tùy chọn)** | IaC Job Template, Project | `terraform/awx-client/` |
 
 ### Kiến trúc lab
 
@@ -41,6 +43,8 @@ Browser → AWX Web UI (awx.local)
          AWX Task Pod ──Python playbook──► MinIO (S3)
               ▲
 Python CLI ───┘ (REST API launch job)
+awx CLI ──────┘ (awx job_templates launch)
+Terraform ────┘ (awx_job_template as code — tùy chọn)
 ```
 
 ---
@@ -86,6 +90,15 @@ export AWX_TOKEN="your-token-here"
 
 # Test API
 python 15-ansible-awx-minio-k8s/examples/01_awx_api_basics.py
+
+# AWX CLI (awxkit)
+bash 15-ansible-awx-minio-k8s/scripts/06-setup-awx-cli.sh
+export AWX_HOST="http://localhost:8052"
+export AWX_TOKEN="your-token-here"
+bash 15-ansible-awx-minio-k8s/scripts/06-setup-awx-cli.sh --test
+
+# Terraform AWX client (tùy chọn — sau khi AWX chạy)
+bash 15-ansible-awx-minio-k8s/scripts/07-terraform-awx-client.sh plan
 ```
 
 ---
@@ -100,6 +113,9 @@ python 15-ansible-awx-minio-k8s/examples/01_awx_api_basics.py
 | 04 | `examples/04_python_script_for_ansible.py` | Script cho Ansible module | Trung bình |
 | 05 | `examples/05_minio_boto3.py` | Upload MinIO bằng boto3 | Trung bình |
 | 06 | `examples/06_full_pipeline.py` | Pipeline Python→MinIO→AWX | Nâng cao |
+| 07 | `examples/07_awx_cli_launch.sh` | Launch job bằng **awx CLI** | Trung bình |
+| 📘 | `docs/07-awx-client-cli-terraform.md` | **AWX CLI + Terraform client** chi tiết | Đọc thêm |
+| 🔧 | `terraform/awx-client/` | Terraform quản lý template/project (tùy chọn) | Nâng cao |
 | 🎯 | `project/` | **AWX Automation CLI** (6 step) | Dự án |
 
 ---
@@ -175,8 +191,34 @@ Tạo Job Template trên AWX:
 | `scripts/03-deploy-awx-operator.sh` | Cài AWX Operator |
 | `scripts/04-deploy-awx-instance.sh` | Tạo AWX instance |
 | `scripts/05-verify-all.sh` | Kiểm tra health |
+| `scripts/06-setup-awx-cli.sh` | Cài `awxkit`, test `awx ping` |
+| `scripts/07-terraform-awx-client.sh` | Plan/apply Terraform AWX client |
 
 ---
+
+## AWX Client — CLI & Terraform (tùy chọn)
+
+**AWX server** = deploy K8s (`scripts/02–04`). **AWX client** = laptop/CI quản lý qua API.
+
+| Công cụ | Khi dùng |
+|---------|----------|
+| **awx CLI** | Debug, launch job, sync project |
+| **Python API** | Tích hợp ứng dụng |
+| **Terraform** | GitOps — Organization, Project, Job Template |
+
+Hướng dẫn đầy đủ: [docs/07-awx-client-cli-terraform.md](docs/07-awx-client-cli-terraform.md)
+
+```bash
+# CLI
+pip install awxkit   # hoặc scripts/06-setup-awx-cli.sh
+export AWX_HOST=http://localhost:8052 AWX_TOKEN=xxx
+awx job_templates list
+awx job_templates launch "My Template" --monitor
+
+# Terraform (tùy chọn)
+cd terraform/awx-client && cp terraform.tfvars.example terraform.tfvars
+bash ../../scripts/07-terraform-awx-client.sh apply
+```
 
 ## Giải thích chi tiết (Tự học)
 
@@ -226,6 +268,12 @@ job_id = result.get("job")  # API trả job id mới tạo
 
 **Hỏi:** MinIO upload fail?  
 **Đáp:** `kubectl port-forward svc/minio 9000:9000 -n minio` hoặc dùng DNS nội bộ từ AWX pod.
+
+**Hỏi:** `awx: command not found`?  
+**Đáp:** `bash scripts/06-setup-awx-cli.sh` hoặc `pip install awxkit`.
+
+**Hỏi:** Terraform AWX provider lỗi version?  
+**Đáp:** Xem [terraform/awx-client/README.md](terraform/awx-client/README.md) — AWX server phải đang chạy trước khi apply.
 
 ---
 

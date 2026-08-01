@@ -29,7 +29,11 @@ MINIO_ACCESS_KEY=minioadmin
 MINIO_SECRET_KEY=minioadmin123
 EOF
 
+pip install -q requests boto3 pyyaml
+
 echo "✓ Dependencies: requests, boto3"
+echo "  (Tùy chọn AWX CLI: bash scripts/06-setup-awx-cli.sh)"
+echo "  (Tùy chọn Terraform AWX: terraform/awx-client/)"
 echo "✓ Sample config: data/awx.env.example"
 echo ""
 echo "Triển khai K8s (cần Docker Desktop K8s):"

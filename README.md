@@ -265,6 +265,8 @@ bash 22-aws-multi-account/scripts/05-verify-org.sh
 | `15-.../scripts/run_project.sh` | Dự án AWX Automation CLI (6 bước) |
 | `15-.../scripts/02-deploy-minio.sh` | Deploy MinIO lên K8s |
 | `15-.../scripts/04-deploy-awx-instance.sh` | Deploy AWX lên K8s |
+| `15-.../scripts/06-setup-awx-cli.sh` | Cài AWX CLI (awxkit) |
+| `15-.../scripts/07-terraform-awx-client.sh` | Terraform quản lý AWX resources (tùy chọn) |
 | `16-.../scripts/setup.sh` | Cài fastapi, pyyaml cho security lab |
 | `16-.../scripts/run_all_examples.sh` | Ví dụ SQLi, DDoS, phishing, port scan |
 | `16-.../scripts/02-deploy-lab.sh` | Deploy security lab lên K8s |
