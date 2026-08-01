@@ -8,7 +8,7 @@ Tự học **n8n** (workflow automation) — kết nối **Agent Bridge** (Modul
 
 ## Mục tiêu
 
-- Cài **n8n** bằng Docker Compose
+- Cài **n8n** bằng Docker Compose **hoặc Kubernetes** (`k8s-ai-automation/`)
 - Tạo workflow webhook + schedule
 - Gọi **Agent Bridge API** để launch AWX job
 - Hoàn thành **capstone** 15 → 23 → 24
@@ -16,6 +16,8 @@ Tự học **n8n** (workflow automation) — kết nối **Agent Bridge** (Modul
 ---
 
 ## Chạy nhanh
+
+### Docker Compose (local)
 
 ```bash
 cd learn-python-ai
@@ -31,8 +33,23 @@ bash 24-n8n-ai-automation/scripts/02-deploy-n8n-compose.sh
 # 3. UI
 open http://localhost:5678
 # admin / n8n-lab-pass
+```
 
-# 4. Capstone guide
+### Kubernetes (full stack trên cluster)
+
+```bash
+# AWX Module 15 đã deploy trên cluster (khuyến nghị)
+bash 24-n8n-ai-automation/scripts/03-deploy-k8s.sh
+
+# UI qua Ingress hoặc port-forward
+kubectl port-forward -n ai-automation svc/n8n 5678:5678
+open http://localhost:5678
+```
+
+Chi tiết: [docs/05-deploy-kubernetes.md](docs/05-deploy-kubernetes.md)
+
+```bash
+# Capstone guide
 bash 24-n8n-ai-automation/scripts/05-run-capstone-demo.sh
 ```
 
@@ -71,7 +88,8 @@ Docs: [docs/04-integrate-mcp-bridge.md](docs/04-integrate-mcp-bridge.md)
 
 ```
 24-n8n-ai-automation/
-├── docker-compose/
+├── docker-compose/      # Compose local
+├── k8s-ai-automation/   # n8n + bridge + Ollama trên K8s
 ├── workflows/
 ├── labs/capstone/
 ├── scripts/
@@ -91,7 +109,8 @@ Module 23 không bắt buộc Cursor — chỉ Ollama + Bridge.
 **Teardown**
 
 ```bash
-bash scripts/06-teardown.sh
+bash scripts/06-teardown.sh          # Compose
+bash scripts/07-teardown-k8s.sh      # Kubernetes
 ```
 
 ---

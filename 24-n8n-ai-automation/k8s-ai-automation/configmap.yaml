@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-automation-config
+  namespace: ai-automation
+data:
+  AWX_URL: "http://awx-service.awx.svc.cluster.local"
+  AWX_DEMO_MODE: "1"
+  USE_OLLAMA: "1"
+  OLLAMA_URL: "http://ollama.ai-automation.svc.cluster.local:11434"
+  OLLAMA_MODEL: "llama3.2:1b"
+  BRIDGE_PORT: "8090"
+  N8N_HOST: "n8n.local"
+  WEBHOOK_URL: "http://n8n.local/"
+  GENERIC_TIMEZONE: "Asia/Ho_Chi_Minh"

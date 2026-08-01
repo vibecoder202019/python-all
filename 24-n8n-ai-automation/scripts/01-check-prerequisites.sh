@@ -9,3 +9,6 @@ curl -sf http://localhost:8090/health && echo " OK" || echo "  (chưa chạy —
 echo ""
 echo "Module 15 AWX (tùy chọn):"
 kubectl get pods -n awx 2>/dev/null | head -3 || echo "  (chưa deploy AWX — dùng AWX_DEMO_MODE=1 trên bridge)"
+echo ""
+echo "Kubernetes stack ai-automation (nếu dùng K8s path):"
+kubectl get pods -n ai-automation 2>/dev/null || echo "  (chưa deploy — bash scripts/03-deploy-k8s.sh)"

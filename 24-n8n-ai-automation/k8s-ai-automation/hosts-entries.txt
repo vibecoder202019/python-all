@@ -1,0 +1,2 @@
+# Thêm vào /etc/hosts (hoặc dnsmasq lab) — trỏ về IP Ingress / Node
+127.0.0.1 n8n.local

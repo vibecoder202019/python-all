@@ -252,7 +252,7 @@ bash 23-mcp-ai-agent-awx/scripts/06-run-ollama-agent.sh  # chat agent
 bash 23-mcp-ai-agent-awx/scripts/04-run-agent-bridge.sh
 
 # Module 24 — n8n + capstone (15→23→24)
-bash 24-n8n-ai-automation/scripts/02-deploy-n8n-compose.sh
+bash 24-n8n-ai-automation/scripts/02-deploy-n8n-compose.sh   # hoặc scripts/03-deploy-k8s.sh
 bash 24-n8n-ai-automation/scripts/05-run-capstone-demo.sh
 # Import workflows/04-capstone-ai-ops.json trên n8n UI
 ```

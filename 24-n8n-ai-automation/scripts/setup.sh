@@ -5,4 +5,6 @@ MODULE_DIR="$(dirname "$SCRIPT_DIR")"
 echo "=== Module 24 setup ==="
 command -v docker >/dev/null
 cp -n "$MODULE_DIR/docker-compose/.env.example" "$MODULE_DIR/docker-compose/.env" 2>/dev/null || true
-echo "✓ Ready — bash scripts/02-deploy-n8n-compose.sh"
+echo "✓ Ready:"
+echo "  Compose: bash scripts/02-deploy-n8n-compose.sh"
+echo "  K8s:     bash scripts/03-deploy-k8s.sh"

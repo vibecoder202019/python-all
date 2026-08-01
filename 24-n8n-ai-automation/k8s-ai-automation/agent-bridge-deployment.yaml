@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-bridge
+  namespace: ai-automation
+  labels:
+    app: agent-bridge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agent-bridge
+  template:
+    metadata:
+      labels:
+        app: agent-bridge
+    spec:
+      containers:
+        - name: bridge
+          image: awx-agent-bridge:lab
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8090
+          envFrom:
+            - configMapRef:
+                name: ai-automation-config
+          env:
+            - name: BRIDGE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ai-automation-secrets
+                  key: BRIDGE_API_KEY
+            - name: AWX_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ai-automation-secrets
+                  key: AWX_TOKEN
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8090
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8090
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 256Mi

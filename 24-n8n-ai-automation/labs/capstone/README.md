@@ -70,10 +70,22 @@ curl -H "X-API-Key: lab-bridge-key" http://localhost:8090/templates
 
 ## Phase 3 — Module 24 (n8n)
 
+**Docker Compose** (bridge trên host):
+
 ```bash
 bash 24-n8n-ai-automation/scripts/02-deploy-n8n-compose.sh
 open http://localhost:5678
 ```
+
+**Kubernetes** (full stack — khuyến nghị nếu AWX đã trên K8s):
+
+```bash
+bash 24-n8n-ai-automation/scripts/03-deploy-k8s.sh
+kubectl port-forward -n ai-automation svc/n8n 5678:5678
+open http://localhost:5678
+```
+
+→ [docs/05-deploy-kubernetes.md](../../docs/05-deploy-kubernetes.md)
 
 Import workflow: `workflows/04-capstone-ai-ops.json` → **Activate**
 
@@ -130,7 +142,8 @@ Không bắt buộc. Xem Module 23 `docs/optional-cursor-mcp.md`.
 - [ ] n8n workflow chạy → bridge trả job id
 - [ ] AWX job successful (hoặc demo mode)
 - [ ] Hiểu sự khác MCP (chat) vs n8n (webhook/schedule)
-- [ ] Teardown: `bash 24-n8n-ai-automation/scripts/06-teardown.sh`
+- [ ] Teardown Compose: `bash 24-n8n-ai-automation/scripts/06-teardown.sh`
+- [ ] Teardown K8s: `bash 24-n8n-ai-automation/scripts/07-teardown-k8s.sh`
 
 ---
 
