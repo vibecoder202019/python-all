@@ -1,46 +1,60 @@
 # Hướng dẫn chạy Manual — Module 10: Dự án tổng hợp
 
-> Copy từng lệnh và chạy **tuần tự**. Dùng thư mục `solution/` làm reference hoàn chỉnh.
+> Cài đặt giống Module 09; train qua `solution/scripts/train_model.py`.
 
-## Điều kiện
+## Phần 0 — Kiểm tra
 
-- Hoàn thành Module 09
-- Python 3.10+
+```bash
+python3 --version
+```
 
-## Bước 0: Vào solution reference
+## Phần A — Cài đặt
+
+```bash
+cd learn-python-ai
+source .venv/bin/activate 2>/dev/null || { python3 -m venv .venv && source .venv/bin/activate; }
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+**Kiểm tra:**
+
+```bash
+python -c "import fastapi, sklearn; print('OK')"
+```
+
+## Phần B — Train (`solution/scripts/train_model.py`)
 
 ```bash
 cd learn-python-ai/10-du-an-tong-hop/solution
 source ../../.venv/bin/activate
-pip install -r ../../requirements.txt
-```
-
-## Bước 1: Train model California Housing
-
-> Tương ứng: `solution/scripts/train_model.py`
-
-```bash
 python scripts/train_model.py
 ```
 
-**Kỳ vọng:** Tạo `models/*.joblib`.
-
-## Bước 2: Chạy API
+**Kiểm tra:**
 
 ```bash
+ls -la models/
+```
+
+## Phần C — Chạy API
+
+```bash
+cd learn-python-ai/10-du-an-tong-hop/solution
+source ../../.venv/bin/activate
 uvicorn app.main:app --reload --port 8000
 ```
 
-## Bước 3: Test API (terminal mới)
+**Kiểm tra:**
 
 ```bash
-curl http://localhost:8000/health
-curl -X POST http://localhost:8000/predict \
+curl -sf http://localhost:8000/health
+curl -sf -X POST http://localhost:8000/predict \
   -H "Content-Type: application/json" \
   -d '{"features":[8.3,41.0,6.984127,1.023810,322.0,2.555556,78.9,37.88,-122.23]}'
 ```
 
-## Bước 4: Chạy pytest
+## Phần D — Tests
 
 ```bash
 cd learn-python-ai/10-du-an-tong-hop/solution
@@ -48,23 +62,10 @@ source ../../.venv/bin/activate
 pytest tests/ -v
 ```
 
-## Bước 5: Tự làm bản của bạn (tùy chọn)
+## Bản đồ manual
 
-```bash
-# Copy cấu trúc từ solution sang thư mục app/ riêng và làm theo README.md
-cat ../README.md
-```
-
-## Bản đồ manual ↔ README
-
-| Bước | Nội dung |
-|------|----------|
-| 1 | Train model |
-| 2–4 | API + test end-to-end |
-| 5 | Capstone tự implement |
-
-## Gỡ / dọn dẹp
-
-```bash
-# Ctrl+C để dừng uvicorn
-```
+| File | Phần |
+|------|------|
+| `solution/scripts/train_model.py` | B |
+| `uvicorn` | C |
+| `pytest tests/` | D |

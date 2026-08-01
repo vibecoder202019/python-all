@@ -1,85 +1,73 @@
 # Hướng dẫn chạy Manual — Module 18: CKA / CKS
 
-> Copy từng lệnh và chạy **tuần tự**. Lab thực hành theo markdown; script chỉ mở hướng dẫn và verify.
+> Lệnh trích từ `01-setup-lab.sh`, `02-run-lab.sh`, `03-verify-lab.sh`.
 
-## Điều kiện
+## Phần A — Cài đặt cluster (`scripts/01-setup-lab.sh`)
 
-- `kubectl` ≥ 1.28
-- minikube **hoặc** Docker Desktop Kubernetes (≥ 8 GB RAM)
-
----
-
-## Phần A — Setup cluster (tương ứng `scripts/01-setup-lab.sh`)
-
-**Cách 1 — minikube:**
+**minikube:**
 
 ```bash
 minikube start --memory=8192 --cpus=4
 minikube addons enable ingress
 minikube addons enable metrics-server
-kubectl get nodes
+minikube status
 ```
 
-**Cách 2 — Docker Desktop K8s:** bật Kubernetes trong Settings, rồi:
+**Hoặc Docker Desktop K8s:**
 
 ```bash
 kubectl get nodes
 ```
 
-Alias kubectl (tùy chọn):
+**Alias kubectl (tùy chọn):**
 
 ```bash
-echo 'alias k=kubectl' >> ~/.bashrc
-source ~/.bashrc
+mkdir -p learn-python-ai/18-cka-cks-kubernetes/.lab
+echo 'alias k=kubectl' >> learn-python-ai/18-cka-cks-kubernetes/.lab/bashrc-snippet
+source learn-python-ai/18-cka-cks-kubernetes/.lab/bashrc-snippet
+```
+
+**Kiểm tra:**
+
+```bash
+kubectl get nodes
+kubectl get pods -A | head -10
+kubectl get ingressclass
 ```
 
 ---
 
-## Phần B — Làm lab (tương ứng `scripts/02-run-lab.sh`)
+## Phần B — Làm lab (`scripts/02-run-lab.sh`)
 
-Ví dụ Lab 01 (Pods & Labels):
-
-```bash
-cd learn-python-ai/18-cka-cks-kubernetes
-cat labs/basic/lab01-pods-labels.md
-```
-
-Làm theo từng bước trong file markdown bằng `kubectl` (copy lệnh trong lab).
-
-Các lab khác:
+Ví dụ lab 01:
 
 ```bash
-cat labs/basic/lab02-deployments.md
-cat labs/intermediate/lab07-rbac.md
-cat labs/advanced/lab12-etcd-backup.md
+ls learn-python-ai/18-cka-cks-kubernetes/labs/basic/lab01-pods-labels.md
+head -40 learn-python-ai/18-cka-cks-kubernetes/labs/basic/lab01-pods-labels.md
 ```
+
+Làm theo hướng dẫn trong file markdown bằng `kubectl`.
 
 ---
 
-## Phần C — Verify lab (tương ứng `scripts/03-verify-lab.sh`)
-
-Sau khi hoàn thành lab 01:
+## Phần C — Verify (`scripts/03-verify-lab.sh`)
 
 ```bash
-cd learn-python-ai/18-cka-cks-kubernetes
-bash scripts/03-verify-lab.sh 01
+bash learn-python-ai/18-cka-cks-kubernetes/scripts/03-verify-lab.sh 01
 ```
 
-Verify lab khác (thay số):
+**Kiểm tra tay lab 01:**
 
 ```bash
-bash scripts/03-verify-lab.sh 05
-bash scripts/03-verify-lab.sh 10
+kubectl get ns cka-lab
+kubectl get pod -n cka-lab -l app=web
 ```
 
----
-
-## Phần D — Apply manifest mẫu (nếu lab yêu cầu)
+Lab 02:
 
 ```bash
-cd learn-python-ai/18-cka-cks-kubernetes
-kubectl apply -f manifests/
-kubectl get all -A
+bash learn-python-ai/18-cka-cks-kubernetes/scripts/03-verify-lab.sh 02
+kubectl get deploy web -n cka-lab -o jsonpath='{.status.readyReplicas}'
 ```
 
 ---
@@ -89,13 +77,11 @@ kubectl get all -A
 | Script | Phần |
 |--------|------|
 | `01-setup-lab.sh` | A |
-| `02-run-lab.sh` | B (đọc + làm lab markdown) |
+| `02-run-lab.sh` | B (đọc + kubectl) |
 | `03-verify-lab.sh` | C |
 
-## Gỡ / dọn dẹp
+## Teardown
 
 ```bash
 minikube delete
-# hoặc xóa namespace lab:
-kubectl delete namespace cka-lab --ignore-not-found
 ```

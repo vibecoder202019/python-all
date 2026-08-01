@@ -1,41 +1,31 @@
 # Hướng dẫn chạy Manual — Module 04: File I/O & Module
 
-> Copy từng lệnh và chạy **tuần tự**. Module này **không có script automation**.
+## Phần 0 — Kiểm tra
 
-## Bước 0: Vào thư mục module
+```bash
+python3 --version
+```
+
+## Phần A — Cài đặt
+
+```bash
+cd learn-python-ai
+source .venv/bin/activate 2>/dev/null || { python3 -m venv .venv && source .venv/bin/activate; }
+```
+
+## Phần B — Chạy ví dụ
 
 ```bash
 cd learn-python-ai/04-xu-ly-file-va-module
-```
-
-## Bước 1: Đọc/ghi file text
-
-```bash
 python examples/01_file_io.py
-```
-
-## Bước 2: JSON và CSV
-
-```bash
 python examples/02_json_csv.py
-```
-
-## Bước 3: Pathlib
-
-```bash
 python examples/03_pathlib.py
 ```
 
-## Bước 5: Bài tập (tùy chọn)
+**Kiểm tra:** File tạm trong thư mục làm việc (nếu script ghi file).
 
-```bash
-cat exercises/bai_tap.md
-```
+## Bản đồ manual
 
-## Bản đồ manual ↔ README
-
-| Bước | File |
-|------|------|
-| 1 | `01_file_io.py` |
-| 2 | `02_json_csv.py` |
-| 3 | `03_pathlib.py` |
+| Script | Manual |
+|--------|--------|
+| *(không có)* | A–B |

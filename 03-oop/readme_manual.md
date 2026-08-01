@@ -1,41 +1,36 @@
 # Hướng dẫn chạy Manual — Module 03: OOP
 
-> Copy từng lệnh và chạy **tuần tự**. Module này **không có script automation**.
+## Phần 0 — Kiểm tra
 
-## Bước 0: Vào thư mục module
+```bash
+python3 --version
+```
+
+## Phần A — Cài đặt
+
+```bash
+cd learn-python-ai
+source .venv/bin/activate 2>/dev/null || { python3 -m venv .venv && source .venv/bin/activate; }
+pip install --upgrade pip
+```
+
+**Kiểm tra:**
+
+```bash
+python -c "print('venv OK')"
+```
+
+## Phần B — Chạy ví dụ
 
 ```bash
 cd learn-python-ai/03-oop
-```
-
-## Bước 1: Class cơ bản
-
-```bash
 python examples/01_class_basics.py
-```
-
-## Bước 2: Kế thừa
-
-```bash
 python examples/02_inheritance.py
-```
-
-## Bước 3: Magic methods
-
-```bash
 python examples/03_magic_methods.py
 ```
 
-## Bước 4: Bài tập (tùy chọn)
+## Bản đồ manual
 
-```bash
-cat exercises/bai_tap.md
-```
-
-## Bản đồ manual ↔ README
-
-| Bước | File |
-|------|------|
-| 1 | `01_class_basics.py` |
-| 2 | `02_inheritance.py` |
-| 3 | `03_magic_methods.py` |
+| Script | Manual |
+|--------|--------|
+| *(không có)* | A–B |

@@ -1,47 +1,45 @@
 # Hướng dẫn chạy Manual — Module 07: Machine Learning
 
-> Copy từng lệnh và chạy **tuần tự**. Module này **không có script automation**.
+## Phần 0 — Kiểm tra
 
-## Bước 0: Cài dependencies
+```bash
+python3 --version
+```
+
+## Phần A — Cài đặt
 
 ```bash
 cd learn-python-ai
-source .venv/bin/activate
+source .venv/bin/activate 2>/dev/null || { python3 -m venv .venv && source .venv/bin/activate; }
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## Bước 1: Classification (Iris)
+**Kiểm tra:**
 
 ```bash
-cd 07-machine-learning
+python -c "import sklearn; print(sklearn.__version__)"
+```
+
+## Phần B — Chạy ví dụ
+
+```bash
+cd learn-python-ai/07-machine-learning
 python examples/01_classification_iris.py
-```
-
-## Bước 2: Regression
-
-```bash
 python examples/02_regression.py
-```
-
-## Bước 3: Cross-validation
-
-```bash
 python examples/03_cross_validation.py
-```
-
-## Bước 4: Lưu/tải model
-
-```bash
 python examples/04_save_load_model.py
 ```
 
-**Kỳ vọng:** Tạo file model trong thư mục làm việc (thường `models/` hoặc `.joblib`).
+**Kiểm tra bước 4:**
 
-## Bản đồ manual ↔ README
+```bash
+ls -la *.joblib models/ 2>/dev/null || ls -la
+```
 
-| Bước | File |
-|------|------|
-| 1 | `01_classification_iris.py` |
-| 2 | `02_regression.py` |
-| 3 | `03_cross_validation.py` |
-| 4 | `04_save_load_model.py` |
+## Bản đồ manual
+
+| Nguồn | Manual |
+|-------|--------|
+| requirements.txt | A |
+| examples/ | B |

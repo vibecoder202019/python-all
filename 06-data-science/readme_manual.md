@@ -1,41 +1,41 @@
 # Hướng dẫn chạy Manual — Module 06: Data Science
 
-> Copy từng lệnh và chạy **tuần tự**. Module này **không có script automation**.
+## Phần 0 — Kiểm tra
 
-## Bước 0: Cài dependencies
+```bash
+python3 --version
+```
+
+## Phần A — Cài đặt (tương đương `pip install -r requirements.txt`)
 
 ```bash
 cd learn-python-ai
 python3 -m venv .venv
 source .venv/bin/activate
+pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-## Bước 1: NumPy cơ bản
+**Kiểm tra sau cài đặt:**
 
 ```bash
-cd 06-data-science
+python -c "import numpy, pandas, matplotlib; print('numpy', numpy.__version__)"
+```
+
+## Phần B — Chạy ví dụ
+
+```bash
+cd learn-python-ai/06-data-science
 python examples/01_numpy_basics.py
-```
-
-## Bước 2: Pandas cơ bản
-
-```bash
 python examples/02_pandas_basics.py
-```
-
-## Bước 3: Visualization
-
-```bash
 python examples/03_visualization.py
 ```
 
-**Kỳ vọng:** Có thể mở cửa sổ biểu đồ hoặc lưu file ảnh tùy code.
+**Kiểm tra:** Exit code 0; bước 3 có thể mở cửa sổ plot hoặc lưu ảnh.
 
-## Bản đồ manual ↔ README
+## Bản đồ manual
 
-| Bước | File |
-|------|------|
-| 1 | `01_numpy_basics.py` |
-| 2 | `02_pandas_basics.py` |
-| 3 | `03_visualization.py` |
+| Nguồn | Manual |
+|-------|--------|
+| `README.md` — pip requirements | Phần A |
+| `examples/` | Phần B |

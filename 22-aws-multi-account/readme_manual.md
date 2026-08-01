@@ -1,27 +1,21 @@
 # Hướng dẫn chạy Manual — Module 22: AWS Multi-Account
 
-> Copy từng lệnh và chạy **tuần tự**. **Cẩn thận:** Terraform apply tạo tài nguyên AWS Organizations thật.
+> Lệnh trích từ `01-check-prerequisites.sh`, `05-verify-org.sh`, `03-assume-role-demo.sh`, `04-terraform-plan.sh`.
 
-## Điều kiện
-
-- AWS account (admin/root lần đầu bật Organizations)
-- AWS CLI v2, Terraform ≥ 1.6, `jq`
-- Module 13, 19 (khuyến nghị)
-
----
-
-## Phần A — Kiểm tra (tương ứng `scripts/01-check-prerequisites.sh`)
+## Phần A — Kiểm tra (`scripts/01-check-prerequisites.sh`)
 
 ```bash
-aws --version
+command -v aws
+command -v terraform
+command -v jq
+aws sts get-caller-identity
 terraform --version
 jq --version
-aws sts get-caller-identity
 ```
 
 ---
 
-## Phần B — Verify Organizations (tương ứng `scripts/05-verify-org.sh`)
+## Phần B — Verify Organizations (`scripts/05-verify-org.sh`)
 
 ```bash
 aws organizations describe-organization
@@ -30,28 +24,16 @@ aws organizations list-accounts --output table
 
 ---
 
-## Phần C — Lab Console (tương ứng `scripts/02-run-lab.sh`)
-
-Lab 01 — bật Organizations:
+## Phần C — Lab Console (`scripts/02-run-lab.sh`)
 
 ```bash
-cd learn-python-ai/22-aws-multi-account
-cat labs/basic/lab01-enable-organizations.md
-```
-
-Làm theo từng bước trong AWS Console (checklist trong `console/`).
-
-Lab khác:
-
-```bash
-cat labs/basic/lab03-create-member-account.md
-cat labs/intermediate/lab06-scp-deny-root.md
-cat labs/advanced/lab09-terraform-modules.md
+find learn-python-ai/22-aws-multi-account/labs -name "lab01-*.md"
+cat learn-python-ai/22-aws-multi-account/labs/basic/lab01-enable-organizations.md
 ```
 
 ---
 
-## Phần D — Assume role demo (tương ứng `scripts/03-assume-role-demo.sh`)
+## Phần D — Assume role (`scripts/03-assume-role-demo.sh`)
 
 ```bash
 export DEV_ACCOUNT_ID=123456789012
@@ -64,21 +46,20 @@ aws sts assume-role \
   --output json
 ```
 
-Export credentials từ output (AccessKeyId, SecretAccessKey, SessionToken):
+Export credentials từ output:
 
 ```bash
 export AWS_ACCESS_KEY_ID=...
 export AWS_SECRET_ACCESS_KEY=...
 export AWS_SESSION_TOKEN=...
 aws sts get-caller-identity
-aws s3 ls
+aws s3 ls | head -5
+unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 ```
 
 ---
 
-## Phần E — Terraform plan (tương ứng `scripts/04-terraform-plan.sh`)
-
-Management account:
+## Phần E — Terraform (`scripts/04-terraform-plan.sh`)
 
 ```bash
 cd learn-python-ai/22-aws-multi-account/terraform/environments/management
@@ -89,31 +70,19 @@ terraform validate
 terraform plan -input=false
 ```
 
-Apply (chỉ khi đã hiểu chi phí):
-
-```bash
-terraform apply -input=false
-```
-
-Dev workload environment:
+Dev workload:
 
 ```bash
 cd learn-python-ai/22-aws-multi-account/terraform/environments/dev-workload
 cp terraform.tfvars.example terraform.tfvars
 terraform init -input=false
 terraform plan -input=false
-terraform apply -input=false
 ```
 
----
-
-## Phần F — Mở lab bằng script
+**Apply (cẩn thận — tài nguyên thật):**
 
 ```bash
-cd learn-python-ai/22-aws-multi-account
-bash scripts/02-run-lab.sh 01
-bash scripts/02-run-lab.sh 05
-bash scripts/04-terraform-plan.sh management
+terraform apply -input=false
 ```
 
 ---
@@ -124,24 +93,13 @@ bash scripts/04-terraform-plan.sh management
 |--------|------|
 | `01-check-prerequisites.sh` | A |
 | `05-verify-org.sh` | B |
-| `02-run-lab.sh` | C, F |
+| `02-run-lab.sh` | C |
 | `03-assume-role-demo.sh` | D |
 | `04-terraform-plan.sh` | E |
 
-## Biến môi trường
-
-```bash
-export AWS_DEFAULT_REGION=ap-southeast-1
-export DEV_ACCOUNT_ID=YOUR_DEV_ACCOUNT_ID
-export ROLE_NAME=DevOpsCrossAccountRole
-export EXTERNAL_ID=lab-module-22-dev
-```
-
-## Gỡ / dọn dẹp
+## Teardown
 
 ```bash
 cd learn-python-ai/22-aws-multi-account/terraform/environments/dev-workload
-terraform destroy -input=false
-cd ../management
 terraform destroy -input=false
 ```

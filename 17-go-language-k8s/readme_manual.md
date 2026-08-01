@@ -1,28 +1,27 @@
 # Hướng dẫn chạy Manual — Module 17: Go + K8s + Helm
 
-> Copy từng lệnh và chạy **tuần tự**. Mỗi phần tương ứng script trong `scripts/`.
+> Lệnh trích từ `01-check-prerequisites.sh` → `07-test-api.sh`.
 
-## Điều kiện
+## Phần 0 — `/etc/hosts`
 
-- Go 1.22+
-- Docker Desktop + Kubernetes
-- `kubectl`, `helm`
-- `/etc/hosts`: `127.0.0.1 go-api.local`
+```bash
+grep go-api.local /etc/hosts || echo "127.0.0.1 go-api.local" | sudo tee -a /etc/hosts
+```
 
 ---
 
-## Phần A — Kiểm tra tools (tương ứng `scripts/01-check-prerequisites.sh`)
+## Phần A — Kiểm tra tools (`scripts/01-check-prerequisites.sh`)
 
 ```bash
 go version
 docker --version
 kubectl version --client
-helm version
+helm version --short
 ```
 
 ---
 
-## Phần B — Go examples (tương ứng `scripts/02-run-examples.sh`)
+## Phần B — Go examples (`scripts/02-run-examples.sh`)
 
 ```bash
 cd learn-python-ai/17-go-language-k8s
@@ -37,7 +36,7 @@ go run ./examples/07_context/
 
 ---
 
-## Phần C — Build & test project (tương ứng `scripts/03-run-project.sh`)
+## Phần C — Project (`scripts/03-run-project.sh`)
 
 ```bash
 cd learn-python-ai/17-go-language-k8s/project
@@ -46,47 +45,44 @@ go build -o bin/server ./cmd/server
 ./bin/server
 ```
 
----
-
-## Phần D — Test API local (tương ứng `scripts/07-test-api.sh`)
-
-> Cần server đang chạy ở Phần C
+**Kiểm tra (terminal khác, server đang chạy):**
 
 ```bash
-curl http://localhost:8080/health
-curl -X POST http://localhost:8080/tasks -H "Content-Type: application/json" -d '{"title":"Task manual test"}'
-curl http://localhost:8080/tasks
+curl -sf http://localhost:8080/health
 ```
 
 ---
 
-## Phần E — Build Docker (tương ứng `scripts/04-build-docker.sh`)
+## Phần D — Docker (`scripts/04-build-docker.sh`)
 
 ```bash
-cd learn-python-ai
-docker build -t go-task-api:latest 17-go-language-k8s/project
+docker build -t go-task-api:latest learn-python-ai/17-go-language-k8s/project
 docker images | grep go-task-api
 ```
 
 ---
 
-## Phần F — Deploy K8s manifests (tương ứng `scripts/05-deploy-k8s.sh`)
+## Phần E — K8s deploy (`scripts/05-deploy-k8s.sh`)
 
 ```bash
-cd learn-python-ai/17-go-language-k8s
-K8S=k8s
+K8S=learn-python-ai/17-go-language-k8s/k8s
 kubectl apply -f $K8S/namespace.yaml
 kubectl apply -f $K8S/deployment.yaml
 kubectl apply -f $K8S/service.yaml
 kubectl apply -f $K8S/ingress.yaml
 kubectl wait --for=condition=ready pod -l app=go-task-api -n go-api-lab --timeout=120s
-echo "127.0.0.1 go-api.local" | sudo tee -a /etc/hosts
-curl http://go-api.local/health
+```
+
+**Kiểm tra:**
+
+```bash
+kubectl get pods -n go-api-lab
+curl -sf http://go-api.local/health
 ```
 
 ---
 
-## Phần G — Deploy Helm (tương ứng `scripts/06-deploy-helm.sh`)
+## Phần F — Helm (`scripts/06-deploy-helm.sh`)
 
 ```bash
 kubectl create namespace go-api-lab --dry-run=client -o yaml | kubectl apply -f -
@@ -96,7 +92,19 @@ helm upgrade --install go-task-api learn-python-ai/17-go-language-k8s/helm/go-ta
   --set image.tag=latest \
   --set image.pullPolicy=IfNotPresent \
   --wait --timeout 120s
-kubectl get pods -n go-api-lab
+helm status go-task-api -n go-api-lab
+```
+
+---
+
+## Phần G — Test API (`scripts/07-test-api.sh`)
+
+```bash
+curl -sf http://localhost:8080/health | python3 -m json.tool
+curl -sf -X POST http://localhost:8080/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Task manual test"}' | python3 -m json.tool
+curl -sf http://localhost:8080/tasks | python3 -m json.tool
 ```
 
 ---
@@ -108,14 +116,7 @@ kubectl get pods -n go-api-lab
 | `01-check-prerequisites.sh` | A |
 | `02-run-examples.sh` | B |
 | `03-run-project.sh` | C |
-| `07-test-api.sh` | D |
-| `04-build-docker.sh` | E |
-| `05-deploy-k8s.sh` | F |
-| `06-deploy-helm.sh` | G |
-
-## Gỡ / dọn dẹp
-
-```bash
-helm uninstall go-task-api -n go-api-lab
-kubectl delete namespace go-api-lab
-```
+| `04-build-docker.sh` | D |
+| `05-deploy-k8s.sh` | E |
+| `06-deploy-helm.sh` | F |
+| `07-test-api.sh` | G |

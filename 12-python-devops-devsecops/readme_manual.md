@@ -1,15 +1,15 @@
 # Hướng dẫn chạy Manual — Module 12: DevOps & DevSecOps
 
-> Copy từng lệnh và chạy **tuần tự**. Mỗi phần tương ứng một script trong `scripts/`.
+> Lệnh trích từ `scripts/setup.sh`, `run_all_examples.sh`, `run_project.sh`, `demo_infra.sh`.
 
-## Điều kiện
+## Phần 0 — Kiểm tra
 
-- Python 3.10+
-- Docker (tùy chọn, cho ví dụ 05)
+```bash
+python3 --version
+command -v docker && docker --version || echo "Docker tùy chọn (example 05)"
+```
 
----
-
-## Phần A — Setup (tương ứng `scripts/setup.sh`)
+## Phần A — Cài đặt (`scripts/setup.sh`)
 
 ```bash
 cd learn-python-ai
@@ -17,17 +17,19 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip
 pip install pyyaml httpx python-dotenv
-```
-
-Tạo sample data (script tự tạo — bạn có thể bỏ qua nếu đã chạy `setup.sh`):
-
-```bash
 mkdir -p 12-python-devops-devsecops/data
 ```
 
----
+**Kiểm tra:**
 
-## Phần B — Ví dụ (tương ứng `scripts/run_all_examples.sh`)
+```bash
+python -c "import yaml, httpx, dotenv; print('OK')"
+test -f 12-python-devops-devsecops/data/sample.log || echo "Chạy setup.sh để tạo sample data"
+```
+
+*(Script tự tạo `data/sample.log`, `config.yaml`, `.env.example` — nếu thiếu, chạy `bash 12-python-devops-devsecops/scripts/setup.sh` một lần.)*
+
+## Phần B — Ví dụ (`scripts/run_all_examples.sh`)
 
 ```bash
 cd learn-python-ai
@@ -40,9 +42,7 @@ python 12-python-devops-devsecops/examples/05_docker_script.py
 python 12-python-devops-devsecops/examples/06_security_scan.py
 ```
 
----
-
-## Phần C — Dự án 6 bước (tương ứng `scripts/run_project.sh`)
+## Phần C — Dự án (`scripts/run_project.sh`)
 
 ```bash
 cd learn-python-ai
@@ -55,9 +55,7 @@ python 12-python-devops-devsecops/project/step05_security_audit.py --demo
 python 12-python-devops-devsecops/project/step06_final.py --demo
 ```
 
----
-
-## Phần D — Demo infra (tương ứng `scripts/demo_infra.sh`, tùy chọn)
+## Phần D — Demo infra (`scripts/demo_infra.sh`)
 
 ```bash
 cd learn-python-ai
@@ -67,8 +65,6 @@ python 12-python-devops-devsecops/project/step06_final.py parse-log --file 12-py
 python 12-python-devops-devsecops/project/step06_final.py security-scan --path 12-python-devops-devsecops/data/
 ```
 
----
-
 ## Bản đồ script ↔ manual
 
 | Script | Phần |
@@ -77,7 +73,3 @@ python 12-python-devops-devsecops/project/step06_final.py security-scan --path 1
 | `run_all_examples.sh` | B |
 | `run_project.sh` | C |
 | `demo_infra.sh` | D |
-
-## Gỡ / dọn dẹp
-
-Không cần.

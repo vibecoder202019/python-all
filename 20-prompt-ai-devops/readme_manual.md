@@ -1,60 +1,55 @@
 # Hướng dẫn chạy Manual — Module 20: Prompt AI DevOps
 
-> Copy từng lệnh và chạy **tuần tự**. Module này **lab-driven** — không deploy infrastructure.
+> Lệnh trích từ `01-setup.sh`, `02-run-lab.sh`.
 
-## Điều kiện
-
-- Python 3
-- Cursor hoặc IDE có AI (khuyến nghị)
-
----
-
-## Phần A — Setup (tương ứng `scripts/01-setup.sh`)
+## Phần A — Cài đặt (`scripts/01-setup.sh`)
 
 ```bash
-cd learn-python-ai/20-prompt-ai-devops
-mkdir -p notes
+mkdir -p learn-python-ai/20-prompt-ai-devops/notes
 python3 --version
 ```
 
----
-
-## Phần B — Lab 01 (tương ứng `scripts/02-run-lab.sh 01`)
+**Kiểm tra:**
 
 ```bash
-cd learn-python-ai/20-prompt-ai-devops
-cat labs/basic/lab01-framework-rcto.md
-```
-
-Làm theo lab: copy prompt template → paste vào AI → lưu kết quả vào `notes/`.
-
----
-
-## Phần C — Đọc template prompt
-
-```bash
-cat prompts/python/debug-error.md
-cat prompts/kubernetes/troubleshoot-pod.md
-cat prompts/vault/terraform-plan-review.md
-cat prompts/monitoring/promql-query.md
-cat cheatsheet/prompt-framework.md
+test -d learn-python-ai/20-prompt-ai-devops/notes && echo "notes OK"
+python3 --version | grep -E "3\.(1[0-9]|[2-9][0-9])"
 ```
 
 ---
 
-## Phần D — Lab tiếp theo (thay số 01→12)
+## Phần B — Lab 01 (`scripts/02-run-lab.sh 01`)
 
 ```bash
-cat labs/basic/lab02-before-after.md
-cat labs/intermediate/lab06-k8s-troubleshoot.md
-cat labs/advanced/lab10-logging-rca.md
+find learn-python-ai/20-prompt-ai-devops/labs -name "lab01-*.md"
+cat learn-python-ai/20-prompt-ai-devops/labs/basic/lab01-framework-rcto.md
 ```
 
-Hoặc dùng script để mở lab:
+Làm theo lab → lưu output vào `notes/`.
+
+---
+
+## Phần C — Đọc template
 
 ```bash
-bash scripts/02-run-lab.sh 03
-bash scripts/02-run-lab.sh 08
+cat learn-python-ai/20-prompt-ai-devops/prompts/python/debug-error.md
+cat learn-python-ai/20-prompt-ai-devops/prompts/kubernetes/troubleshoot-pod.md
+cat learn-python-ai/20-prompt-ai-devops/cheatsheet/prompt-framework.md
+```
+
+---
+
+## Phần D — Lab khác
+
+```bash
+bash learn-python-ai/20-prompt-ai-devops/scripts/02-run-lab.sh 03
+bash learn-python-ai/20-prompt-ai-devops/scripts/02-run-lab.sh 08
+```
+
+Hoặc:
+
+```bash
+cat learn-python-ai/20-prompt-ai-devops/labs/intermediate/lab06-k8s-troubleshoot.md
 ```
 
 ---
@@ -64,8 +59,4 @@ bash scripts/02-run-lab.sh 08
 | Script | Phần |
 |--------|------|
 | `01-setup.sh` | A |
-| `02-run-lab.sh <NN>` | B, D |
-
-## Gỡ / dọn dẹp
-
-Không cần — chỉ file notes local.
+| `02-run-lab.sh` | B, D |

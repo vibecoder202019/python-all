@@ -1,16 +1,8 @@
 # Hướng dẫn chạy Manual — Module 19: Vault + Terraform
 
-> Copy từng lệnh và chạy **tuần tự**. Cần **2 terminal** cho Vault + Terraform.
+> Lệnh trích từ `01-install-tools.sh`, `02-setup-vault-dev.sh`, `03-run-terraform.sh`, `04-verify-lab.sh`.
 
-## Điều kiện
-
-- Terraform ≥ 1.6
-- Vault CLI ≥ 1.15
-- `jq` (khuyến nghị)
-
----
-
-## Phần A — Kiểm tra tools (tương ứng `scripts/01-install-tools.sh --check`)
+## Phần A — Cài đặt tools (`scripts/01-install-tools.sh --check`)
 
 ```bash
 terraform --version
@@ -18,7 +10,7 @@ vault --version
 jq --version
 ```
 
-Cài trên macOS (nếu thiếu):
+**Cài macOS (`--install`):**
 
 ```bash
 brew tap hashicorp/tap
@@ -27,9 +19,9 @@ brew install hashicorp/tap/terraform hashicorp/tap/vault jq
 
 ---
 
-## Phần B — Vault dev server (tương ứng `scripts/02-setup-vault-dev.sh`)
+## Phần B — Vault dev (`scripts/02-setup-vault-dev.sh`)
 
-**Terminal 1** — giữ chạy:
+**Terminal 1:**
 
 ```bash
 export VAULT_ADDR=http://127.0.0.1:8200
@@ -44,16 +36,24 @@ export VAULT_ADDR=http://127.0.0.1:8200
 export VAULT_TOKEN=root
 vault status
 vault secrets enable -path=secret kv-v2
-cd learn-python-ai/19-vault-terraform
-bash vault/scripts/seed-secrets.sh
+bash learn-python-ai/19-vault-terraform/vault/scripts/seed-secrets.sh
 vault kv get secret/myapp/db
 ```
 
----
-
-## Phần C — Terraform lab 01 (tương ứng `scripts/03-run-terraform.sh 01-hello`)
+**Kiểm tra:**
 
 ```bash
+vault status | grep Sealed
+```
+
+**Kỳ vọng:** `Sealed false`.
+
+---
+
+## Phần C — Terraform lab 01 (`scripts/03-run-terraform.sh 01-hello`)
+
+```bash
+mkdir -p learn-python-ai/19-vault-terraform/terraform/01-hello/output
 cd learn-python-ai/19-vault-terraform/terraform/01-hello
 terraform init -input=false
 terraform fmt
@@ -61,61 +61,43 @@ terraform validate
 terraform plan -input=false
 terraform apply -input=false
 terraform output
+```
+
+**Kiểm tra:**
+
+```bash
 cat output/hello.txt
+bash learn-python-ai/19-vault-terraform/scripts/04-verify-lab.sh 01
 ```
 
 ---
 
-## Phần D — Terraform lab 02–04 (không cần Vault)
+## Phần D — Lab 02–04
 
 ```bash
 cd learn-python-ai/19-vault-terraform/terraform/02-variables
-terraform init -input=false && terraform plan -input=false && terraform apply -input=false
+terraform init -input=false && terraform apply -input=false
 
 cd ../03-local-resources
-terraform init -input=false && terraform plan -input=false && terraform apply -input=false
+terraform init -input=false && terraform apply -input=false
 
 cd ../04-modules
-terraform init -input=false && terraform plan -input=false && terraform apply -input=false
+terraform init -input=false && terraform apply -input=false
 ```
 
 ---
 
-## Phần E — Terraform + Vault (tương ứng `scripts/03-run-terraform.sh 05-vault-provider`)
-
-> Vault phải đang chạy ở Terminal 1
+## Phần E — Lab Vault provider (cần Vault chạy)
 
 ```bash
 export VAULT_ADDR=http://127.0.0.1:8200
 export VAULT_TOKEN=root
+bash learn-python-ai/19-vault-terraform/vault/scripts/seed-secrets.sh
 cd learn-python-ai/19-vault-terraform/terraform/05-vault-provider
 terraform init -input=false
 terraform plan -input=false
 terraform apply -input=false
-terraform output
-```
-
----
-
-## Phần F — Project Terraform (tương ứng `scripts/03-run-terraform.sh project`)
-
-```bash
-export VAULT_ADDR=http://127.0.0.1:8200
-export VAULT_TOKEN=root
-cd learn-python-ai/19-vault-terraform/terraform/project
-terraform init -input=false
-terraform plan -input=false
-terraform apply -input=false
-```
-
----
-
-## Phần G — Verify (tương ứng `scripts/04-verify-lab.sh`)
-
-```bash
-cd learn-python-ai/19-vault-terraform
-bash scripts/04-verify-lab.sh 01
-bash scripts/04-verify-lab.sh 07
+bash learn-python-ai/19-vault-terraform/scripts/04-verify-lab.sh 07
 ```
 
 ---
@@ -126,17 +108,12 @@ bash scripts/04-verify-lab.sh 07
 |--------|------|
 | `01-install-tools.sh` | A |
 | `02-setup-vault-dev.sh` | B |
-| `03-run-terraform.sh 01-hello` | C |
-| `03-run-terraform.sh 02/03/04` | D |
-| `03-run-terraform.sh 05-vault-provider` | E |
-| `03-run-terraform.sh project` | F |
-| `04-verify-lab.sh` | G |
+| `03-run-terraform.sh` | C–E |
+| `04-verify-lab.sh` | Kiểm tra sau mỗi lab |
 
-## Gỡ / dọn dẹp
+## Teardown
 
 ```bash
 cd learn-python-ai/19-vault-terraform/terraform/01-hello
 terraform destroy -input=false -auto-approve
-# Lặp cho từng thư mục terraform đã apply
-# Ctrl+C Vault dev server ở Terminal 1
 ```

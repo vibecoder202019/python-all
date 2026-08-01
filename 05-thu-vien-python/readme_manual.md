@@ -1,41 +1,46 @@
 # Hướng dẫn chạy Manual — Module 05: Thư viện Python
 
-> Copy từng lệnh và chạy **tuần tự**. Module này **không có script automation**.
+## Phần 0 — Kiểm tra
 
-## Điều kiện
+```bash
+python3 --version
+curl --version
+```
 
-- Có mạng Internet (bước 1 dùng `requests`)
+**Kiểm tra mạng:**
 
-## Bước 0: Cài thư viện (nếu chưa có)
+```bash
+curl -sf -o /dev/null -w "%{http_code}\n" https://httpbin.org/get
+```
+
+**Kỳ vọng:** `200`.
+
+## Phần A — Cài đặt
 
 ```bash
 cd learn-python-ai
+source .venv/bin/activate 2>/dev/null || { python3 -m venv .venv && source .venv/bin/activate; }
+pip install --upgrade pip
 pip install requests
 ```
 
-## Bước 1: HTTP với requests
+**Kiểm tra:**
 
 ```bash
-cd 05-thu-vien-python
+python -c "import requests; print(requests.__version__)"
+```
+
+## Phần B — Chạy ví dụ
+
+```bash
+cd learn-python-ai/05-thu-vien-python
 python examples/01_requests.py
-```
-
-## Bước 2: Datetime và Regex
-
-```bash
 python examples/02_datetime_regex.py
-```
-
-## Bước 3: Logging
-
-```bash
 python examples/03_logging.py
 ```
 
-## Bản đồ manual ↔ README
+## Bản đồ manual
 
-| Bước | File |
-|------|------|
-| 1 | `01_requests.py` |
-| 2 | `02_datetime_regex.py` |
-| 3 | `03_logging.py` |
+| Script | Manual |
+|--------|--------|
+| *(không có)* | A (pip requests) + B |

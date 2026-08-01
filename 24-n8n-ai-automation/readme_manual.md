@@ -1,84 +1,133 @@
 # Hướng dẫn chạy Manual — Module 24: n8n + AI Automation
 
-> Capstone liên kết với Module **15** và **23**.
+> Lệnh trích từ `setup.sh`, `01-check-prerequisites.sh`, `02-deploy-n8n-compose.sh`, `04-test-webhook.sh`, `06-teardown.sh`.
 
-## Phần A — Kiểm tra
-
-```bash
-bash 24-n8n-ai-automation/scripts/01-check-prerequisites.sh
-```
-
-## Phần B — Bridge phải chạy trước (Module 23)
+## Phần A — Cài đặt (`scripts/setup.sh`)
 
 ```bash
-cd learn-python-ai
-bash 23-mcp-ai-agent-awx/scripts/04-run-agent-bridge.sh
+command -v docker
+cp -n learn-python-ai/24-n8n-ai-automation/docker-compose/.env.example \
+      learn-python-ai/24-n8n-ai-automation/docker-compose/.env
 ```
 
-## Phần C — Deploy n8n
+**Kiểm tra Docker:**
+
+```bash
+docker --version
+docker compose version
+docker info >/dev/null && echo "Docker daemon OK"
+```
+
+---
+
+## Phần B — Kiểm tra stack (`scripts/01-check-prerequisites.sh`)
+
+```bash
+docker --version
+docker compose version
+curl -sf http://localhost:8090/health || echo "Start Module 23 bridge first"
+kubectl get pods -n awx 2>/dev/null | head -3 || echo "AWX optional"
+```
+
+**Kỳ vọng bridge:** `{"status":"ok",...}`
+
+---
+
+## Phần C — Bridge phải chạy trước (Module 23)
+
+```bash
+cd learn-python-ai/23-mcp-ai-agent-awx
+source ../.venv/bin/activate
+set -a && source config/.env && set +a
+uvicorn agent-bridge.main:app --host 0.0.0.0 --port 8090
+```
+
+---
+
+## Phần D — Deploy n8n (`scripts/02-deploy-n8n-compose.sh`)
+
+Chỉ n8n:
 
 ```bash
 cd learn-python-ai/24-n8n-ai-automation/docker-compose
 cp .env.example .env
-docker compose up -d
+docker compose up -d n8n
+```
+
+Kèm Ollama Docker:
+
+```bash
+docker compose --profile ollama up -d
+sleep 5
+docker exec ollama-lab ollama pull llama3.2:1b
+```
+
+**Kiểm tra:**
+
+```bash
 docker compose ps
-```
-
-```bash
-open http://localhost:5678
-```
-
-Login: `admin` / `n8n-lab-pass`
-
-## Phần D — Test bridge từ container n8n
-
-```bash
+curl -sf -u admin:n8n-lab-pass http://localhost:5678/healthz || curl -sf -o /dev/null -w "%{http_code}\n" http://localhost:5678/
 docker exec n8n-lab wget -qO- http://host.docker.internal:8090/health
 ```
 
-## Phần E — Import workflow
+---
 
-1. n8n UI → **Workflows** → **Import from File**
-2. Chọn `24-n8n-ai-automation/workflows/02-awx-list-templates.json`
-3. **Execute Workflow** (nút play)
+## Phần E — Import workflow (UI)
 
-## Phần F — Capstone webhook
+1. Mở http://localhost:5678 — `admin` / `n8n-lab-pass`
+2. Import `workflows/02-awx-list-templates.json` → Execute
+3. Import `workflows/05-ollama-ai-chat-awx.json` → **Activate**
 
-1. Import `workflows/04-capstone-ai-ops.json`
-2. **Activate** workflow
-3. Test:
+---
 
-```bash
-bash 24-n8n-ai-automation/scripts/04-test-webhook.sh
-```
+## Phần F — Test webhook (`scripts/04-test-webhook.sh`)
 
-Hoặc:
+Capstone AWX:
 
 ```bash
-curl -X POST http://localhost:5678/webhook/awx-run \
-  -u admin:n8n-lab-pass \
+curl -s -X POST http://localhost:5678/webhook/awx-run \
   -H "Content-Type: application/json" \
-  -d '{"template_name":"Python Hello World","extra_vars":{"user_name":"manual-capstone"}}'
+  -u admin:n8n-lab-pass \
+  -d '{"template_name":"Python Hello World","extra_vars":{"user_name":"capstone"}}'
 ```
 
-## Phần G — AWX thật (tùy chọn)
+AI Ollama:
 
 ```bash
-kubectl port-forward svc/awx-service 8052:80 -n awx
-export AWX_URL=http://localhost:8052
-export AWX_TOKEN=PASTE_TOKEN
-export AWX_DEMO_MODE=0
-# Restart bridge với env trên
+curl -s -X POST http://localhost:5678/webhook/ai-ops \
+  -H "Content-Type: application/json" \
+  -u admin:n8n-lab-pass \
+  -d '{"message":"List AWX job templates"}'
 ```
 
-## Teardown
+---
+
+## Phần G — Capstone guide (`scripts/05-run-capstone-demo.sh`)
 
 ```bash
-bash 24-n8n-ai-automation/scripts/06-teardown.sh
+bash learn-python-ai/24-n8n-ai-automation/scripts/05-run-capstone-demo.sh
+cat learn-python-ai/24-n8n-ai-automation/labs/capstone/README.md
 ```
 
-## Lab capstone đầy đủ
+---
+
+## Phần H — Teardown (`scripts/06-teardown.sh`)
 
 ```bash
-cat 24-n8n-ai-automation/labs/capstone/README.md
+cd learn-python-ai/24-n8n-ai-automation/docker-compose
+docker compose down
+docker compose down -v
 ```
+
+---
+
+## Bản đồ script ↔ manual
+
+| Script | Phần |
+|--------|------|
+| `setup.sh` | A |
+| `01-check-prerequisites.sh` | B |
+| `02-deploy-n8n-compose.sh` | D |
+| `04-test-webhook.sh` | F |
+| `05-run-capstone-demo.sh` | G |
+| `06-teardown.sh` | H |

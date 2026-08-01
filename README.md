@@ -110,7 +110,7 @@ pip install -r requirements.txt
 ```
 module/
 ├── README.md          # Lý thuyết chi tiết (tiếng Việt)
-├── readme_manual.md   # Hướng dẫn chạy manual tuần tự (copy từng lệnh)
+├── readme_manual.md   # Hướng dẫn manual: Cài đặt + Kiểm tra (từ scripts/) + Chạy lab
 ├── examples/          # Code mẫu có comment giải thích
 └── exercises/
     ├── bai_tap.md     # Bài tập thực hành
