@@ -33,6 +33,7 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Làm Data Analyst | 01 → 06 |
 | Làm ML Engineer | 01 → 09 → 10 |
 | Làm DevOps / K8s Engineer | 15 → 16 → 17 → 18 → **19** |
+| **AI Agent free (Ollama) + AWX + n8n** | **15** → **23** → **24** |
 | AWS Multi-Account & IAM | **13** → **22** → 19 |
 | Thi chứng chỉ CKA / CKS | 15 → 16 → **18** |
 | IaC + Secrets (Vault/Terraform) | 13 → **19** → **21** → 15 |
@@ -62,7 +63,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (22 module)
+## Lộ trình học (24 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -88,22 +89,28 @@ pip install -r requirements.txt
 | 20 | [Prompt AI DevOps](20-prompt-ai-devops/README.md) | Prompt engineering Python, K8s, Vault, monitoring | 4-6 tuần |
 | 21 | [Terraform UI — Terrakube](21-terraform-ui-terrakube/README.md) | Quản lý Terraform qua UI open source, 10 lab | 2-3 tuần |
 | 22 | [AWS Multi-Account](22-aws-multi-account/README.md) | Organizations, IAM roles, SCP — Console → Terraform | 3-4 tuần |
+| 23 | [AI Agent + AWX (Ollama)](23-mcp-ai-agent-awx/README.md) | Ollama free AI, Agent Bridge, AWX automation | 1-2 tuần |
+| 24 | [n8n + AI Automation](24-n8n-ai-automation/README.md) | n8n workflow, tích hợp Bridge + AWX capstone | 1-2 tuần |
+
+**Capstone liên kết:** Module **15 → 23 → 24** — AWX + AI Agent + n8n orchestration. Xem [labs/capstone](24-n8n-ai-automation/labs/capstone/README.md).
 
 **Tổng thời gian:** khoảng 6-8 tháng (học 1-2 giờ/ngày)
 
 ## Cách học hiệu quả
 
 1. **Đọc lý thuyết** trong `README.md` của từng module
-2. **Chạy ví dụ** trong thư mục `examples/` — sửa và thử nghiệm
-3. **Làm bài tập** trong `exercises/bai_tap.md`
-4. **Đối chiếu đáp án** trong `exercises/solutions/` (chỉ xem sau khi đã cố gắng)
-5. **Ghi chú** những phần chưa hiểu, quay lại ôn tập
+2. **Chạy manual từng bước** theo `readme_manual.md` — copy từng lệnh để hiểu script automation làm gì
+3. **Chạy ví dụ** trong thư mục `examples/` — sửa và thử nghiệm
+4. **Làm bài tập** trong `exercises/bai_tap.md`
+5. **Đối chiếu đáp án** trong `exercises/solutions/` (chỉ xem sau khi đã cố gắng)
+6. **Ghi chú** những phần chưa hiểu, quay lại ôn tập
 
 ## Cấu trúc mỗi module
 
 ```
 module/
 ├── README.md          # Lý thuyết chi tiết (tiếng Việt)
+├── readme_manual.md   # Hướng dẫn chạy manual tuần tự (copy từng lệnh)
 ├── examples/          # Code mẫu có comment giải thích
 └── exercises/
     ├── bai_tap.md     # Bài tập thực hành
@@ -156,7 +163,7 @@ Mỗi module README gồm:
 
 **Quy trình học 1 module:**
 ```
-Đọc lý thuyết → Chạy examples → Đọc "Giải thích chi tiết" → Sửa/thử code → Làm bài tập → Chạy project
+Đọc lý thuyết → readme_manual.md (chạy tay từng lệnh) → Chạy examples → Giải thích chi tiết → Bài tập → Project/script automation
 ```
 
 ---
@@ -236,6 +243,18 @@ bash 21-terraform-ui-terrakube/scripts/03-deploy-terrakube-compose.sh
 bash 22-aws-multi-account/scripts/01-check-prerequisites.sh
 bash 22-aws-multi-account/scripts/02-run-lab.sh 01
 bash 22-aws-multi-account/scripts/05-verify-org.sh
+
+# Module 23 — MCP AI Agent + AWX Bridge
+bash 23-mcp-ai-agent-awx/scripts/setup.sh
+bash 23-mcp-ai-agent-awx/scripts/02-install-ollama.sh   # Ollama free AI
+ollama serve   # terminal riêng
+bash 23-mcp-ai-agent-awx/scripts/06-run-ollama-agent.sh  # chat agent
+bash 23-mcp-ai-agent-awx/scripts/04-run-agent-bridge.sh
+
+# Module 24 — n8n + capstone (15→23→24)
+bash 24-n8n-ai-automation/scripts/02-deploy-n8n-compose.sh
+bash 24-n8n-ai-automation/scripts/05-run-capstone-demo.sh
+# Import workflows/04-capstone-ai-ops.json trên n8n UI
 ```
 
 ### Bash scripts mỗi module

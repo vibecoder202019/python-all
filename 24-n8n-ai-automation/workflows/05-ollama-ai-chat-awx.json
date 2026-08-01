@@ -1,0 +1,60 @@
+{
+  "name": "Capstone — Ollama AI chat → AWX",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ai-ops",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-ai",
+      "name": "Webhook AI Ops",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [220, 300],
+      "webhookId": "ai-ops-capstone"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.BRIDGE_URL || 'http://host.docker.internal:8090' }}/agent/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "X-API-Key", "value": "={{ $env.BRIDGE_API_KEY || 'lab-bridge-key' }}" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"message\": \"{{ $json.body.message || $json.body.text || 'list awx templates' }}\",\n  \"use_ollama\": true\n}"
+      },
+      "id": "bridge-chat",
+      "name": "Ollama via Bridge",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}"
+      },
+      "id": "respond-ai",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [720, 300]
+    }
+  ],
+  "connections": {
+    "Webhook AI Ops": {
+      "main": [[{ "node": "Ollama via Bridge", "type": "main", "index": 0 }]]
+    },
+    "Ollama via Bridge": {
+      "main": [[{ "node": "Respond", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false
+}

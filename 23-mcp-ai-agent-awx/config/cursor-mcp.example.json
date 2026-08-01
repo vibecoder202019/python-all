@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "awx-devops-agent": {
+      "command": "python",
+      "args": [
+        "/ABSOLUTE/PATH/learn-python-ai/23-mcp-ai-agent-awx/mcp-server/awx_mcp_server.py"
+      ],
+      "env": {
+        "AWX_URL": "http://localhost:8052",
+        "AWX_TOKEN": "PASTE_AWX_TOKEN_HERE",
+        "AWX_DEMO_MODE": "0"
+      }
+    }
+  }
+}

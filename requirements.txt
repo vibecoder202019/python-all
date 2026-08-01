@@ -30,7 +30,10 @@ boto3>=1.28.0
 # PostgreSQL (Module 14)
 psycopg2-binary>=2.9.0
 
-# AWX + MinIO + K8s (Module 15) — requests/boto3 đã có ở trên
+# MCP + Agent Bridge (Module 23)
+mcp[cli]>=1.2.0
+
+# n8n bridge examples (Module 24 uses docker — httpx for webhook test)
 
 # Utilities
 requests>=2.31.0

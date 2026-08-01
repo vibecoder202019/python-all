@@ -4,6 +4,8 @@ Học **Python thực chiến** kết hợp **AWX** (Ansible automation), **MinI
 
 **Repo liên quan:** [k8s-awx-minio-guide](https://github.com/vibecoder202019/mlops/tree/main/k8s-awx-minio-guide) — tài liệu infra chi tiết (trong repo MLOps)
 
+**Lab capstone (AI + n8n):** Sau module này, học [Module 23 — MCP AI Agent](../23-mcp-ai-agent-awx/README.md) và [Module 24 — n8n](../24-n8n-ai-automation/labs/capstone/README.md) để tự động hóa AWX qua AI agent và workflow.
+
 ## Mục tiêu
 
 - Triển khai AWX và MinIO trên Kubernetes (local)
