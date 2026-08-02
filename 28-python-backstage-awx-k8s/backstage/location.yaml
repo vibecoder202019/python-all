@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: module-28-platform
+  description: Module 28 — Backstage + Terraform + AWX + K8s
+spec:
+  targets:
+    - ./catalog-info.yaml
+    - ./template.yaml

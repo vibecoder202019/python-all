@@ -1,0 +1,4 @@
+namespace             = "platform-apps"
+environment           = "labs"
+kube_context          = "kind-lab-desktop"
+awx_deploy_template_id = 7

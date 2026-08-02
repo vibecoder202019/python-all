@@ -1,0 +1,52 @@
+{
+  "job_templates": [
+    {
+      "id": 7,
+      "name": "Deploy microservice",
+      "description": "Deploy app lên K8s qua Ansible playbook deploy-app.yml",
+      "project": "platform-automation",
+      "playbook": "deploy-app.yml",
+      "extra_vars": {
+        "app_name": "demo-api",
+        "namespace": "platform-apps",
+        "image": "nginx:1.27-alpine",
+        "replicas": 2
+      }
+    },
+    {
+      "id": 12,
+      "name": "Rotate secrets",
+      "description": "Rotate credentials (lab stub)",
+      "project": "security-automation",
+      "playbook": "rotate-secrets.yml",
+      "extra_vars": {
+        "target_env": "staging"
+      }
+    },
+    {
+      "id": 21,
+      "name": "Terraform apply namespace",
+      "description": "Chạy Terraform workspace tạo namespace/quota (optional)",
+      "project": "platform-iac",
+      "playbook": "terraform-apply.yml",
+      "extra_vars": {
+        "workspace": "labs"
+      }
+    }
+  ],
+  "jobs": [
+    {
+      "id": 101,
+      "job_template": 7,
+      "name": "Deploy microservice",
+      "status": "successful",
+      "started": "2026-08-01T10:00:00Z",
+      "finished": "2026-08-01T10:03:22Z",
+      "extra_vars": {
+        "app_name": "demo-api",
+        "image": "nginx:1.27-alpine",
+        "replicas": 2
+      }
+    }
+  ]
+}

@@ -15,6 +15,10 @@ data/
 !13-python-aws-infra/data/**
 13-python-aws-infra/data/state.json
 13-python-aws-infra/data/generated/
+!28-python-backstage-awx-k8s/data/
+!28-python-backstage-awx-k8s/data/**
+28-python-backstage-awx-k8s/data/.env
+28-python-backstage-awx-k8s/data/generated-catalog.yaml
 models/
 .pytest_cache/
 .mypy_cache/

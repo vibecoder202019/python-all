@@ -1,0 +1,95 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: provision-via-awx
+  title: Provision / Deploy via AWX
+  description: >
+    Điền form → Bridge API tạo task trên Ansible AWX → playbook deploy app lên Kubernetes.
+    (Terraform đã chuẩn bị namespace trước đó.)
+  tags:
+    - awx
+    - kubernetes
+    - terraform
+    - recommended
+spec:
+  owner: group:default/platform-team
+  type: service
+
+  parameters:
+    - title: Application
+      required:
+        - app_name
+        - image
+      properties:
+        app_name:
+          title: App name
+          type: string
+          pattern: '^[a-z0-9]([-a-z0-9]*[a-z0-9])?$'
+          ui:autofocus: true
+        namespace:
+          title: Kubernetes namespace
+          type: string
+          default: platform-apps
+        image:
+          title: Container image
+          type: string
+          default: nginx:1.27-alpine
+        replicas:
+          title: Replicas
+          type: integer
+          default: 2
+          minimum: 1
+          maximum: 10
+        template_id:
+          title: AWX Job Template ID
+          type: integer
+          default: 7
+        terraform_workspace:
+          title: Terraform workspace (optional)
+          type: string
+          default: labs
+
+  steps:
+    - id: fetch-skeleton
+      name: Fetch base catalog skeleton
+      action: fetch:template
+      input:
+        url: ./skeletons/demo-service
+        values:
+          name: ${{ parameters.app_name }}
+          namespace: ${{ parameters.namespace }}
+
+    - id: call-awx-bridge
+      name: Create AWX deploy task via Bridge
+      action: http:backstage:request
+      input:
+        method: POST
+        # Trỏ tới Bridge đang chạy (lab: port-forward / localhost)
+        url: ${{ parameters.bridgeUrl | default('http://host.docker.internal:8090/api/scaffolder/run') }}
+        headers:
+          content-type: application/json
+          X-API-Key: ${{ parameters.bridgeApiKey | default('dev-bridge-key-change-me') }}
+        body:
+          wait: false
+          values:
+            app_name: ${{ parameters.app_name }}
+            namespace: ${{ parameters.namespace }}
+            image: ${{ parameters.image }}
+            replicas: ${{ parameters.replicas }}
+            template_id: ${{ parameters.template_id }}
+            terraform_workspace: ${{ parameters.terraform_workspace }}
+
+    - id: publish
+      name: Publish repo (optional — tắt trong lab demo)
+      action: debug:log
+      input:
+        message: >
+          AWX job requested for ${{ parameters.app_name }} in ns ${{ parameters.namespace }}.
+          Check Bridge response / AWX UI Jobs.
+
+  output:
+    links:
+      - title: Open Bridge health
+        url: http://127.0.0.1:8090/health
+      - title: Module docs
+        url: ../docs/03-backstage-scaffolder.md

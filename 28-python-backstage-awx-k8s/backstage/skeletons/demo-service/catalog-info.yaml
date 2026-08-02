@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.name }}
+  description: App scaffolded via Module 28 AWX template
+  annotations:
+    awx.io/deployed-namespace: ${{ values.namespace }}
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default/platform-team

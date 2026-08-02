@@ -42,6 +42,7 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Làm Backend Engineer (Go) | 01 → 05 → **17** |
 | Làm Security / DevSecOps | 01 → 05 → 12 → **16** → **25** → **26** |
 | **Principal DevOps / Cloud Manager** | 12 → 13 → 15–19 → **22** → **26** → **27** |
+| **Platform: Backstage + Terraform + AWX → K8s** | **15** → **19** → **28** (song song 23/24) |
 | Làm game cho trẻ | 01 → 03 → 11 |
 | Full-stack / Backend | 01 → 05 → 09 → 14 |
 | DBA / Data Engineer | 01 → 06 → 14 |
@@ -64,7 +65,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (27 module)
+## Lộ trình học (28 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -95,8 +96,11 @@ pip install -r requirements.txt
 | 25 | [Web Security / Phishing / Search](25-web-security-phishing-seo/README.md) | Phishing defense, OWASP harden, khôi phục ranking Google (chủ site) | 1-2 tuần |
 | 26 | [DevSecOps CI/CD Security](26-devsecops-cicd-security/README.md) | Gitleaks, SAST, SCA, Trivy, SBOM, policy gate, GitHub Actions | 1-2 tuần |
 | 27 | [Principal DevOps & Cloud Manager](27-principal-devops-cloud-manager/README.md) | Platform, SLO, FinOps, governance, ADR, portfolio Principal | 4-8 tuần |
+| 28 | [Backstage + Terraform + AWX + K8s](28-python-backstage-awx-k8s/README.md) | Python Bridge API tạo task AWX, Backstage template, Terraform ns, Ansible deploy K8s | 1-2 tuần |
 
 **Capstone liên kết:** Module **15 → 23 → 24** — AWX + AI Agent + n8n orchestration. Xem [labs/capstone](24-n8n-ai-automation/labs/capstone/README.md).
+
+**Platform path:** Module **15 → 19 → 28** — AWX + Terraform + Backstage portal gọi API deploy K8s.
 
 **Bảo mật:** Module **16** (K8s WAF) + **25** (web/phishing) + **26** (CI/CD DevSecOps pipeline).
 
@@ -280,6 +284,13 @@ bash 27-principal-devops-cloud-manager/scripts/02-init-portfolio.sh
 bash 27-principal-devops-cloud-manager/scripts/03-run-governance-scorecard.sh
 bash 27-principal-devops-cloud-manager/scripts/04-run-finops-summary.sh
 # Làm labs 01–05 → bash scripts/05-validate-portfolio.sh
+
+# Module 28 — Backstage + Terraform + AWX → K8s (API tạo task AWX)
+bash 28-python-backstage-awx-k8s/scripts/setup.sh
+bash 28-python-backstage-awx-k8s/scripts/02-run-all-examples.sh
+bash 28-python-backstage-awx-k8s/scripts/03-run-bridge.sh          # terminal 1
+bash 28-python-backstage-awx-k8s/scripts/08-test-bridge-api.sh     # terminal 2
+# Cluster: scripts/04-terraform-plan.sh --auto && scripts/05-deploy-k8s-demo.sh
 ```
 
 ### Bash scripts mỗi module
@@ -335,6 +346,13 @@ bash 27-principal-devops-cloud-manager/scripts/04-run-finops-summary.sh
 | `22-.../scripts/01-check-prerequisites.sh` | AWS CLI + Terraform + credentials |
 | `22-.../scripts/03-assume-role-demo.sh` | Demo STS assume-role cross-account |
 | `22-.../scripts/04-terraform-plan.sh` | Plan Terraform management/dev-workload |
+| `28-.../scripts/setup.sh` | Cài FastAPI/requests/pyyaml cho Bridge |
+| `28-.../scripts/02-run-all-examples.sh` | Ví dụ AWX client + catalog (demo) |
+| `28-.../scripts/03-run-bridge.sh` | Chạy Platform Bridge API :8090 |
+| `28-.../scripts/08-test-bridge-api.sh` | curl tạo task / deploy qua Bridge |
+| `28-.../scripts/04-terraform-plan.sh` | Terraform namespace platform-apps |
+| `28-.../scripts/05-deploy-k8s-demo.sh` | Apply demo app lên K8s |
+| `28-.../scripts/06-ansible-deploy-local.sh` | Ansible deploy (giống AWX playbook) |
 
 ## Kiểm tra tiến độ
 

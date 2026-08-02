@@ -1,0 +1,47 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: awx-bridge
+  title: Platform AWX Bridge
+  description: FastAPI bridge — Backstage/API tạo task AWX để deploy K8s
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    awx.io/default-job-template-id: "7"
+  tags:
+    - python
+    - awx
+    - kubernetes
+    - backstage
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default/platform-team
+  system: system:default/platform
+  providesApis:
+    - awx-bridge-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: awx-bridge-api
+  description: REST API tạo AWX jobs / deploy K8s
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: group:default/platform-team
+  system: system:default/platform
+  definition: |
+    openapi: 3.0.3
+    info:
+      title: Platform Bridge
+      version: 1.0.0
+    paths:
+      /api/v1/jobs:
+        post:
+          summary: Create AWX job (task)
+      /api/v1/deploy:
+        post:
+          summary: Deploy app to Kubernetes via AWX
+      /health:
+        get:
+          summary: Health check
