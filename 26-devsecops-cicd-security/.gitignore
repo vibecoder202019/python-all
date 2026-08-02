@@ -1,0 +1,7 @@
+reports/
+*.sarif
+.venv-scan/
+__pycache__/
+*.pyc
+.pytest_cache/
+sample-app/.venv/

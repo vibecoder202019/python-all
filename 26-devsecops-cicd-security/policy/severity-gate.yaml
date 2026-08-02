@@ -1,0 +1,32 @@
+# Policy gate — fail CI khi vượt ngưỡng (lab defaults)
+# Điều chỉnh cho production: thường fail CRITICAL; HIGH theo dần.
+
+fail_on_secret_findings: true
+
+sast:
+  # Bandit exit code / report
+  fail_on_severity:
+    - HIGH
+    - CRITICAL
+  # Lab: MEDIUM không fail (để pipeline học được)
+  warn_on_severity:
+    - MEDIUM
+    - LOW
+
+sca:
+  fail_on_severity:
+    - CRITICAL
+  warn_on_severity:
+    - HIGH
+    - MEDIUM
+
+container:
+  fail_on_severity:
+    - CRITICAL
+  # Trivy: HIGH có thể warn trước, fail sau khi baseline sạch
+  warn_on_severity:
+    - HIGH
+
+notes: |
+  Production tip: bật fail HIGH sau 2–4 sprint remediation.
+  Dùng .trivyignore / bandit skips có ticket + expiry.

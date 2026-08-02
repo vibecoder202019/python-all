@@ -40,7 +40,7 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Quản lý Terraform bằng UI (Terrakube) | **19** → **21** |
 | Prompt AI cho DevOps / code | 01 → 12 → **20** (song song 15–19) |
 | Làm Backend Engineer (Go) | 01 → 05 → **17** |
-| Làm Security / DevSecOps | 01 → 05 → 12 → **16** |
+| Làm Security / DevSecOps | 01 → 05 → 12 → **16** → **25** → **26** |
 | Làm game cho trẻ | 01 → 03 → 11 |
 | Full-stack / Backend | 01 → 05 → 09 → 14 |
 | DBA / Data Engineer | 01 → 06 → 14 |
@@ -63,7 +63,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (24 module)
+## Lộ trình học (26 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -91,8 +91,12 @@ pip install -r requirements.txt
 | 22 | [AWS Multi-Account](22-aws-multi-account/README.md) | Organizations, IAM roles, SCP — Console → Terraform | 3-4 tuần |
 | 23 | [AI Agent + AWX (Ollama)](23-mcp-ai-agent-awx/README.md) | Ollama free AI, Agent Bridge, AWX automation | 1-2 tuần |
 | 24 | [n8n + AI Automation](24-n8n-ai-automation/README.md) | n8n workflow, tích hợp Bridge + AWX capstone | 1-2 tuần |
+| 25 | [Web Security / Phishing / Search](25-web-security-phishing-seo/README.md) | Phishing defense, OWASP harden, khôi phục ranking Google (chủ site) | 1-2 tuần |
+| 26 | [DevSecOps CI/CD Security](26-devsecops-cicd-security/README.md) | Gitleaks, SAST, SCA, Trivy, SBOM, policy gate, GitHub Actions | 1-2 tuần |
 
 **Capstone liên kết:** Module **15 → 23 → 24** — AWX + AI Agent + n8n orchestration. Xem [labs/capstone](24-n8n-ai-automation/labs/capstone/README.md).
+
+**Bảo mật:** Module **16** (K8s WAF) + **25** (web/phishing) + **26** (CI/CD DevSecOps pipeline).
 
 **Tổng thời gian:** khoảng 6-8 tháng (học 1-2 giờ/ngày)
 
@@ -255,6 +259,16 @@ bash 23-mcp-ai-agent-awx/scripts/04-run-agent-bridge.sh
 bash 24-n8n-ai-automation/scripts/02-deploy-n8n-compose.sh   # hoặc scripts/03-deploy-k8s.sh
 bash 24-n8n-ai-automation/scripts/05-run-capstone-demo.sh
 # Import workflows/04-capstone-ai-ops.json trên n8n UI
+
+# Module 25 — Web security / phishing defense / search integrity (phòng thủ)
+bash 25-web-security-phishing-seo/scripts/setup.sh
+bash 25-web-security-phishing-seo/scripts/02-run-all-examples.sh
+bash 25-web-security-phishing-seo/scripts/03-run-project.sh
+
+# Module 26 — DevSecOps CI/CD security pipeline
+bash 26-devsecops-cicd-security/scripts/setup.sh
+bash 26-devsecops-cicd-security/scripts/02-run-local-pipeline.sh
+# Workflow: .github/workflows/devsecops.yml
 ```
 
 ### Bash scripts mỗi module

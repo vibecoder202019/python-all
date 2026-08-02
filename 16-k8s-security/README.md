@@ -72,6 +72,8 @@ Giả mạo trang login đánh cắp credential.
 - Python phân tích URL: IP thay domain, TLD lạ, keyword `login-verify`
 - User training (ngoài phạm vi lab)
 
+> Mở rộng sâu hơn (email phishing + **khôi phục ranking Google khi site bị hack**): [Module 25](../25-web-security-phishing-seo/README.md).
+
 ---
 
 ## Yêu cầu

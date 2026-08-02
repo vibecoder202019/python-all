@@ -107,9 +107,31 @@ Tuần 26-28: Module 14 — PostgreSQL tự học
     └── Dự án: Library DB (mượn/trả sách, báo cáo)
 ```
 
+## Giai đoạn bổ sung: Web defense & Search integrity
+
+```
+Module 25 — Web Security / Phishing / Google Search Integrity
+    ├── Phishing URL + email red flags (awareness)
+    ├── Security headers + input sanitize (OWASP defense)
+    ├── Triage ranking drop: Security Issues / Manual / Core Update
+    └── Lab khôi phục site bị hack → spam (chủ site only)
+```
+
+> Module 25 là **phòng thủ**. Không dạy tấn công phishing thật hay black-hat SEO.
+
+## Giai đoạn bổ sung: DevSecOps CI/CD
+
+```
+Module 26 — Security in the pipeline
+    ├── Gitleaks · pip-audit · Bandit/Semgrep · pytest
+    ├── Docker · Trivy · Syft SBOM · policy gate
+    ├── GitHub Actions workflow + pre-commit
+    └── OIDC deploy / ZAP staging (concepts + YAML mẫu)
+```
+
 ## Mục tiêu sau khi hoàn thành
 
-Sau 28 tuần, bạn sẽ có thể:
+Sau lộ trình đầy đủ, bạn sẽ có thể:
 
 - Viết Python sạch, dễ đọc, có cấu trúc
 - Xử lý dữ liệu với Pandas/NumPy

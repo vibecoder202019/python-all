@@ -246,6 +246,9 @@ A: Bash — task shell đơn giản. Python — logic phức tạp, API, data pr
 **Q: Script scan secret có đủ cho production?**  
 A: Không — production cần thêm: SAST tool (Bandit), pre-commit hook, vault cho secrets.
 
+> Pipeline CI/CD đầy đủ (Gitleaks → Trivy → SBOM → gate): học tiếp [Module 26](../26-devsecops-cicd-security/README.md).
+
+
 ---
 
 ## Bài tập

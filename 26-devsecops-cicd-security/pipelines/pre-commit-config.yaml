@@ -1,0 +1,24 @@
+# Pre-commit — chạy trước khi commit (shift-left trên máy dev)
+# Cài: pip install pre-commit && pre-commit install
+# Copy file này lên root repo app thành .pre-commit-config.yaml nếu cần.
+
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.21.2
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.0
+    hooks:
+      - id: bandit
+        args: ["-ll", "-r", "sample-app"]
+        files: \.py$
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: detect-private-key

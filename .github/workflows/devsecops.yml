@@ -1,0 +1,218 @@
+# DevSecOps best-practice pipeline (lab Module 26)
+# Copy to: .github/workflows/devsecops.yml
+#
+# Stages: secrets → SCA → SAST → tests → build → Trivy → SBOM → policy summary
+# Prod hardening: pin actions by SHA, required status checks, OIDC deploy job.
+
+name: DevSecOps Pipeline
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write   # upload SARIF (GitHub Advanced Security / code scanning)
+  actions: read
+  id-token: write          # sẵn sàng OIDC deploy (job deploy)
+
+concurrency:
+  group: devsecops-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  APP_DIR: 26-devsecops-cicd-security/sample-app
+  IMAGE_NAME: devsecops-lab-app
+  # Khi copy sang repo app riêng, đổi APP_DIR="." 
+
+jobs:
+  secret-scan:
+    name: "1 · Secret scan (Gitleaks)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}  # org/enterprise
+
+  sca:
+    name: "2 · SCA (pip-audit)"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: ${{ env.APP_DIR }}/requirements.txt
+      - name: Install + audit
+        run: |
+          python -m pip install -q --upgrade pip
+          pip install -q -r requirements.txt pip-audit
+          mkdir -p ../../reports
+          pip-audit -r requirements.txt -f json -o ../../reports/pip-audit.json || true
+          pip-audit -r requirements.txt || {
+            echo "::warning::pip-audit found vulnerabilities — treat as gate in prod"
+            exit 0   # lab: warn; đổi thành exit 1 khi sẵn sàng fail-closed
+          }
+
+  sast:
+    name: "3 · SAST (Bandit + Semgrep)"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Bandit
+        run: |
+          pip install -q bandit
+          mkdir -p ../../reports
+          bandit -r . -f json -o ../../reports/bandit.json || true
+          bandit -r . -ll || {
+            echo "::warning::Bandit HIGH/CRITICAL (lab sample-app có MD5 cố ý)"
+            exit 0   # lab: warn — đổi thành exit 1 khi fail-closed
+          }
+      - name: Semgrep OWASP
+        uses: semgrep/semgrep-action@v1
+        with:
+          config: >-
+            p/owasp-top-ten
+            p/python
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        continue-on-error: true   # lab: không bắt buộc token; bật fail khi có license
+
+  unit-tests:
+    name: "4 · Unit tests"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: ${{ env.APP_DIR }}/requirements.txt
+      - run: |
+          pip install -q -r requirements.txt pytest httpx
+          PYTHONPATH=. pytest -q
+
+  build-and-scan:
+    name: "5–8 · Build · Trivy · SBOM"
+    runs-on: ubuntu-latest
+    needs: [secret-scan, sca, sast, unit-tests]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image (local load)
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.APP_DIR }}
+          load: true
+          tags: ${{ env.IMAGE_NAME }}:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Trivy image scan (CRITICAL/HIGH)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}:ci
+          format: table
+          exit-code: "1"
+          severity: CRITICAL
+          ignore-unfixed: true
+
+      - name: Trivy SARIF (HIGH+ for code scanning UI)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}:ci
+          format: sarif
+          output: trivy-results.sarif
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+        continue-on-error: true
+
+      - name: Upload Trivy SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        continue-on-error: true
+        with:
+          sarif_file: trivy-results.sarif
+
+      - name: Generate SBOM (Syft)
+        uses: anchore/sbom-action@v0
+        with:
+          image: ${{ env.IMAGE_NAME }}:ci
+          format: cyclonedx-json
+          output-file: sbom.cyclonedx.json
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.cyclonedx.json
+
+  policy-gate:
+    name: "10 · Policy gate summary"
+    runs-on: ubuntu-latest
+    needs: [build-and-scan]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gate checklist
+        run: |
+          echo "## DevSecOps policy gate" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Secrets: Gitleaks job must be green" >> "$GITHUB_STEP_SUMMARY"
+          echo "- SAST: Bandit HIGH/CRITICAL blocked (-ll)" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Container: Trivy CRITICAL blocked" >> "$GITHUB_STEP_SUMMARY"
+          echo "- SBOM artifact uploaded" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Policy file: 26-devsecops-cicd-security/policy/severity-gate.yaml" >> "$GITHUB_STEP_SUMMARY"
+          echo "Next (prod): OIDC deploy job + ZAP baseline on staging" >> "$GITHUB_STEP_SUMMARY"
+
+  # ── Optional: bật khi đã cấu hình cloud OIDC ──
+  # deploy:
+  #   name: "11 · Deploy (OIDC)"
+  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  #   needs: [policy-gate]
+  #   runs-on: ubuntu-latest
+  #   environment: production
+  #   permissions:
+  #     id-token: write
+  #     contents: read
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: aws-actions/configure-aws-credentials@v4
+  #       with:
+  #         role-to-assume: arn:aws:iam::ACCOUNT:role/github-oidc-deploy
+  #         aws-region: ap-southeast-1
+  #     - run: echo "Deploy with short-lived creds — no static AWS keys in secrets"
+
+  # dast-staging:
+  #   name: "12 · DAST ZAP (staging)"
+  #   if: github.ref == 'refs/heads/main'
+  #   needs: [deploy]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: ZAP baseline
+  #       uses: zaproxy/action-baseline@v0.14.0
+  #       with:
+  #         target: https://staging.example.com

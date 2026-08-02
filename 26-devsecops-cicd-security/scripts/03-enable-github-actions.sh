@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# In ra hướng dẫn copy workflow vào repo app
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+MODULE_DIR="$(dirname "$SCRIPT_DIR")"
+SRC="$MODULE_DIR/pipelines/github-actions/devsecops.yml"
+
+echo "=== Enable GitHub Actions DevSecOps ==="
+echo ""
+echo "1) Trong repo ứng dụng của bạn:"
+echo "   mkdir -p .github/workflows"
+echo "   cp $SRC .github/workflows/devsecops.yml"
+echo ""
+echo "2) Sửa env APP_DIR:"
+echo "   - Monorepo python-all: giữ APP_DIR=26-devsecops-cicd-security/sample-app"
+echo "   - Repo app riêng: đổi APP_DIR=."
+echo ""
+echo "3) Settings → Branches → Protect main → Require status checks:"
+echo "   - 1 · Secret scan (Gitleaks)"
+echo "   - 3 · SAST (Bandit + Semgrep)"
+echo "   - 5–8 · Build · Trivy · SBOM"
+echo ""
+echo "4) (Prod) Pin actions bằng commit SHA; bật OIDC deploy job trong YAML."
+echo ""
+echo "File nguồn: $SRC"
