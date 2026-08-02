@@ -87,6 +87,8 @@ bash scripts/run_project.sh
 | 04 | `examples/04_health_check.py` | Health check HTTP/services | Trung bình |
 | 05 | `examples/05_docker_script.py` | Docker automation | Nâng cao |
 | 06 | `examples/06_security_scan.py` | DevSecOps: secrets, permissions | DevSecOps |
+| 07 | `examples/07_website_live_or_die.py` | **Website LIVE / DIE** monitor | Trung bình |
+| 08 | `examples/08_alert_noise_filter.py` | **Filter alert** chống nhiễu | Trung bình |
 | 🎯 | `project/` | **DevOps Toolkit CLI** (6 step) | Dự án |
 
 ---
@@ -125,8 +127,50 @@ python project/step06_final.py --help
 python project/step06_final.py disk-usage --path .
 python project/step06_final.py parse-log --file sample.log
 python project/step06_final.py health-check --url http://localhost:8000/health
+python project/step06_final.py live-or-die --url https://example.com
+python project/step06_final.py filter-alerts
 python project/step06_final.py security-scan --path .
 ```
+
+---
+
+## Monitoring: LIVE/DIE + filter alert chống nhiễu
+
+Hai phần bổ sung trong toolkit (file lõi: `project/monitoring.py`):
+
+### 1. Website LIVE or DIE
+
+Trạng thái rõ ràng **LIVE** / **DIE** (không chỉ “healthy”), kèm latency và lý do.
+
+```bash
+python examples/07_website_live_or_die.py
+python examples/07_website_live_or_die.py --config data/websites.yaml
+python project/step06_final.py live-or-die --url https://your-site.com
+```
+
+| Kết quả | Ý nghĩa |
+|---------|---------|
+| LIVE | HTTP OK (và khớp `expect_status` / body nếu có) |
+| DIE | Timeout, connection refused, HTTP ≥400, hoặc không khớp expect |
+
+### 2. Filter alert — tránh nhiễu
+
+Alert thô (flap, info spam, maintenance) → pipeline filter → chỉ **SEND** khi đáng:
+
+| Rule | Chống nhiễu gì |
+|------|----------------|
+| `min_severity` | Bỏ `info` / `low` |
+| `consecutive_failures` | Cần N lần fail liên tiếp mới alert (chống flap) |
+| `cooldown_seconds` | Không spam cùng incident |
+| `exclude_*` / label `maintenance=true` | Bỏ qua cửa sổ bảo trì |
+| `state_change_only` | Chỉ gửi khi đổi trạng thái (DIE lần đầu / recovery) |
+
+```bash
+python examples/08_alert_noise_filter.py
+python project/step06_final.py filter-alerts
+```
+
+**Ví von:** Chuông cửa kêu mỗi lần gió thổi = nhiễu. Filter = chỉ kêu khi có người bấm chuông **3 lần** hoặc đứng đủ lâu — bạn mới ra mở cửa.
 
 ---
 
@@ -135,7 +179,7 @@ python project/step06_final.py security-scan --path .
 | Script | Mục đích |
 |--------|---------|
 | `scripts/setup.sh` | Cài venv + dependencies (chạy 1 lần) |
-| `scripts/run_all_examples.sh` | Chạy examples 01→06 tuần tự |
+| `scripts/run_all_examples.sh` | Chạy examples 01→08 tuần tự |
 | `scripts/run_project.sh` | Chạy project steps 01→06 tuần tự |
 | `scripts/demo_infra.sh` | Demo môi trường giả lập infra |
 

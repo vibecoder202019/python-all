@@ -1,0 +1,12 @@
+# Danh sách website monitor — LIVE / DIE
+websites:
+  - name: Example
+    url: https://example.com
+    expect_status: 200
+  - name: GitHub
+    url: https://github.com
+  - name: httpbin status
+    url: https://httpbin.org/status/200
+    # httpbin đôi khi chậm — tăng timeout khi chạy: --timeout 15
+  - name: Dead local port
+    url: http://127.0.0.1:19999/

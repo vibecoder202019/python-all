@@ -5,13 +5,14 @@ Chạy: python project/step06_final.py --help
 
 ═══════════════════════════════════════════════════════════════════════════
 YÊU CẦU ĐỀ BÀI:
-  1. Gộp tất cả subcommand: disk-usage, list-files, parse-log, health-check, security-scan.
+  1. Gộp subcommand: disk-usage, parse-log, health-check, security-scan,
+     live-or-die (website), filter-alerts (chống nhiễu).
   2. --demo chạy lần lượt các lệnh demo.
-  3. Version 1.0.0; help đầy đủ cho mọi subcommand.
+  3. Version 1.1.0; help đầy đủ cho mọi subcommand.
 
 KẾT QUẢ MONG ĐỢI (in ra terminal):
-  - --help liệt kê 5 subcommand.
-  - --demo in output từng lệnh (disk, log, health, security).
+  - --help liệt kê các subcommand.
+  - --demo in output từng lệnh (disk, log, health, live-or-die, filter-alerts, security).
 ═══════════════════════════════════════════════════════════════════════════
 """
 import argparse
@@ -27,8 +28,15 @@ from common import (
     disk_usage, parse_log_file, analyze_logs,
     scan_secrets, SKIP_DIRS,
 )
+from monitoring import (
+    AlertEvent,
+    AlertFilterConfig,
+    AlertNoiseFilter,
+    check_website,
+    summarize_sites,
+)
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 MODULE_DIR = Path(__file__).parent.parent
 
 
@@ -78,6 +86,53 @@ def cmd_security_scan(path: str):
     print(f"   Result: {'✅ PASS' if not secrets else '⚠️  REVIEW NEEDED'}")
 
 
+def cmd_live_or_die(urls: list[str]):
+    """Website LIVE / DIE — rõ ràng hơn health-check generic."""
+    sites = [(u, u) for u in urls] if urls else [
+        ("Example", "https://example.com"),
+        ("Dead local", "http://127.0.0.1:19999/"),
+    ]
+    print("🟢🔴 Website LIVE / DIE:")
+    results = [check_website(name, url) for name, url in sites]
+    for r in results:
+        icon = "🟢" if r.state == "LIVE" else "🔴"
+        print(f"   {icon} {r.state:4s}  {r.name:24s} {r.latency_ms:6.0f}ms  {r.reason}")
+    s = summarize_sites(results)
+    print(f"   Summary: {s['live']} LIVE / {s['die']} DIE")
+
+
+def cmd_filter_alerts_demo():
+    """Demo filter alert chống nhiễu (consecutive + cooldown + exclude)."""
+    print("🔇 Alert noise filter:")
+    cfg = AlertFilterConfig(
+        min_severity="warning",
+        consecutive_failures=3,
+        cooldown_seconds=60.0,
+        exclude_label_pairs=(("maintenance", "true"),),
+        state_change_only=True,
+    )
+    filt = AlertNoiseFilter(cfg)
+    stream = [
+        AlertEvent("WebsiteDown", "critical", "firing", "a.example", message="fail 1"),
+        AlertEvent("WebsiteDown", "critical", "firing", "a.example", message="fail 2"),
+        AlertEvent("WebsiteDown", "critical", "firing", "a.example", message="fail 3 → alert"),
+        AlertEvent("WebsiteDown", "critical", "firing", "a.example", message="spam cooldown"),
+        AlertEvent("HighLatency", "info", "firing", "b.example", message="noise"),
+        AlertEvent("WebsiteDown", "critical", "firing", "c.example",
+                   labels={"maintenance": "true"}, message="planned"),
+        AlertEvent("WebsiteDown", "critical", "resolved", "a.example", message="recovered"),
+    ]
+    sent = drop = 0
+    for d in filt.process_batch(stream):
+        if d.action == "SEND":
+            sent += 1
+            print(f"   📣 SEND  {d.alert.alertname}@{d.alert.instance} ({d.reason})")
+        else:
+            drop += 1
+            print(f"   🔇 DROP  {d.alert.alertname}@{d.alert.instance} ({d.reason})")
+    print(f"   Result: SEND={sent} DROP={drop}")
+
+
 def cmd_report(path: str):
     """Tổng hợp report DevOps."""
     print(f"{'='*50}")
@@ -88,6 +143,10 @@ def cmd_report(path: str):
     log_file = MODULE_DIR / "data" / "sample.log"
     if log_file.exists():
         cmd_parse_log(str(log_file))
+    print()
+    cmd_live_or_die([])
+    print()
+    cmd_filter_alerts_demo()
     print()
     cmd_security_scan(str(Path(path) / "data") if (Path(path) / "data").exists() else path)
 
@@ -111,6 +170,11 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("health-check", help="Kiểm tra HTTP endpoints")
     p.add_argument("--url", action="append", default=[])
 
+    p = sub.add_parser("live-or-die", help="Website LIVE / DIE check")
+    p.add_argument("--url", action="append", default=[])
+
+    p = sub.add_parser("filter-alerts", help="Demo filter alert chống nhiễu")
+
     p = sub.add_parser("security-scan", help="DevSecOps security audit")
     p.add_argument("--path", default=".")
 
@@ -132,6 +196,10 @@ def main():
         print()
         cmd_health_check([])
         print()
+        cmd_live_or_die([])
+        print()
+        cmd_filter_alerts_demo()
+        print()
         cmd_security_scan(str(MODULE_DIR / "data"))
         return
 
@@ -139,6 +207,8 @@ def main():
         "disk-usage": lambda: cmd_disk_usage(args.path),
         "parse-log": lambda: cmd_parse_log(args.file),
         "health-check": lambda: cmd_health_check(args.url),
+        "live-or-die": lambda: cmd_live_or_die(args.url),
+        "filter-alerts": cmd_filter_alerts_demo,
         "security-scan": lambda: cmd_security_scan(args.path),
         "report": lambda: cmd_report(args.path),
     }

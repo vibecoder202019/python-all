@@ -40,6 +40,15 @@ python 12-python-devops-devsecops/examples/03_log_analyzer.py
 python 12-python-devops-devsecops/examples/04_health_check.py
 python 12-python-devops-devsecops/examples/05_docker_script.py
 python 12-python-devops-devsecops/examples/06_security_scan.py
+python 12-python-devops-devsecops/examples/07_website_live_or_die.py
+python 12-python-devops-devsecops/examples/08_alert_noise_filter.py
+```
+
+### Monitoring nhanh
+
+```bash
+python 12-python-devops-devsecops/project/step06_final.py live-or-die --url https://example.com
+python 12-python-devops-devsecops/project/step06_final.py filter-alerts
 ```
 
 ## Phần C — Dự án (`scripts/run_project.sh`)

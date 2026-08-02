@@ -18,6 +18,8 @@ EXAMPLES=(
   "04_health_check.py"
   "05_docker_script.py"
   "06_security_scan.py"
+  "07_website_live_or_die.py"
+  "08_alert_noise_filter.py"
 )
 
 echo "=== Chạy tất cả ví dụ DevOps (Module 12) ==="
