@@ -1,0 +1,14 @@
+{
+  "site": "example-lab.local",
+  "security_issues": ["Hacked: spam pages injected under /wp-content/uploads/"],
+  "manual_actions": [],
+  "coverage_errors": 12,
+  "after_core_update": false,
+  "indexed_suspicious_paths": [
+    "/cheap-cialis-online",
+    "/wp-admin/shell.php"
+  ],
+  "spammy_outbound_links": 120,
+  "robots_txt": "User-agent: *\nDisallow: /admin\nAllow: /\n",
+  "sitemap_urls": ["https://example-lab.local/", "https://example-lab.local/about"]
+}

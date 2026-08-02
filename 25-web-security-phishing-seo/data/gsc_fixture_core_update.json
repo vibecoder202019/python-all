@@ -1,0 +1,11 @@
+{
+  "site": "example-lab.local",
+  "security_issues": [],
+  "manual_actions": [],
+  "coverage_errors": 5,
+  "after_core_update": true,
+  "indexed_suspicious_paths": [],
+  "spammy_outbound_links": 2,
+  "robots_txt": "User-agent: *\nAllow: /\n",
+  "sitemap_urls": ["https://example-lab.local/", "https://example-lab.local/blog"]
+}

@@ -1,0 +1,13 @@
+From: security@paypa1-secure.xyz
+Subject: URGENT: Account will be closed within 24 hours
+Body:
+Dear customer,
+We detected unusual login. Verify now or your account will be closed.
+Click here: http://paypal-secure-update.xyz/confirm-password
+Please send gift card codes to unlock.
+---
+From: noreply@github.com
+Subject: [GitHub] Please verify your device
+Body:
+A new device signed in. If this was you, no action needed.
+Visit https://github.com/settings/security for details.

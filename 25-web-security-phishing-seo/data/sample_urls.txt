@@ -1,0 +1,7 @@
+https://github.com/login
+https://accounts.google.com
+http://192.168.1.50/login-verify-account
+https://paypal-secure-update.xyz/confirm-password
+https://google.com@evil-phish.tk/steal
+https://microsoft-login-verify.click/urgent-action
+https://mybank.vn/dashboard
