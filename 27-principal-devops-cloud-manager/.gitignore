@@ -1,0 +1,6 @@
+portfolio/governance-scorecard.json
+portfolio/finops-summary.json
+reports/
+__pycache__/
+*.pyc
+.DS_Store

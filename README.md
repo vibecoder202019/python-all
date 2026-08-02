@@ -41,6 +41,7 @@ Repo này thiết kế cho **người tự học** — không cần giáo viên,
 | Prompt AI cho DevOps / code | 01 → 12 → **20** (song song 15–19) |
 | Làm Backend Engineer (Go) | 01 → 05 → **17** |
 | Làm Security / DevSecOps | 01 → 05 → 12 → **16** → **25** → **26** |
+| **Principal DevOps / Cloud Manager** | 12 → 13 → 15–19 → **22** → **26** → **27** |
 | Làm game cho trẻ | 01 → 03 → 11 |
 | Full-stack / Backend | 01 → 05 → 09 → 14 |
 | DBA / Data Engineer | 01 → 06 → 14 |
@@ -63,7 +64,7 @@ source .venv/bin/activate   # macOS/Linux
 pip install -r requirements.txt
 ```
 
-## Lộ trình học (26 module)
+## Lộ trình học (27 module)
 
 | # | Module | Nội dung | Thời gian ước tính |
 |---|--------|----------|-------------------|
@@ -93,10 +94,13 @@ pip install -r requirements.txt
 | 24 | [n8n + AI Automation](24-n8n-ai-automation/README.md) | n8n workflow, tích hợp Bridge + AWX capstone | 1-2 tuần |
 | 25 | [Web Security / Phishing / Search](25-web-security-phishing-seo/README.md) | Phishing defense, OWASP harden, khôi phục ranking Google (chủ site) | 1-2 tuần |
 | 26 | [DevSecOps CI/CD Security](26-devsecops-cicd-security/README.md) | Gitleaks, SAST, SCA, Trivy, SBOM, policy gate, GitHub Actions | 1-2 tuần |
+| 27 | [Principal DevOps & Cloud Manager](27-principal-devops-cloud-manager/README.md) | Platform, SLO, FinOps, governance, ADR, portfolio Principal | 4-8 tuần |
 
 **Capstone liên kết:** Module **15 → 23 → 24** — AWX + AI Agent + n8n orchestration. Xem [labs/capstone](24-n8n-ai-automation/labs/capstone/README.md).
 
 **Bảo mật:** Module **16** (K8s WAF) + **25** (web/phishing) + **26** (CI/CD DevSecOps pipeline).
+
+**Lộ trình lãnh đạo kỹ thuật cloud:** Module **22** (multi-account) + **26** (DevSecOps) + **27** (Principal / Cloud Manager portfolio).
 
 **Tổng thời gian:** khoảng 6-8 tháng (học 1-2 giờ/ngày)
 
@@ -269,6 +273,13 @@ bash 25-web-security-phishing-seo/scripts/03-run-project.sh
 bash 26-devsecops-cicd-security/scripts/setup.sh
 bash 26-devsecops-cicd-security/scripts/02-run-local-pipeline.sh
 # Workflow: .github/workflows/devsecops.yml
+
+# Module 27 — Principal DevOps / Cloud Manager (portfolio)
+bash 27-principal-devops-cloud-manager/scripts/setup.sh
+bash 27-principal-devops-cloud-manager/scripts/02-init-portfolio.sh
+bash 27-principal-devops-cloud-manager/scripts/03-run-governance-scorecard.sh
+bash 27-principal-devops-cloud-manager/scripts/04-run-finops-summary.sh
+# Làm labs 01–05 → bash scripts/05-validate-portfolio.sh
 ```
 
 ### Bash scripts mỗi module

@@ -1,6 +1,16 @@
 # Hướng dẫn chạy Manual — Module 26: DevSecOps CI/CD Security
 
+> **Trước khi gõ lệnh:** đọc [README.md](README.md) (*Lý thuyết nền tảng*) + [docs/03-glossary-for-beginners.md](docs/03-glossary-for-beginners.md) + [docs/01-devsecops-pipeline.md](docs/01-devsecops-pipeline.md).  
 > Lệnh từ `setup.sh`, `01-check-prerequisites.sh`, `02-run-local-pipeline.sh`, `03-enable-github-actions.sh`, `06-teardown.sh`.
+
+## Phần 0 — Đọc lý thuyết (bắt buộc với người mới)
+
+1. README: CI/CD, DevSecOps, từng lớp scan, OIDC, SBOM  
+2. [docs/03-glossary-for-beginners.md](docs/03-glossary-for-beginners.md) — mở khi gặp từ lạ  
+3. [docs/01-devsecops-pipeline.md](docs/01-devsecops-pipeline.md)  
+4. [docs/02-tools-matrix.md](docs/02-tools-matrix.md)  
+
+Tự kiểm tra: phân biệt SAST vs DAST, SCA vs Trivy image, vì sao phải rotate secret khi lộ.
 
 ## Phần A — Cài đặt (`scripts/setup.sh`)
 

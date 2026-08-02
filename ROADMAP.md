@@ -129,6 +129,16 @@ Module 26 — Security in the pipeline
     └── OIDC deploy / ZAP staging (concepts + YAML mẫu)
 ```
 
+## Giai đoạn capstone nghề nghiệp: Principal / Cloud Manager
+
+```
+Module 27 — Principal DevOps Engineer & Cloud Manager
+    ├── Career ladder L3→L4, 4 trụ: Platform / SRE / Gov / FinOps
+    ├── ADR, golden path catalog, SLO, runbook, blameless postmortem
+    ├── Governance scorecard + FinOps summary (Python lab)
+    └── Portfolio 1-pager + interview narrative
+```
+
 ## Mục tiêu sau khi hoàn thành
 
 Sau lộ trình đầy đủ, bạn sẽ có thể:
@@ -145,3 +155,4 @@ Sau lộ trình đầy đủ, bạn sẽ có thể:
 - Kết nối Python ↔ PostgreSQL với psycopg2
 - Deploy model ML qua API (local)
 - Tiếp tục học MLOps (Kubernetes, CI/CD, KServe...)
+- Xây portfolio Principal DevOps / Cloud Manager (ADR, FinOps, governance)

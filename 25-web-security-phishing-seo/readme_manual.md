@@ -1,7 +1,17 @@
 # Hướng dẫn chạy Manual — Module 25: Web Security / Phishing / Search Integrity
 
-> Lệnh từ `setup.sh`, `01-check-prerequisites.sh`, `02-run-all-examples.sh`, `03-run-project.sh`, `06-teardown.sh`.  
+> **Trước khi gõ lệnh:** đọc lý thuyết trong [README.md](README.md) (mục *Lý thuyết nền tảng*) và docs `01` → `04` → `02`.  
+> Lệnh dưới đây từ `setup.sh`, `01-check-prerequisites.sh`, `02-run-all-examples.sh`, `03-run-project.sh`, `06-teardown.sh`.  
 > **Phòng thủ only** — không tấn công site / SEO bên thứ ba.
+
+## Phần 0 — Đọc lý thuyết (bắt buộc với người mới)
+
+1. [README — Lý thuyết nền tảng](README.md)  
+2. [docs/01-phishing-defense.md](docs/01-phishing-defense.md)  
+3. [docs/04-owasp-hardening-theory.md](docs/04-owasp-hardening-theory.md)  
+4. [docs/02-google-search-integrity.md](docs/02-google-search-integrity.md)  
+
+Tự kiểm tra: giải thích miệng được phishing, XSS/SQLi (ý tưởng), 4 nhánh triage ranking.
 
 ## Phần A — Cài đặt (`scripts/setup.sh`)
 

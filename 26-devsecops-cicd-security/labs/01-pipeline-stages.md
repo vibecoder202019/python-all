@@ -1,5 +1,7 @@
 # Lab 01 — Map pipeline stages
 
+**Đọc trước:** [README lý thuyết §3](../README.md) + [docs/03-glossary-for-beginners.md](../docs/03-glossary-for-beginners.md)
+
 ## Mục tiêu
 
 Nối mỗi stage với tool và câu hỏi “fail thì làm gì?”.

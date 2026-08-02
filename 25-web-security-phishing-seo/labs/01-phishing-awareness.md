@@ -1,5 +1,7 @@
 # Lab 01 — Phishing awareness
 
+**Đọc trước:** [README lý thuyết §2](../README.md) + [docs/01-phishing-defense.md](../docs/01-phishing-defense.md)
+
 **Mục tiêu:** Phân biệt URL/email an toàn vs giả mạo bằng heuristics.
 
 ## Bước

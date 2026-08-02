@@ -1,0 +1,19 @@
+{
+  "org": "lab-acme",
+  "currency": "USD",
+  "month": "2026-07",
+  "total": 128400,
+  "by_service": [
+    {"service": "Amazon EC2", "amount": 52000, "mom_change_pct": 8},
+    {"service": "Amazon RDS", "amount": 31000, "mom_change_pct": 3},
+    {"service": "Amazon S3", "amount": 12000, "mom_change_pct": 40},
+    {"service": "AWS NAT Gateway", "amount": 9000, "mom_change_pct": 15},
+    {"service": "Amazon EKS", "amount": 8500, "mom_change_pct": 5},
+    {"service": "Other", "amount": 15900, "mom_change_pct": 2}
+  ],
+  "untagged_spend_pct": 22,
+  "anomalies": [
+    {"note": "S3 +40% MoM — check lifecycle / unexpected logs bucket"},
+    {"note": "NAT Gateway high — review egress architecture"}
+  ]
+}

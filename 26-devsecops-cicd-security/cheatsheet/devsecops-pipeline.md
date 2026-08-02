@@ -1,5 +1,16 @@
 # DevSecOps CI/CD cheatsheet
 
+## Học trước
+
+README Module 26 → docs/03 glossary → docs/01 → docs/02
+
+## Nhớ nhanh SAST vs DAST
+
+- **SAST** = đọc code (Bandit)  
+- **DAST** = đánh URL đang chạy (ZAP)  
+- **SCA** = CVE thư viện (pip-audit)  
+- **Trivy image** = CVE trong container/OS  
+
 ## Local
 
 ```bash

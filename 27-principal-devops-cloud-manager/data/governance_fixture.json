@@ -1,0 +1,18 @@
+{
+  "org": "lab-acme",
+  "checks": [
+    {"id": "sso_enforced", "title": "Human access via SSO only", "weight": 10, "pass": true},
+    {"id": "cloudtrail", "title": "Org CloudTrail to log archive", "weight": 10, "pass": true},
+    {"id": "scp_regions", "title": "SCP restricts unused regions", "weight": 5, "pass": false},
+    {"id": "prod_separated", "title": "Prod accounts isolated from sandbox", "weight": 10, "pass": true},
+    {"id": "oidc_ci", "title": "CI uses OIDC (no static cloud keys)", "weight": 10, "pass": false},
+    {"id": "secret_manager", "title": "Secrets in Vault/SSM not git", "weight": 10, "pass": true},
+    {"id": "backup_prod", "title": "Prod backup + restore tested < 90d", "weight": 10, "pass": false},
+    {"id": "tag_policy", "title": "Mandatory tags env/owner/cost-center", "weight": 5, "pass": true},
+    {"id": "budget_alert", "title": "Budgets + anomaly alerts", "weight": 5, "pass": false},
+    {"id": "security_gates", "title": "Required DevSecOps checks on main", "weight": 10, "pass": true},
+    {"id": "slo_critical", "title": "Critical services have SLO", "weight": 5, "pass": false},
+    {"id": "runbooks", "title": "SEV1 services have reviewed runbooks", "weight": 5, "pass": true},
+    {"id": "patch_cadence", "title": "Base image / AMI patch cadence documented", "weight": 5, "pass": false}
+  ]
+}
